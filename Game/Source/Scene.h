@@ -35,6 +35,10 @@ public:
 
 private:
 	SDL_Texture* img;
+	SDL_Texture* img2;
+	SDL_Texture* img3;
+	SDL_Texture* img4;
+
 	float textPosX, textPosY = 0;
 	uint texW, texH;
 	uint windowW, windowH;

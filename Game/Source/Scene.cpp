@@ -51,7 +51,10 @@ bool Scene::Awake(pugi::xml_node config)
 bool Scene::Start()
 {
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
-	img = app->tex->Load("Assets/Textures/test.png");
+	img = app->tex->Load("Assets/Textures/parallax-demon-woods-bg.png");
+	img2 = app->tex->Load("Assets/Textures/parallax-demon-woods-far-trees.png");
+	img3 = app->tex->Load("Assets/Textures/parallax-demon-woods-mid-trees.png");
+	img4 = app->tex->Load("Assets/Textures/parallax-demon-woods-close-trees.png");
 	
 	//Music is commented so that you can add your own music
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
@@ -93,7 +96,10 @@ bool Scene::Update(float dt)
 		app->render->camera.x += (int)ceil(camSpeed * dt);
 
 	// Renders the image in the center of the screen 
-	//app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
+	app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
+	app->render->DrawTexture(img2, (int)textPosX, (int)textPosY);
+	app->render->DrawTexture(img3, (int)textPosX, (int)textPosY);
+	app->render->DrawTexture(img4, (int)textPosX, (int)textPosY);
 
 	return true;
 }
