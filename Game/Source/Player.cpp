@@ -63,6 +63,15 @@ bool Player::Update(float dt)
 		velocity.x = 0.2*dt;
 	}
 		
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		//TODO implementar salto
+		velocity.y = 0.2 * dt;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		velocity.y = -0.2 * dt;
+	}
+
 	pbody->body->SetLinearVelocity(velocity);
 	b2Transform pbodyPos = pbody->body->GetTransform();
 	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
