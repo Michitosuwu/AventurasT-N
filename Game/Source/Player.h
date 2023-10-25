@@ -23,7 +23,7 @@ public:
 
 	bool CleanUp();
 
-	// L07 TODO 6: Define OnCollision function for the player. 
+	// L07 DONE 6: Define OnCollision function for the player. 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 public:
@@ -37,7 +37,7 @@ public:
 	//Audio fx
 	int pickCoinFxId;
 
-	// L07 TODO 5: Add physics to the player - declare a Physics body
+	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 };
 

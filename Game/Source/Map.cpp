@@ -152,6 +152,8 @@ bool Map::Load(SString mapFileName)
         mapData.tilewidth = mapFileXML.child("map").attribute("tilewidth").as_int();
         mapData.tileheight = mapFileXML.child("map").attribute("tileheight").as_int();
 
+        // L09: TODO 2: Define a property to store the MapType and Load it from the map
+
         // L05: DONE 4: Implement the LoadTileSet function to load the tileset properties
        // Iterate the Tileset
         for (pugi::xml_node tilesetNode = mapFileXML.child("map").child("tileset"); tilesetNode != NULL; tilesetNode = tilesetNode.next_sibling("tileset")) {
@@ -188,7 +190,7 @@ bool Map::Load(SString mapFileName)
             mapLayer->width = layerNode.attribute("width").as_int();
             mapLayer->height = layerNode.attribute("height").as_int();
 
-            //L08: TODO 6 Call Load Layer Properties
+            //L08: DONE 6 Call Load Layer Properties
             LoadProperties(layerNode, mapLayer->properties);
 
             //Reserve the memory for the data 
@@ -207,7 +209,8 @@ bool Map::Load(SString mapFileName)
         }
 
 
-        // L07 TODO 3: Create colliders
+        // L07 DONE 3: Create colliders      
+        // L07 DONE 7: Assign collider type
         // Later you can create a function here to load and create the colliders from the map
         PhysBody* c1 = app->physics->CreateRectangle(224 + 128, 544 + 32, 256, 64, STATIC);
         c1->ctype = ColliderType::PLATFORM;
@@ -218,10 +221,7 @@ bool Map::Load(SString mapFileName)
         PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
         c3->ctype = ColliderType::PLATFORM;
 
-        // L07 TODO 7: Assign collider type
-
-
-        // L05: DONE 5: LOG all the data loaded iterate all tilesetsand LOG everything
+          // L05: DONE 5: LOG all the data loaded iterate all tilesetsand LOG everything
         if (ret == true)
         {
             LOG("Successfully parsed map XML file :%s", mapFileName.GetString());
@@ -270,7 +270,7 @@ iPoint Map::MapToWorld(int x, int y) const
     return ret;
 }
 
-// L08: TODO 6: Load a group of properties from a node and fill a list with it
+// L08: DONE 6: Load a group of properties from a node and fill a list with it
 bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
     bool ret = false;
@@ -287,7 +287,7 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
     return ret;
 }
 
-// L08: TODO 7: Implement a method to get the value of a custom property
+// L08: DONE 7: Implement a method to get the value of a custom property
 Properties::Property* Properties::GetProperty(const char* name)
 {
     ListItem<Property*>* property = propertyList.start;

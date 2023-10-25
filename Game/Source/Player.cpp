@@ -30,14 +30,14 @@ bool Player::Start() {
 
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
-	// L07 TODO 5: Add physics to the player - initialize physics body
+	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
 	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
-	// L07 TODO 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
+	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
 
-	// L07 TODO 7: Assign collider type
+	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
 
 	//initialize audio effect
@@ -49,7 +49,7 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-	// L07 TODO 5: Add physics to the player - updated player position using physics
+	// L07 DONE 5: Add physics to the player - updated player position using physics
 
 	//L03: DONE 4: render the player texture and modify the position of the player using WSAD keys and render the texture
 	
@@ -78,7 +78,7 @@ bool Player::CleanUp()
 	return true;
 }
 
-// L07 TODO 6: Define OnCollision function for the player. 
+// L07 DONE 6: Define OnCollision function for the player. 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{

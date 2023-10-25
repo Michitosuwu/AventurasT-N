@@ -7,7 +7,8 @@
 
 #include "PugiXml\src\pugixml.hpp"
 
-// L05: DONE 1: Create a struct needed to hold the information to Map node
+// L05: DONE 2: Create a struct to hold information for a TileSet
+// Ignore Terrain Types and Tile Types for now, but we want the image!
 struct TileSet
 {
     int firstgid;
@@ -62,11 +63,12 @@ struct Properties
         propertyList.Clear();
     }
 
-    // L08: TODO 7: Method to ask for the value of a custom property
+    // L08: DONE 7: Method to ask for the value of a custom property
     Property* GetProperty(const char* name);
 
 };
 
+// L05: DONE 1: Create a struct needed to hold the information to Map node
 struct MapLayer
 {
     // L06: DONE 1: Add the info to the MapLayer Struct
@@ -96,9 +98,6 @@ struct MapData
     List<MapLayer*> layers;
 };
 
-// L05: DONE 2: Create a struct to hold information for a TileSet
-// Ignore Terrain Types and Tile Types for now, but we want the image!
-
 class Map : public Module
 {
 public:
@@ -126,10 +125,10 @@ public:
     // L06: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
     iPoint MapToWorld(int x, int y) const;
 
-    // L08: TODO 2: Implement function to the Tileset based on a tile id
+    // L08: DONE 2: Implement function to the Tileset based on a tile id
     TileSet* GetTilesetFromTileId(int gid) const;
 
-    // L06: TODO 6: Load a group of properties 
+    // L06: DONE 6: Load a group of properties 
     bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
 public: 
