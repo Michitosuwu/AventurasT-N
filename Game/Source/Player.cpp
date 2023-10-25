@@ -30,6 +30,10 @@ bool Player::Start() {
 
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
+	for (pugi::xml_node animationNode = config.child("animation"); animationNode != NULL; animationNode = animationNode.next_sibling("animation")) {
+		config.child("animation").attribute("name").as_string();
+	}
+
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
 	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
@@ -63,7 +67,7 @@ bool Player::Update(float dt)
 		velocity.x = 0.2*dt;
 	}
 		
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
 		//TODO implementar salto
 		velocity.y = 0.2 * dt;
 	}
