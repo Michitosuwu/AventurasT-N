@@ -96,10 +96,11 @@ bool Scene::Update(float dt)
 		app->render->camera.x += (int)ceil(camSpeed * dt);
 
 	// Renders the image in the center of the screen 
-	app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
-	app->render->DrawTexture(img2, (int)textPosX, (int)textPosY);
-	app->render->DrawTexture(img3, (int)textPosX, (int)textPosY);
-	app->render->DrawTexture(img4, (int)textPosX, (int)textPosY);
+	app->render->DrawInfiniteBackground(img, (int)textPosX, (int)textPosY, nullptr, 1.0f, 0, INT_MAX, INT_MAX);
+	app->render->DrawInfiniteBackground(img2, (int)textPosX, (int)textPosY, nullptr, 1.0f, 0, INT_MAX, INT_MAX);
+	app->render->DrawInfiniteBackground(img3, (int)textPosX, (int)textPosY, nullptr, 1.0f, 0, INT_MAX, INT_MAX);
+	app->render->DrawInfiniteBackground(img4, (int)textPosX, (int)textPosY, nullptr, 1.0f, 0, INT_MAX, INT_MAX);
+
 
 	return true;
 }
