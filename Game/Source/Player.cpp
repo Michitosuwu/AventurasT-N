@@ -31,8 +31,24 @@ bool Player::Start() {
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
 	for (pugi::xml_node animationNode = config.child("animation"); animationNode != NULL; animationNode = animationNode.next_sibling("animation")) {
+		
+		if (animationNode.attribute("name").as_string() == "idle") {
+			
+			//idle->pushBack(0,0,32,32);
+		}
+
+		if (animationNode.attribute("name").as_string() == "walk") {
+			//walk->pushBack(0,0,32,32);
+		}
+
+
 		config.child("animation").attribute("name").as_string();
+		//app->tex->Load(config.attribute())
+
+			
 	}
+
+	
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
