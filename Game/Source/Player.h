@@ -3,8 +3,12 @@
 
 #include "Entity.h"
 #include "Point.h"
-#include "SDL/include/SDL.h"
+#include "Module.h"
+#include "App.h"
 #include "Animation.h"
+
+#include "SDL/include/SDL.h"
+
 
 struct SDL_Texture;
 
@@ -36,7 +40,7 @@ public:
 	uint texW, texH;
 
 	//Declare animations
-
+	
 
 	//Audio fx
 	int pickCoinFxId;
