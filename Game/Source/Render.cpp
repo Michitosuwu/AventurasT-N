@@ -148,6 +148,39 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* sec
 	return ret;
 }
 
+bool Render::DrawInfiniteBackground(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY)
+{
+	bool ret = true;
+	uint scale = app->win->GetScale();
+
+	// Calcula la posición del fondo en función de la cámara y la velocidad de desplazamiento
+	int backgroundX = (int)(camera.x * speed);
+	int backgroundY = (int)(camera.y * speed);
+
+	// Obtiene las dimensiones de la textura de fondo
+	int textureWidth, textureHeight;
+	SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
+
+	// Escala el rectángulo según la escala actual
+	textureWidth *= scale;
+	textureHeight *= scale;
+
+	for (int bgX = backgroundX; bgX < 2500; bgX += textureWidth)
+	{
+		for (int bgY = backgroundY; bgY < 770; bgY += textureHeight)
+		{
+			SDL_Rect backgroundRect = { bgX, bgY, textureWidth, textureHeight };
+			if (SDL_RenderCopyEx(renderer, texture, section, &backgroundRect, angle, NULL, SDL_FLIP_NONE) != 0)
+			{
+				LOG("Cannot blit background to screen. SDL_RenderCopy error: %s", SDL_GetError());
+				ret = false;
+			}
+		}
+	}
+
+	return ret;
+}
+
 bool Render::DrawRectangle(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera) const
 {
 	bool ret = true;
