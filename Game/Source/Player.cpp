@@ -12,7 +12,6 @@
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
-
 }
 
 Player::~Player() {

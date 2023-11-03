@@ -8,6 +8,7 @@
 
 class Animation {
 public:
+
     Animation();
 
     Animation(SDL_Texture* texture, int startX, int startY, int frameWidth, int frameHeight, int frameCount, float switchTime);
