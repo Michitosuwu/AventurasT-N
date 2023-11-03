@@ -2,41 +2,97 @@
 #define __ANIMATION_H__
 
 #include "SDL/include/SDL.h"
+#include "SDL/include/SDL_rect.h"
+#include <string>
 #include <vector>
+#include "SString.h"
 
-
+#define MAX_FRAMES 200 
 
 class Animation {
 public:
 
-    Animation();
+    Animation::Animation() {}
 
-    Animation(SDL_Texture* texture, int startX, int startY, int frameWidth, int frameHeight, int frameCount, float switchTime);
-
-    // Destructor
-    virtual ~Animation();
-
-    void update(float deltaTime);
-    struct Rect {
-        int left;
-        int top;
-        int width;
-        int height;
-    };
-    Rect getFrame();
-
-    void pushBack(int startX, int startY, int frameWidth, int frameHeight, int frameCount, float switchTime) {
-        animation.push_back(Animation(texture, startX, startY, frameWidth, frameHeight, frameCount, switchTime));
+    Animation(const Animation& anim) : loop(anim.loop), speed(anim.speed), last_frame(anim.last_frame)
+    {
+        SDL_memcpy(&frames, anim.frames, sizeof(frames));
     }
 
+    void PushBack(const SDL_Rect& rect)
+    {
+        frames[last_frame++] = rect;
+    }
+
+    SDL_Rect& GetCurrentFrame(float dt)
+    {
+        if (this)
+        {
+            current_frame += speed * dt;
+            if (current_frame >= last_frame)
+            {
+                current_frame = (loop) ? 0.0f : last_frame - 1;  
+                loops++;
+            }
+            return frames[(int)current_frame];
+        }
+    }
+
+    pugi::xml_document configFile;
+
+    void LoadAnimations(SString name)
+    {
+        pugi::xml_parse_result result = configFile.load_file("config.xml");
+
+        if (result != NULL)
+        {
+            pugi::xml_node animation_name = configFile.child("scene").child("animations").child(name.GetString());
+            loop = animation_name.attribute("loop").as_bool();
+            speed = animation_name.attribute("speed").as_float();
+
+            for (pugi::xml_node animation = animation_name.child("animation"); animation; animation = animation.next_sibling("animation"))
+            {
+                PushBack({ animation.attribute("x").as_int(), animation.attribute("y").as_int(), animation.attribute("w").as_int(), animation.attribute("h").as_int() });
+            }
+        }
+    }
+
+    float Getframe_pos() {
+        return current_frame;
+    }
+
+    bool isLastFrame() {
+        return (int)current_frame >= last_frame - 1;
+    }
+
+    bool equal(Animation* anim) {
+        return (this == anim);
+    }
+
+    bool Finished()
+    {
+        if (loops > 0) {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    void Reset()
+    {
+        current_frame = 0;
+        loops = 0;
+    }
+
+    bool loop;
+    float speed;
+    int loops;
+    SDL_Rect frames[MAX_FRAMES];
+
 private:
-    Rect frame;
-    int frameCount;
-    int currentFrame;
-    float totalTime;
-    float switchTime;
-    SDL_Texture* texture;
-    std::vector<Animation> animation;
+
+    float current_frame;
+    int last_frame = 0;
 
     // En lugar de sf::Texture, podrías usar un puntero a textura u otro enfoque según tus necesidades
     // Ejemplo: sf::Texture* texturePtr;

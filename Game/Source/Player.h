@@ -5,10 +5,8 @@
 #include "Point.h"
 #include "Module.h"
 #include "App.h"
-#include "Animation.h"
 
 #include "SDL/include/SDL.h"
-
 
 struct SDL_Texture;
 
@@ -33,18 +31,18 @@ public:
 
 public:
 
+	Animation idle;
+	Animation walkRight;
+	Animation jumpRight;
+
+public:
+
 	//L02: DONE 2: Declare player parameters
 	float speed = 0.2f;
 	SDL_Texture* texture = NULL;
 	pugi::xml_node config;
 	uint texW, texH;
-
-	//Declare animations
-	Animation idle;
-	Animation walkRight;
-	Animation walkLeft;
-	Animation jumpRight;
-	Animation jumpLeft;
+	bool flip = false;
 
 	//Audio fx
 	int pickCoinFxId;

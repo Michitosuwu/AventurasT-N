@@ -3,8 +3,11 @@
 
 #include "Module.h"
 #include "Player.h"
+#include "Animation.h"
 
 struct SDL_Texture;
+
+class Animation;
 
 class Scene : public Module
 {

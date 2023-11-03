@@ -8,10 +8,21 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Animation.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
+
+	animation = NULL;
+
+	idle.LoadAnimations("idle");
+	walkRight.LoadAnimations("walkRight");
+	jumpRight.LoadAnimations("jumpRight");
+
+	//walkLeft; TO DO
+	//jumpLeft; TO DO
+
 }
 
 Player::~Player() {
@@ -30,34 +41,9 @@ bool Player::Start() {
 
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
-	for (pugi::xml_node animationNode = config.child("animation"); animationNode != NULL; animationNode = animationNode.next_sibling("animation")) {
-		std::string animationName = animationNode.attribute("name").as_string();
-
-		if (animationName == "idle") {
-			idle.pushBack(0, 0, 32, 32, 1, 0.1);
-		}
-		
-		//if (animationNode.attribute("name").as_string() == "idle") {
-		//	
-		//	//idle->pushBack(0,0,32,32);
-		//}
-
-		//if (animationNode.attribute("name").as_string() == "walk") {
-		//	//walk->pushBack(0,0,32,32);
-		//}
-
-
-		//config.child("animation").attribute("name").as_string();
-		////app->tex->Load(config.attribute())
-
-			
-	}
-
-	
-
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
-	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, texW / 2, texH / 2, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -65,8 +51,8 @@ bool Player::Start() {
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
 
-	//initialize audio effect
-	pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string());
+	//initialize audio effect 
+	//pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string());
 	//TODO add meow sound for jump
 
 
@@ -80,6 +66,8 @@ bool Player::Update(float dt)
 	//L03: DONE 4: render the player texture and modify the position of the player using WSAD keys and render the texture
 	
 	b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);
+
+	animation = &idle;
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		velocity.x = -0.2*dt;
@@ -103,7 +91,7 @@ bool Player::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 
-	app->render->DrawTexture(texture,position.x,position.y);
+	BlitEntity(animation->GetCurrentFrame(dt), flip, position.x, position.y);
 
 	return true;
 }
