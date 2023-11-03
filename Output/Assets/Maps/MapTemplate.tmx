@@ -69,6 +69,9 @@
   <image source="../../../../../Alexia/CITM/2n/Nueva carpeta/Pixel Art Platformer - Village Props v2.3.0/Texture/TX Village Props3.png" width="1024" height="1024"/>
  </tileset>
  <layer id="7" name="Detras" width="140" height="20">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -8487,6 +8490,9 @@
   </data>
  </layer>
  <layer id="8" name="delante" width="140" height="20">
+  <properties>
+   <property name="Draw" type="bool" value="true"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -11290,7 +11296,7 @@
    <tile/>
   </data>
  </layer>
- <layer id="5" name="Collisions" width="140" height="20">
+ <layer id="5" name="Collisions" width="140" height="20" visible="0">
   <properties>
    <property name="Draw" type="bool" value="false"/>
   </properties>
