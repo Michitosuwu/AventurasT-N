@@ -40,7 +40,11 @@ public:
 	uint texW, texH;
 
 	//Declare animations
-	
+	Animation idle;
+	Animation walkRight;
+	Animation walkLeft;
+	Animation jumpRight;
+	Animation jumpLeft;
 
 	//Audio fx
 	int pickCoinFxId;

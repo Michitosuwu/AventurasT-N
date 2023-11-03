@@ -12,6 +12,7 @@
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
+
 }
 
 Player::~Player() {
@@ -31,19 +32,24 @@ bool Player::Start() {
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
 	for (pugi::xml_node animationNode = config.child("animation"); animationNode != NULL; animationNode = animationNode.next_sibling("animation")) {
+		std::string animationName = animationNode.attribute("name").as_string();
+
+		if (animationName == "idle") {
+			idle.pushBack(0, 0, 32, 32, 1, 0.1);
+		}
 		
-		if (animationNode.attribute("name").as_string() == "idle") {
-			
-			//idle->pushBack(0,0,32,32);
-		}
+		//if (animationNode.attribute("name").as_string() == "idle") {
+		//	
+		//	//idle->pushBack(0,0,32,32);
+		//}
 
-		if (animationNode.attribute("name").as_string() == "walk") {
-			//walk->pushBack(0,0,32,32);
-		}
+		//if (animationNode.attribute("name").as_string() == "walk") {
+		//	//walk->pushBack(0,0,32,32);
+		//}
 
 
-		config.child("animation").attribute("name").as_string();
-		//app->tex->Load(config.attribute())
+		//config.child("animation").attribute("name").as_string();
+		////app->tex->Load(config.attribute())
 
 			
 	}
@@ -62,6 +68,7 @@ bool Player::Start() {
 
 	//initialize audio effect
 	pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string());
+	//TODO add meow sound for jump
 
 
 	return true;
