@@ -42,6 +42,12 @@ public:
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
+
+	//funcion de teleport para el debug
+	bool TeleportTo(const char* configFile);
+
+	//setear posicion
+	void SetPosition(int x, int y);
 };
 
 #endif // __PLAYER_H__
