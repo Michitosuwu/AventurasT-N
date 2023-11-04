@@ -3,10 +3,6 @@
 
 #include "Entity.h"
 #include "Point.h"
-#include "Module.h"
-#include "App.h"
-#include "Physics.h"
-
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
@@ -30,29 +26,16 @@ public:
 	// L07 DONE 6: Define OnCollision function for the player. 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-	//Determinar si está colisionando con el suelo TODO definir y poner colliders
-	bool isOnGround;
-
-public:
-
-	Animation idle;
-	Animation walkRight;
-	Animation walkLeft;
-	Animation jumpRight;
-	Animation jumpLeft;
-
 public:
 
 	//L02: DONE 2: Declare player parameters
-	float speed = 0.2f;
+	float speed = 1.5f;
+	bool isJumping = false;
+	float jumpSpeed = 5.0f;
+	float maxJumpSpeed = 8.0f;
 	SDL_Texture* texture = NULL;
 	pugi::xml_node config;
 	uint texW, texH;
-	bool flip = false;
-	float jumpSpeed = -0.4f; //velocidad inicial de salto hacia arriba
-
-	//nose si esto se tendria q quitar
-	b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);
 
 	//Audio fx
 	int pickCoinFxId;

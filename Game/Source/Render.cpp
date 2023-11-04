@@ -46,10 +46,12 @@ bool Render::Awake(pugi::xml_node config)
 	}
 	else
 	{
-		camera.w = app->win->screenSurface->w;
-		camera.h = app->win->screenSurface->h;
+		camera.w = app->win->screenSurface->w / 2;
+		camera.h = app->win->screenSurface->h / 2;
 		camera.x = 0;
-		camera.y = 0;
+		camera.y = -100;
+
+		SDL_RenderSetScale(renderer, 1.5, 1.5);
 	}
 
 	return ret;
@@ -106,56 +108,6 @@ void Render::ResetViewPort()
 	SDL_RenderSetViewport(renderer, &viewport);
 }
 
-bool Render::Blit(SDL_Texture* texture, int x, int y, SDL_Rect* section, SDL_RendererFlip flip, float speed, double angle, bool useCamera, int pivot_x, int pivot_y) 
-{
-	bool ret = true;
-	uint scale = app->win->GetScale();
-
-	SDL_Rect rect;
-
-	if (useCamera)
-	{
-		rect.x = (int)(camera.x * speed) + x * scale;
-		rect.y = (int)(camera.y * speed) + y * scale;
-	}
-	else
-	{
-		rect.x = x;
-		rect.y = y;
-	}
-
-	if (section != NULL)
-	{
-		rect.w = section->w;
-		rect.h = section->h;
-	}
-	else
-	{
-		SDL_QueryTexture(texture, NULL, NULL, &rect.w, &rect.h);
-	}
-
-	rect.w *= scale;
-	rect.h *= scale;
-
-	SDL_Point* p = NULL;
-	SDL_Point pivot;
-
-	if (pivot_x != INT_MAX && pivot_y != INT_MAX)
-	{
-		pivot.x = pivot_x;
-		pivot.y = pivot_y;
-		p = &pivot;
-	}
-
-	if (SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
-	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
-		ret = false;
-	}
-
-	return ret;
-}
-
 // Blit to screen
 bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
 {
@@ -193,39 +145,6 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* sec
 	{
 		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
 		ret = false;
-	}
-
-	return ret;
-}
-
-bool Render::DrawInfiniteBackground(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY)
-{
-	bool ret = true;
-	uint scale = app->win->GetScale();
-
-	// Calcula la posición del fondo en función de la cámara y la velocidad de desplazamiento
-	int backgroundX = (int)(camera.x * speed);
-	int backgroundY = (int)(camera.y * speed);
-
-	// Obtiene las dimensiones de la textura de fondo
-	int textureWidth, textureHeight;
-	SDL_QueryTexture(texture, NULL, NULL, &textureWidth, &textureHeight);
-
-	// Escala el rectángulo según la escala actual
-	textureWidth *= scale;
-	textureHeight *= scale;
-
-	for (int bgX = backgroundX; bgX < 2500; bgX += textureWidth)
-	{
-		for (int bgY = backgroundY; bgY < 770; bgY += textureHeight)
-		{
-			SDL_Rect backgroundRect = { bgX, bgY, textureWidth, textureHeight };
-			if (SDL_RenderCopyEx(renderer, texture, section, &backgroundRect, angle, NULL, SDL_FLIP_NONE) != 0)
-			{
-				LOG("Cannot blit background to screen. SDL_RenderCopy error: %s", SDL_GetError());
-				ret = false;
-			}
-		}
 	}
 
 	return ret;

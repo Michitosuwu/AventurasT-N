@@ -7,9 +7,6 @@
 #include "Scene.h"
 #include "Map.h"
 #include "Physics.h"
-#include "Animation.h"
-#include "Collider.h"
-#include "Player.h"
 
 #include "Defs.h"
 #include "Log.h"

@@ -3,11 +3,8 @@
 
 #include "Module.h"
 #include "Player.h"
-#include "Animation.h"
 
 struct SDL_Texture;
-
-class Animation;
 
 class Scene : public Module
 {
@@ -37,14 +34,14 @@ public:
 	bool CleanUp();
 
 private:
+	float textPosX, textPosY = 0;
+	uint texW, texH;
+	uint windowW, windowH;
+
 	SDL_Texture* img;
 	SDL_Texture* img2;
 	SDL_Texture* img3;
 	SDL_Texture* img4;
-
-	float textPosX, textPosY = 0;
-	uint texW, texH;
-	uint windowW, windowH;
 
 	//L03: DONE 3b: Declare a Player attribute
 	Player* player;

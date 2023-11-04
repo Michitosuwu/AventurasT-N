@@ -43,22 +43,25 @@ bool Map::Update(float dt)
 {
     bool ret = true;
 
-    if(mapLoaded == false)
+    if (mapLoaded == false)
         return false;
 
-    ListItem<MapLayer*>* mapLayer; 
+    ListItem<MapLayer*>* mapLayer;
     mapLayer = mapData.layers.start;
 
     // L06: DONE 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
 
     // iterates the layers in the map
     while (mapLayer != NULL) {
-        //Check if the property Draw exist get the value, if it's true draw the lawyer
-        if (mapLayer->data->properties.GetProperty("Draw") != NULL && mapLayer->data->properties.GetProperty("Draw")->value) {
-            //iterate all tiles in a layer
-            for (int i = 0; i < mapData.width; i++) {
-                for (int j = 0; j < mapData.height; j++) {
-                    //Get the gid from tile
+        // Check if the property Draw exists and has a value of "false"
+
+        if (mapLayer->data->properties.GetProperty("Draw") != NULL &&
+            mapLayer->data->properties.GetProperty("Draw")->value)
+        {
+            for (int i = 0; i < mapData.width; i++)
+            {
+                for (int j = 0; j < mapData.height; j++)
+                {
                     int gid = mapLayer->data->Get(i, j);
 
                     //L08: DONE 3: Obtain the tile set using GetTilesetFromTileId
@@ -72,15 +75,41 @@ bool Map::Update(float dt)
 
                     // L06: DONE 9: Complete the draw function
                     app->render->DrawTexture(tileSet->texture, mapCoord.x, mapCoord.y, &tileRect);
-
                 }
             }
         }
 
+        // Rest of your code for rendering other layers
 
         mapLayer = mapLayer->next;
     }
+
     return ret;
+}
+
+void Map::CreateColliderForTile(int tileX, int tileY)
+{
+    // Obtener las dimensiones del tile y la posición en el mundo
+    int tileWidth = mapData.tilewidth;
+    int tileHeight = mapData.tileheight;
+    int worldX = tileX * tileWidth;
+    int worldY = tileY * tileHeight;
+
+    // Crear un colisionador estático (ajusta esto según tu motor de física)
+    PhysBody* collider = app->physics->CreateRectangle(worldX, worldY, tileWidth, tileHeight / 2, STATIC);
+
+    // Asignar un tipo de colisionador (ajusta esto según tus necesidades)
+    collider->ctype = ColliderType::PLATFORM;
+
+    // Otras configuraciones específicas de tu motor de física, si es necesario
+    // collider->SetDensity(...);
+    // collider->SetFriction(...);
+    // collider->SetRestitution(...);
+    // ...
+
+    // Agregar el colisionador al sistema de física o almacenarlo en una lista, según tu implementación
+    // app->physics->AddCollider(collider);
+    // ...
 }
 
 // L08: DONE 2: Implement function to the Tileset based on a tile id
@@ -212,14 +241,33 @@ bool Map::Load(SString mapFileName)
         // L07 DONE 3: Create colliders      
         // L07 DONE 7: Assign collider type
         // Later you can create a function here to load and create the colliders from the map
-        PhysBody* c1 = app->physics->CreateRectangle(224 + 128, 544 + 32, 256, 64, STATIC);
-        c1->ctype = ColliderType::PLATFORM;
+        //PhysBody* c1 = app->physics->CreateRectangle(224 + 128, 544 + 32, 256, 64, STATIC);
+        //c1->ctype = ColliderType::PLATFORM;
 
-        PhysBody* c2 = app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
-        c2->ctype = ColliderType::PLATFORM;
+        //PhysBody* c2 = app->physics->CreateRectangle(352 + 64, 384 + 32, 128, 64, STATIC);
+        //c2->ctype = ColliderType::PLATFORM;
 
-        PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
-        c3->ctype = ColliderType::PLATFORM;
+        //PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
+        //c3->ctype = ColliderType::PLATFORM;
+
+for (ListItem<MapLayer*>* mapLayer = mapData.layers.start; mapLayer != NULL; mapLayer = mapLayer->next) {
+    // Check if the "Draw" property exists and is set to false for this layer
+    if (mapLayer->data->properties.GetProperty("Draw") != NULL &&
+        !mapLayer->data->properties.GetProperty("Draw")->value) {
+        // Iterate over all tiles in the layer
+        for (int i = 0; i < mapData.width; i++) {
+            for (int j = 0; j < mapData.height; j++) {
+                // Get the GID of the tile at (i, j)
+                int gid = mapLayer->data->Get(i, j);
+                // Check if the tile should have a collider (GID is not 0)
+                if (gid != 0) {
+                    // Create colliders for tiles with "Draw" set to false
+                    CreateColliderForTile(i, j);
+                }
+            }
+        }
+    }
+} 
 
           // L05: DONE 5: LOG all the data loaded iterate all tilesetsand LOG everything
         if (ret == true)

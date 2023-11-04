@@ -30,7 +30,7 @@ bool Scene::Awake(pugi::xml_node config)
 	//L04 DONE 7: Get player paremeters
 	player = (Player*) app->entityManager->CreateEntity(EntityType::PLAYER);
 	//Assigns the XML node to a member in player
-	//player->config = config.child("player");
+	player->config = config.child("player");
 
 	//Get the map name from the config file and assigns the value in the module
 	app->map->name = config.child("map").attribute("name").as_string();
@@ -51,13 +51,15 @@ bool Scene::Awake(pugi::xml_node config)
 bool Scene::Start()
 {
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
+	//img = app->tex->Load("Assets/Textures/test.png");
+	
+	//Music is commented so that you can add your own music
+	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+
 	img = app->tex->Load("Assets/Textures/parallax-demon-woods-bg.png");
 	img2 = app->tex->Load("Assets/Textures/parallax-demon-woods-far-trees.png");
 	img3 = app->tex->Load("Assets/Textures/parallax-demon-woods-mid-trees.png");
 	img4 = app->tex->Load("Assets/Textures/parallax-demon-woods-close-trees.png");
-	
-	//Music is commented so that you can add your own music
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
@@ -95,17 +97,13 @@ bool Scene::Update(float dt)
 	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x += (int)ceil(camSpeed * dt);
 
-	// Renders the image in the center of the screen 
-	//app->render->DrawInfiniteBackground(img, (int)textPosX, (int)textPosY, nullptr, 1.0f, 0, INT_MAX, INT_MAX);
-	//app->render->DrawInfiniteBackground(img2, (int)textPosX, (int)textPosY, nullptr, 1.0f, 0, INT_MAX, INT_MAX);
-	//app->render->DrawInfiniteBackground(img3, (int)textPosX, (int)textPosY, nullptr, 1.0f, 0, INT_MAX, INT_MAX);
-	//app->render->DrawInfiniteBackground(img4, (int)textPosX, (int)textPosY, nullptr, 1.0f, 0, INT_MAX, INT_MAX);
-
 	app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
 	app->render->DrawTexture(img2, (int)textPosX, (int)textPosY);
 	app->render->DrawTexture(img3, (int)textPosX, (int)textPosY);
 	app->render->DrawTexture(img4, (int)textPosX, (int)textPosY);
 
+	// Renders the image in the center of the screen 
+	//app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
 
 	return true;
 }

@@ -2,7 +2,7 @@
 <!-- L01: DONE 1: Create configuration file-->
 <config>
   <app>
-    <title>Michi Adventures</title>
+    <title>Adventures T and N</title>
     <maxFrameDuration value="16"/>
   </app>
 
@@ -11,71 +11,15 @@
   </renderer>
 
   <window>
-    <resolution width="1280" height="768" scale="1"/>
+    <resolution width="1280" height="780" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
-    <resizable value="false"/>
+    <resizable value="true"/>
     <fullscreen_window value="false"/>
   </window>
-	
+
   <scene>
-	  <player x="150" y="672" texturePath="Assets/Textures/michi.png" coinfxpath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg">	 
-	  </player>
-
-	<animations>
-		<idle loop="true" speed="0.65f">
-			<animation name="idle" x="128" y="32" w="32" h="25"/>
-			<animation name="idle" x="160" y="32" w="32" h="25"/>
-			<animation name="idle" x="192" y="32" w="32" h="25"/>
-			<animation name="idle" x="224" y="32" w="32" h="25"/>
-		</idle>
-
-		<moveRight loop="true" speed="0.65f">
-			<animation name="moveRight" x="385" y="421" w="32" h="19"/>
-			<animation name="moveRight" x="417" y="421" w="32" h="19"/>
-			<animation name="moveRight" x="449" y="421" w="32" h="19"/>
-			<animation name="moveRight" x="481" y="421" w="32" h="19"/>
-		</moveRight>
-
-		<animation name="jumpRight" speed="0.65f">
-			<animation name="jumpRight" x="607" y="421" w="32" h="19"/>
-			<animation name="jumpRight" x="639" y="421" w="32" h="19"/>
-			<animation name="jumpRight" x="671" y="421" w="32" h="19"/>
-			<animation name="jumpRight" x="703" y="421" w="32" h="19"/>
-			<animation name="jumpRight" x="735" y="421" w="32" h="19"/>
-		</animation>
-
-		<moveLeft loop="true" speed="0.65f">
-			<animation name="moveLeft" x="480" y="165" w="32" h="19"/>
-			<animation name="moveLeft" x="448" y="165" w="32" h="19"/>
-			<animation name="moveLeft" x="416" y="165" w="32" h="19"/>
-			<animation name="moveLeft" x="384" y="165" w="32" h="19"/>
-		</moveLeft>
-
-		<animation name="jumpLeft" speed="0.65f">
-			<animation name="jumpLeft" x="738" y="165" w="32" h="19"/>
-			<animation name="jumpLeft" x="706" y="165" w="32" h="19"/>
-			<animation name="jumpLeft" x="674" y="165" w="32" h="19"/>
-			<animation name="jumpLeft" x="642" y="165" w="32" h="19"/>
-			<animation name="jumpLeft" x="610" y="165" w="32" h="19"/>
-		</animation>
-	</animations>
-	  
-	  <!--TO DO AÑADIR ESTAS DOS ANIMS EN LA FORMA CORRECTA DE ARRIBA-->
-		  
-		  <!--<animation name="moveLeft" x="480" y="165" w="32" h="19"/>    -->--><!--move left--><!--
-		  <animation name="moveLeft" x="448" y="165" w="32" h="19"/>
-		  <animation name="moveLeft" x="416" y="165" w="32" h="19"/>
-		  <animation name="moveLeft" x="384" y="165" w="32" h="19"/>
-		  
-		  
-		  <animation name="jumpLeft" x="738" y="165" w="32" h="19"/>     --><!--jump left--><!--
-		  <animation name="jumpLeft" x="706" y="165" w="32" h="19"/>
-		  <animation name="jumpLeft" x="674" y="165" w="32" h="19"/>
-		  <animation name="jumpLeft" x="642" y="165" w="32" h="19"/>
-		  <animation name="jumpLeft" x="610" y="165" w="32" h="19"/>-->
-		  
-	  
+    <player x="150" y="300" texturePath="Assets/Textures/Gato.png" coinfxpath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg"/>
     <map path="Assets/Maps/" name="MapTemplate.tmx"/>
     <item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>

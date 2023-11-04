@@ -8,21 +8,10 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
-#include "Animation.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
-
-	animation = NULL;
-
-	idle.LoadAnimations("idle");
-	walkRight.LoadAnimations("walkRight");
-	jumpRight.LoadAnimations("jumpRight");
-	walkLeft.LoadAnimations("walkLeft");
-	jumpLeft.LoadAnimations("jumpLeft");
-	
-	isOnGround = true; //inicialmente está en el suelo
 }
 
 Player::~Player() {
@@ -30,17 +19,6 @@ Player::~Player() {
 }
 
 bool Player::Awake() {
-
-	sprites = app->tex->Load(config.attribute("texturePath").as_string());
-
-	if (sprites != NULL)
-	{
-		LOG("FUNCIONA JOPETAS");
-	}
-	else
-	{
-		LOG("Sad no pinta D;");
-	}
 
 	//L03: DONE 2: Initialize Player parameters
 	position = iPoint(config.attribute("x").as_int(), config.attribute("y").as_int());
@@ -50,11 +28,11 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-
+	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
-	pbody = app->physics->CreateRectangle(position.x, position.y, texW / 2, texH / 2, bodyType::DYNAMIC);
+	pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -62,68 +40,62 @@ bool Player::Start() {
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
 
-	//initialize audio effect 
-	//pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string());
-	//TODO add meow sound for jump
-
+	//initialize audio effect
+	pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string());
 
 	return true;
 }
 
 bool Player::Update(float dt)
 {
-	// L07 DONE 5: Add physics to the player - updated player position using physics
+	// Definir la gravedad
+	b2Vec2 gravity(0, GRAVITY_Y);
 
-	//L03: DONE 4: render the player texture and modify the position of the player using WSAD keys and render the texture
-	
-	b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);
+	// Obtener la velocidad actual del cuerpo del jugador
+	b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
-	//animation = &idle;
+	// Aplicar la gravedad
+	if (isJumping)
+	{
+		velocity.x += gravity.x * dt;
+		velocity.y += gravity.y * dt;
+		isJumping = false;
+	}
 
+	// Controlar el movimiento horizontal
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-		velocity.x = -0.2*dt;
+		velocity.x = -speed;
 	}
-
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-		velocity.x = 0.2*dt;
-	}
-		
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT) {
-		//TODO implementacion salto correcta?
-
-		if (isOnGround) {  //verificamos si está en el suelo
-			velocity.y = -10.0 * dt;  //aplicamos velocidad inicial salto
-			isOnGround = false; //marcamos jugador en el aire
-		}
+		velocity.x = speed;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		velocity.y = -0.2 * dt;
+	// Controlar el salto con la tecla espacio
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
+		velocity.y = -jumpSpeed;
+		isJumping = true;
 	}
 
-	//aplicamos velocidad al cuerpo fisico
+	// Limitar la velocidad vertical máxima para evitar un salto brusco
+	if (velocity.y < -maxJumpSpeed) {
+		velocity.y = -maxJumpSpeed;
+	}
+
+	// Actualizar la posición basada en la velocidad
 	pbody->body->SetLinearVelocity(velocity);
 
-	//obtiene velocidad del cuerpo fisico
+	// Obtener la posición del cuerpo
 	b2Transform pbodyPos = pbody->body->GetTransform();
-	
-	//obtiene posicion del cuerpo fisico
 	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 
-	//renderiza la animacion actual en la posicion actual
-	/*BlitEntity(animation->GetCurrentFrame(dt), flip, position.x, position.y);*/
-	//BlitEntity(animation->GetCurrentFrame(dt), flip, position.x, position.y);
-	app->render->DrawTexture(sprites, position.x, position.y);
-
+	app->render->DrawTexture(texture, position.x, position.y);
 
 	return true;
 }
 
 bool Player::CleanUp()
 {
-	app->tex->UnLoad(sprites);
-
 	return true;
 }
 
@@ -144,64 +116,4 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	default:
 		break;
 	}
-}
-
-bool isOnGround() {
-	//TODO implementar bien logica
-
-	////preguntarle esto a marta
-	//b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);
-	//uint texW, texH;
-	//iPoint position;
-
-	//
-	//int groundHeight = 10;
-
-	////calcula pos vertical jugador
-	//int playerBottomY = position.y + texH / 2; 
-
-	////comprueba si el jugador esta cerca del suelo
-	//bool nearGround = (playerBottomY >= groundHeight - 2);
-
-	////comprueba si velocidad vertical del jugador es cero o positiva (indicando que no está cayendo)
-	//bool noVerticalVelocity = (velocity.y >= 0);
-
-	////el jugador esta en el suelo si esta cerca del suelo y su velocidad vertical no es negativa
-	//return nearGround && noVerticalVelocity;
-
-	return false;
-}
-
-bool Player::TeleportTo(const char* configFile) {
-	
-	// Cargar el archivo XML
-	pugi::xml_document doc;
-	if (!doc.load_file(configFile))
-	{
-		// Manejar errores al cargar el archivo
-		return false;
-	}
-
-	// Buscar el nodo del jugador
-	pugi::xml_node playerNode = doc.child("config").child("scene").child("player");
-	if (!playerNode)
-	{
-		// El nodo del jugador no se encontró en el archivo
-		return false;
-	}
-
-	// Obtener las coordenadas de teletransporte desde el nodo del jugador
-	int teleportX = playerNode.attribute("x").as_int();
-	int teleportY = playerNode.attribute("y").as_int();
-
-	// Teletransportar al jugador a las coordenadas especificadas
-	SetPosition(teleportX, teleportY);
-
-	return true;
-}
-
-void Player::SetPosition(int x, int y)
-{
-	position.x = x;
-	position.y = y;
 }

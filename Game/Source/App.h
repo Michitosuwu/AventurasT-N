@@ -20,7 +20,6 @@ class Audio;
 class Scene;
 class EntityManager;
 class Map;
-class Animation;
 //L07 DONE 2: Add Physics module
 class Physics;
 
@@ -88,7 +87,6 @@ public:
 	Scene* scene;
 	EntityManager* entityManager;
 	Map* map;
-	Animation* anim;
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
 
