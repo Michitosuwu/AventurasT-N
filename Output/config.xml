@@ -19,7 +19,7 @@
   </window>
 	
   <scene>
-	  <player x="359" y="500" texturePath="Assets/Textures/michi.png" coinfxpath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg">	 
+	  <player x="150" y="672" texturePath="Assets/Textures/michi.png" coinfxpath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg">	 
 	  </player>
 
 	<animations>

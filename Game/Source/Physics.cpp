@@ -224,9 +224,32 @@ bool Physics::PostUpdate()
 	bool ret = true;
 
 	// Activate or deactivate debug mode
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 		debug = !debug;
-	
+
+	//Start from first level F1
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+		
+	}
+
+	//Tp to the beginning of the current level F3
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+
+	}
+
+	//Visualize the colliders/logic F9
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+
+	}
+
+	//GodMode F10
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+
+	}
+
+	//F11 capar FPS en esta entrega no
+
+
 	//  Iterate all objects in the world and draw the bodies
 	if (debug)
 	{

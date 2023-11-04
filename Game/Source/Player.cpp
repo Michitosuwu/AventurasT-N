@@ -171,3 +171,37 @@ bool isOnGround() {
 
 	return false;
 }
+
+bool Player::TeleportTo(const char* configFile) {
+	
+	// Cargar el archivo XML
+	pugi::xml_document doc;
+	if (!doc.load_file(configFile))
+	{
+		// Manejar errores al cargar el archivo
+		return false;
+	}
+
+	// Buscar el nodo del jugador
+	pugi::xml_node playerNode = doc.child("config").child("scene").child("player");
+	if (!playerNode)
+	{
+		// El nodo del jugador no se encontró en el archivo
+		return false;
+	}
+
+	// Obtener las coordenadas de teletransporte desde el nodo del jugador
+	int teleportX = playerNode.attribute("x").as_int();
+	int teleportY = playerNode.attribute("y").as_int();
+
+	// Teletransportar al jugador a las coordenadas especificadas
+	SetPosition(teleportX, teleportY);
+
+	return true;
+}
+
+void Player::SetPosition(int x, int y)
+{
+	position.x = x;
+	position.y = y;
+}
