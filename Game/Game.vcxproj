@@ -95,6 +95,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Debug.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />

@@ -24,6 +24,7 @@
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\Collider.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
+    <ClCompile Include="Debug.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />

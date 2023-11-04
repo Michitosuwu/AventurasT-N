@@ -37,12 +37,27 @@
 			<animation name="moveRight" x="481" y="421" w="32" h="19"/>
 		</moveRight>
 
-		<animation name="jump" speed="0.65f">
+		<animation name="jumpRight" speed="0.65f">
 			<animation name="jumpRight" x="607" y="421" w="32" h="19"/>
 			<animation name="jumpRight" x="639" y="421" w="32" h="19"/>
 			<animation name="jumpRight" x="671" y="421" w="32" h="19"/>
 			<animation name="jumpRight" x="703" y="421" w="32" h="19"/>
 			<animation name="jumpRight" x="735" y="421" w="32" h="19"/>
+		</animation>
+
+		<moveLeft loop="true" speed="0.65f">
+			<animation name="moveLeft" x="480" y="165" w="32" h="19"/>
+			<animation name="moveLeft" x="448" y="165" w="32" h="19"/>
+			<animation name="moveLeft" x="416" y="165" w="32" h="19"/>
+			<animation name="moveLeft" x="384" y="165" w="32" h="19"/>
+		</moveLeft>
+
+		<animation name="jumpLeft" speed="0.65f">
+			<animation name="jumpLeft" x="738" y="165" w="32" h="19"/>
+			<animation name="jumpLeft" x="706" y="165" w="32" h="19"/>
+			<animation name="jumpLeft" x="674" y="165" w="32" h="19"/>
+			<animation name="jumpLeft" x="642" y="165" w="32" h="19"/>
+			<animation name="jumpLeft" x="610" y="165" w="32" h="19"/>
 		</animation>
 	</animations>
 	  
