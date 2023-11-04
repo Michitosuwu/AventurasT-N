@@ -31,6 +31,17 @@ Player::~Player() {
 
 bool Player::Awake() {
 
+	sprites = app->tex->Load(config.attribute("texturePath").as_string());
+
+	if (sprites != NULL)
+	{
+		LOG("FUNCIONA JOPETAS");
+	}
+	else
+	{
+		LOG("Sad no pinta D;");
+	}
+
 	//L03: DONE 2: Initialize Player parameters
 	position = iPoint(config.attribute("x").as_int(), config.attribute("y").as_int());
 
@@ -39,7 +50,7 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	sprites = app->tex->Load(config.attribute("texturePath").as_string());
+
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
@@ -67,7 +78,7 @@ bool Player::Update(float dt)
 	
 	b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);
 
-	animation = &idle;
+	//animation = &idle;
 
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		velocity.x = -0.2*dt;
@@ -101,13 +112,18 @@ bool Player::Update(float dt)
 	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 
 	//renderiza la animacion actual en la posicion actual
-	BlitEntity(animation->GetCurrentFrame(dt), flip, position.x, position.y);
+	/*BlitEntity(animation->GetCurrentFrame(dt), flip, position.x, position.y);*/
+	//BlitEntity(animation->GetCurrentFrame(dt), flip, position.x, position.y);
+	app->render->DrawTexture(sprites, position.x, position.y);
+
 
 	return true;
 }
 
 bool Player::CleanUp()
 {
+	app->tex->UnLoad(sprites);
+
 	return true;
 }
 
@@ -133,23 +149,25 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 bool isOnGround() {
 	//TODO implementar bien logica
 
-	//preguntarle esto a marta
-	b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);
-	uint texW, texH;
-	iPoint position;
-	
-	
-	int groundHeight = 10;
+	////preguntarle esto a marta
+	//b2Vec2 velocity = b2Vec2(0, -GRAVITY_Y);
+	//uint texW, texH;
+	//iPoint position;
 
-	//calcula pos vertical jugador
-	int playerBottomY = position.y + texH / 2;
+	//
+	//int groundHeight = 10;
 
-	//comprueba si el jugador esta cerca del suelo
-	bool nearGround = (playerBottomY >= groundHeight - 2);
+	////calcula pos vertical jugador
+	//int playerBottomY = position.y + texH / 2; 
 
-	//comprueba si velocidad vertical del jugador es cero o positiva (indicando que no está cayendo)
-	bool noVerticalVelocity = (velocity.y >= 0);
+	////comprueba si el jugador esta cerca del suelo
+	//bool nearGround = (playerBottomY >= groundHeight - 2);
 
-	//el jugador esta en el suelo si esta cerca del suelo y su velocidad vertical no es negativa
-	return nearGround && noVerticalVelocity;
+	////comprueba si velocidad vertical del jugador es cero o positiva (indicando que no está cayendo)
+	//bool noVerticalVelocity = (velocity.y >= 0);
+
+	////el jugador esta en el suelo si esta cerca del suelo y su velocidad vertical no es negativa
+	//return nearGround && noVerticalVelocity;
+
+	return false;
 }
