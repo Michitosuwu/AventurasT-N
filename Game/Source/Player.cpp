@@ -33,7 +33,8 @@ bool Player::Start() {
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
-	pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
+	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -53,6 +54,12 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
+
+	if (app->render->camera.x - position.x + 200 <= -24 && app->render->camera.x - position.x + 200 >= -10000) {
+		app->render->camera.x = -position.x + 200;
+
+	}
+
 	// Activate or deactivate debug mode
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 		debug = !debug;
@@ -115,7 +122,6 @@ bool Player::Update(float dt)
 		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 	}
-
 	else {
 		// Aplicar la lógica de movimiento normal con gravedad
 		// Definir la gravedad
@@ -159,8 +165,6 @@ bool Player::Update(float dt)
 		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 	}
-
-	
 
 	app->render->DrawTexture(texture, position.x, position.y);
 

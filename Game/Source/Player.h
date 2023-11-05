@@ -29,7 +29,7 @@ public:
 public:
 
 	//L02: DONE 2: Declare player parameters
-	float speed = 1.5f;
+	float speed = 5.0f;
 	bool isJumping = false;
 	float jumpSpeed = 5.0f;
 	float maxJumpSpeed = 8.0f;
