@@ -4,10 +4,9 @@ Project made by @Apb8 & @MartaGnarta
 
 ## Key Features
 
- - {Feature01}
- - {Feature02}
- - {Feature03}
- - {Feature04}
+ - Run
+ - Jump
+ - Explore the map as a kitten
  
 ## Controls
 
