@@ -23,7 +23,6 @@ Physics::Physics() : Module()
 {
 	// Initialise all the internal class variables, at least to NULL pointer
 	world = NULL;
-	debug = true;
 }
 
 // Destructor
@@ -257,6 +256,12 @@ bool Physics::PostUpdate()
 	//	//TODO ver como llamar al godmode desde entitymanager
 	//	//godMode = !godMode;
 	//}
+
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		debug = !debug;  // Cambia el valor de debug a su opuesto
+	}
+
 
 	//F11 capar FPS en esta entrega no
 	

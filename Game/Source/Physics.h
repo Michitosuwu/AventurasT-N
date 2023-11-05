@@ -79,7 +79,8 @@ public:
 private:
 
 	// Debug mode
-	bool debug;
+	bool debug = false;
+	bool debugPressed = false;
 
 	// Box2D World
 	b2World* world;
