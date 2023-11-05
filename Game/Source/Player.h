@@ -44,10 +44,18 @@ public:
 	PhysBody* pbody;
 
 	//funcion de teleport para el debug
-	bool TeleportTo(const char* configFile);
+	bool TeleportTo();
 
 	//setear posicion
 	void SetPosition(int x, int y);
+
+	//god mode
+	bool godMode = false;
+
+	float godModeSpeed;
+
+	// Debug mode
+	bool debug;
 };
 
 #endif // __PLAYER_H__

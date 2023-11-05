@@ -41,6 +41,46 @@ bool Map::Start() {
 
 bool Map::Update(float dt)
 {
+    //bool ret = true;
+
+    //if (mapLoaded == false)
+    //    return false;
+
+    //ListItem<MapLayer*>* mapLayer;
+    //mapLayer = mapData.layers.start;
+
+    //// Iterates the layers in the map
+    //while (mapLayer != NULL) {
+    //    // Check if the "Draw" property exists and has a value of false
+    //    if (mapLayer->data->properties.GetProperty("Draw") != nullptr &&
+    //        mapLayer->data->properties.GetProperty("Draw")->value == false) {
+    //        // Skip drawing this layer
+    //        mapLayer = mapLayer->next;
+    //        continue;
+    //    }
+
+    //    for (int i = 0; i < mapData.width; i++) {
+    //        for (int j = 0; j < mapData.height; j++) {
+    //            int gid = mapLayer->data->Get(i, j);
+
+    //            // L08: DONE 3: Obtain the tile set using GetTilesetFromTileId
+    //            // Get the Rect from the tileSetTexture;
+    //            TileSet* tileSet = GetTilesetFromTileId(gid);
+    //            SDL_Rect tileRect = tileSet->GetRect(gid);
+
+    //            // Get the screen coordinates from the tile coordinates
+    //            iPoint mapCoord = MapToWorld(i, j);
+
+    //            // L06: DONE 9: Complete the draw function
+    //            app->render->DrawTexture(tileSet->texture, mapCoord.x, mapCoord.y, &tileRect);
+    //        }
+    //    }
+
+    //    // Move to the next layer
+    //    mapLayer = mapLayer->next;
+    //}
+
+    //return ret;
     bool ret = true;
 
     if (mapLoaded == false)

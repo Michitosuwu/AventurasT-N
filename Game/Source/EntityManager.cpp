@@ -129,3 +129,25 @@ bool EntityManager::Update(float dt)
 
 	return ret;
 }
+
+//bool EntityManager::TeleportPlayerToConfig()
+//{
+//	// Itera sobre las entidades para encontrar el jugador
+//	ListItem<Entity*>* item = entities.start;
+//	while (item != NULL)
+//	{
+//		if (item->data->type == EntityType::PLAYER)
+//		{
+//			// Encuentra el jugador y llama a la función TeleportTo
+//			Player* player = static_cast<Player*>(item->data);
+//			if (player != nullptr)
+//			{
+//				return player->TeleportTo("config.xml");
+//			}
+//		}
+//		item = item->next;
+//	}
+//
+//	// Si no se encontró al jugador, retorna false (error)
+//	return false;
+//}

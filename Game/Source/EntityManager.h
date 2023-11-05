@@ -37,6 +37,9 @@ public:
 
 	List<Entity*> entities;
 
+	//para el teleport del debug
+	//bool TeleportPlayerToConfig();
+
 };
 
 #endif // __ENTITYMANAGER_H__

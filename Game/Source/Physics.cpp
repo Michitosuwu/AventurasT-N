@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Window.h"
 #include "Box2D/Box2D/Box2D.h"
+#include "EntityManager.h"
 
 // Tell the compiler to reference the compiled Box2D libraries
 #ifdef _DEBUG
@@ -222,10 +223,42 @@ PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType typ
 bool Physics::PostUpdate()
 {
 	bool ret = true;
-
 	// Activate or deactivate debug mode
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 		debug = !debug;
+
+	////Start from first level F1
+	//if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+	//	
+	//	//if (entityManager.TeleportPlayerToConfig())
+	//	//{
+	//	//	// El jugador fue teletransportado con éxito
+	//	//	LOG("Player teleported successfully.");
+	//	//}
+	//	//else
+	//	//{
+	//	//	// Ocurrió un error al teletransportar al jugador
+	//	//	LOG("Error teleporting player.");
+	//	//}
+	//}
+
+	////Tp to the beginning of the current level F3
+	//if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+	//	//s'ha de fer igual que el de dalt ja q nomes tenim 1 nivell
+	//}
+
+	//Visualize the colliders/logic F9
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
+
+	}
+
+	////GodMode F10
+	//if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
+	//	//TODO ver como llamar al godmode desde entitymanager
+	//	//godMode = !godMode;
+	//}
+
+	//F11 capar FPS en esta entrega no
 	
 	//  Iterate all objects in the world and draw the bodies
 	if (debug)
