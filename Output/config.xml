@@ -19,7 +19,7 @@
   </window>
 
   <scene>
-    <player x="150" y="300" texturePath="Assets/Textures/Gato.png" coinfxpath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg"/>
+    <player x="200" y="500" texturePath="Assets/Textures/Gato.png" coinfxpath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg"/>
     <map path="Assets/Maps/" name="MapTemplate.tmx"/>
     <item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>

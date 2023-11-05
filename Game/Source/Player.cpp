@@ -9,6 +9,10 @@
 #include "Point.h"
 #include "Physics.h"
 
+#define PIXELS_TO_METERS(pixels) (pixels / METERS_TO_PIXELS_RATIO)
+#define METERS_TO_PIXELS_RATIO 100.0f
+
+
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
@@ -215,8 +219,8 @@ bool Player::TeleportTo() {
 
 	//parameters.attribute("x").as_int();
 	// Obtener las coordenadas de teletransporte desde el nodo del jugador
-	int teleportX = parameters.attribute("x").as_int();
-	int teleportY = parameters.attribute("y").as_int();
+	int teleportX = config.attribute("x").as_int();
+	int teleportY = config.attribute("y").as_int();
 
 	// Teletransportar al jugador a las coordenadas especificadas
 	SetPosition(teleportX, teleportY);
@@ -226,12 +230,25 @@ bool Player::TeleportTo() {
 
 void Player::SetPosition(int x, int y)
 {
+
+	// Convertir las coordenadas en píxeles a metros (considerando METERS_TO_PIXELS)
+	float metersX = PIXELS_TO_METERS(x);
+	float metersY = PIXELS_TO_METERS(y);
+
+	// Actualizar la posición del cuerpo del jugador en el mundo de física
+	b2Vec2 newPosition(metersX, metersY);
+	pbody->body->SetTransform(newPosition, pbody->body->GetAngle());
+
+	// Actualizar la variable position con las coordenadas en píxeles
 	position.x = x;
 	position.y = y;
 
-	// Actualizar la posición del cuerpo del jugador en el mundo de física
-	//TODO cambiar esto ya que tp nose a donde
-	b2Vec2 newPosition((x), (y));  // Convertir de píxeles a metros si es necesario??
-	pbody->body->SetTransform(newPosition, pbody->body->GetAngle());
+	//position.x = x;
+	//position.y = y;
+
+	//// Actualizar la posición del cuerpo del jugador en el mundo de física
+	////TODO cambiar esto ya que tp nose a donde
+	//b2Vec2 newPosition((x), (y));  // Convertir de píxeles a metros si es necesario??
+	//pbody->body->SetTransform(newPosition, pbody->body->GetAngle());
 }
 
