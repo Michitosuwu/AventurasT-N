@@ -1,8 +1,6 @@
-# {Project Name}
+# Kitty Adventure
 
-## Description
-
-{project description}
+Project made by @Apb8 & @MartaGnarta
 
 ## Key Features
 
@@ -13,14 +11,18 @@
  
 ## Controls
 
- - {ControlsScheme}
+ - W, A, S, D Movement
+ - F1 Teleport start level
+ - F2 Teleport second level
+ - F3 Start from the beginning
+ - F9 Visualize the colliders
+ - F10 God Mode
+ - F11 Enble / Disble FPS
 
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
+ - Alexia Palacín - Programmer
+ - Marta Jover - Programmer
 
 ## License
 
