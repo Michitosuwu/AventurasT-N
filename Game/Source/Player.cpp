@@ -8,15 +8,16 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Animation.h"
 
 #define PIXELS_TO_METERS(pixels) (pixels / METERS_TO_PIXELS_RATIO)
 #define METERS_TO_PIXELS_RATIO 100.0f
 
 
-Player::Player() : Entity(EntityType::PLAYER)
+Player::Player() : Entity(EntityType::PLAYER), currentAnimation(&idleAnimation)
 {
 	name.Create("Player");
-	
+
 }
 
 Player::~Player() {
@@ -53,6 +54,13 @@ bool Player::Start() {
 	godMode = false;
 	godModeSpeed = 4.0f;
 
+	//cargamos animaciones del fichero xml
+	idleAnimation.LoadAnimations("idle");
+	moveRightAnimation.LoadAnimations("moveRight");
+	moveLeftAnimation.LoadAnimations("moveLeft");
+	jumpRightAnimation.LoadAnimations("jumpRight");
+	jumpLeftAnimation.LoadAnimations("jumpLeft");
+
 	return true;
 }
 
@@ -67,7 +75,7 @@ bool Player::Update(float dt)
 	// Activate or deactivate debug mode
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 		debug = !debug;
-	
+
 	//Start from first level F1
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 
@@ -82,12 +90,12 @@ bool Player::Update(float dt)
 			LOG("Error teleporting player.");
 		}
 	}
-	
+
 	//Tp to the beginning of the current level F3
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
 		TeleportTo();
 	}
-	
+
 	//GodMode F10
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
 		godMode = !godMode;
@@ -145,15 +153,22 @@ bool Player::Update(float dt)
 		// Controlar el movimiento horizontal
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			velocity.x = -speed;
+			currentAnimation = &moveLeftAnimation;
 		}
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			velocity.x = speed;
+			currentAnimation = &moveRightAnimation;
 		}
 
 		// Controlar el salto con la tecla espacio
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
 			velocity.y = -jumpSpeed;
 			isJumping = true;
+		}
+
+		else {
+			// Jugador en estado de reposo
+			currentAnimation = &idleAnimation;
 		}
 
 		// Limitar la velocidad vertical máxima para evitar un salto brusco
@@ -168,9 +183,15 @@ bool Player::Update(float dt)
 		b2Transform pbodyPos = pbody->body->GetTransform();
 		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
+
+		// Actualizar la animación actual según la entrada del usuario o el estado del jugador
+		SDL_Rect currentFrame = currentAnimation->GetCurrentFrame(dt);
+
+		// Renderizar la textura con el rectángulo de la animación actual
+		app->render->DrawTexture(texture, position.x, position.y, &currentFrame);
 	}
 
-	app->render->DrawTexture(texture, position.x, position.y);
+	//app->render->DrawTexture(texture, position.x, position.y);
 
 	return true;
 }

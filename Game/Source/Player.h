@@ -13,7 +13,7 @@ class Player : public Entity
 public:
 
 	Player();
-	
+
 	virtual ~Player();
 
 	bool Awake();
@@ -57,6 +57,15 @@ public:
 
 	// Debug mode
 	bool debug;
+
+	// Declarar las animaciones
+	Animation idleAnimation;
+	Animation moveRightAnimation;
+	Animation moveLeftAnimation;
+	Animation jumpRightAnimation;
+	Animation jumpLeftAnimation;
+
+	Animation* currentAnimation; // Nueva variable para almacenar la animación actual
 };
 
 #endif // __PLAYER_H__
