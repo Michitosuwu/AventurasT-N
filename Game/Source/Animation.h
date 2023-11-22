@@ -20,7 +20,7 @@ class Animation {
 
 public:
 
-    Animation::Animation() {}
+    Animation::Animation(): current_frame(0.0f), last_frame(0), loop(false), speed(0.0f), loops(0){}
 
     Animation(const Animation& anim) : loop(anim.loop), speed(anim.speed), last_frame(anim.last_frame)
     {
@@ -80,6 +80,9 @@ public:
                 // Limpiar las frames antes de cargar nuevas
                 last_frame = 0;
 
+                // Almacenar el nodo padre antes del bucle
+                pugi::xml_node parentNode = animationNode;
+
                 for (pugi::xml_node frameNode = animationNode.child(name.c_str()); frameNode; frameNode = frameNode.next_sibling(name.c_str()))
                 {
                     PushBack({
@@ -89,6 +92,11 @@ public:
                         frameNode.attribute("h").as_int()
                         });
                 }
+
+                // Eliminar el nodo después de cargar las animaciones
+                // Utilizar el nodo padre para eliminar el nodo después del bucle
+                parentNode.remove_child(name.c_str());
+
             }
         }
     }
@@ -125,14 +133,13 @@ public:
     int loops;
     SDL_Rect frames[MAX_FRAMES];
 
+    void Update(float dt){}
+
 private:
 
     float current_frame;
     int last_frame = 0;
 
-    // En lugar de sf::Texture, podr�as usar un puntero a textura u otro enfoque seg�n tus necesidades
-    // Ejemplo: sf::Texture* texturePtr;
-    // Tambi�n podr�as usar una matriz de texturas o un enfoque que se adapte a tus necesidades.
 };
 
 #endif 

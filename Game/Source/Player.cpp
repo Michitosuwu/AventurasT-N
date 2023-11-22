@@ -38,8 +38,9 @@ bool Player::Start() {
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
-	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
-	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
+
+	pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
+	//pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -164,6 +165,7 @@ bool Player::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
 			velocity.y = -jumpSpeed;
 			isJumping = true;
+			currentAnimation = &jumpRightAnimation;
 		}
 
 		else {
@@ -184,11 +186,20 @@ bool Player::Update(float dt)
 		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 
+		// Actualizar la animación actual
+		currentAnimation->Update(dt);
+
 		// Actualizar la animación actual según la entrada del usuario o el estado del jugador
 		SDL_Rect currentFrame = currentAnimation->GetCurrentFrame(dt);
 
 		// Renderizar la textura con el rectángulo de la animación actual
 		app->render->DrawTexture(texture, position.x, position.y, &currentFrame);
+
+		// Verificar si la animación actual ha terminado
+		if (currentAnimation->Finished()) {
+			currentAnimation->Reset();
+			currentAnimation = &idleAnimation; // Cambiar a la animación de reposo después de completar otra animación
+		}
 	}
 
 	//app->render->DrawTexture(texture, position.x, position.y);
