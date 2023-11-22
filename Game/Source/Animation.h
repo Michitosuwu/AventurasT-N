@@ -5,7 +5,7 @@
 
 #include "SDL/include/SDL.h"
 #include "SDL/include/SDL_rect.h"
-#include "Source/SString.h"
+#include "SString.h"
 //#include <string>
 //#include <vector>
 
