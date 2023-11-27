@@ -95,12 +95,20 @@ public:
 
                 for (pugi::xml_node frameNode = animationNode.child(name.c_str()); frameNode; frameNode = frameNode.next_sibling(name.c_str()))
                 {
-                    PushBack({
+                    /*PushBack({
                         frameNode.attribute("x").as_int(),
                         frameNode.attribute("y").as_int(),
                         frameNode.attribute("w").as_int(),
                         frameNode.attribute("h").as_int()
-                        });
+                        });*/
+                    int x = frameNode.attribute("x").as_int();
+                    int y = frameNode.attribute("y").as_int();
+                    int w = frameNode.attribute("w").as_int();
+                    int h = frameNode.attribute("h").as_int();
+
+                    LOG("Loaded frame - x: %d, y: %d, w: %d, h: %d", x, y, w, h);
+
+                    PushBack({ x, y, w, h });
                 }
 
                 // Eliminar el nodo después de cargar las animaciones
