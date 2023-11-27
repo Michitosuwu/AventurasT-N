@@ -34,19 +34,36 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
+	LOG("Player Start");
+
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
+	if (texture == nullptr) {
+		LOG("Failed to load player texture.");
+		return false;
+	}
+	else {
+		LOG("Player texture loaded successfully.");
+	}
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
 
-	pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
-	//pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
+	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
 
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
+	// Log para verificar la creación del cuerpo de física
+	if (pbody == nullptr) {
+		LOG("Failed to create player physics body.");
+		return false;
+	}
+	else {
+		LOG("Player physics body created successfully.");
+	}
 
 	//initialize audio effect
 	pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string());
@@ -56,17 +73,24 @@ bool Player::Start() {
 	godModeSpeed = 4.0f;
 
 	//cargamos animaciones del fichero xml
+	LOG("Loading animations");
 	idleAnimation.LoadAnimations("idle");
 	moveRightAnimation.LoadAnimations("moveRight");
 	moveLeftAnimation.LoadAnimations("moveLeft");
 	jumpRightAnimation.LoadAnimations("jumpRight");
 	jumpLeftAnimation.LoadAnimations("jumpLeft");
+	LOG("Animations loaded successfully.");
+
+	/*if (texture == nullptr) {
+		LOG("Failed to load player texture.");
+	}*/
 
 	return true;
 }
 
 bool Player::Update(float dt)
 {
+	//LOG("Player Update");
 
 	if (app->render->camera.x - position.x + 200 <= -24 && app->render->camera.x - position.x + 200 >= -10000) {
 		app->render->camera.x = -position.x + 200;
@@ -155,10 +179,12 @@ bool Player::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			velocity.x = -speed;
 			currentAnimation = &moveLeftAnimation;
+			LOG("Moving left");
 		}
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			velocity.x = speed;
 			currentAnimation = &moveRightAnimation;
+			LOG("Moving right");
 		}
 
 		// Controlar el salto con la tecla espacio
@@ -202,6 +228,7 @@ bool Player::Update(float dt)
 		}
 	}
 
+	//LOG("Player Position: (%d, %d)", position.x, position.y);
 	//app->render->DrawTexture(texture, position.x, position.y);
 
 	return true;

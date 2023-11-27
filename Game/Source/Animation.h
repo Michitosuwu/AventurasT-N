@@ -10,6 +10,7 @@
 //#include <vector>
 
 #include "PugiXml/src/pugixml.hpp"
+#include "Log.h"
 
 
 
@@ -63,10 +64,15 @@ public:
                 PushBack({ animation.attribute("x").as_int(), animation.attribute("y").as_int(), animation.attribute("w").as_int(), animation.attribute("h").as_int() });
             }
         }*/
+        
+        LOG("Loading animations from XML file");
+
         pugi::xml_parse_result result = configFile.load_file("config.xml");
 
         if (result != NULL)
         {
+            LOG("XML file loaded successfully.");
+
             pugi::xml_node animationsNode = configFile.child("scene").child("animation");
 
             // Buscar la animación específica por nombre
@@ -74,6 +80,9 @@ public:
 
             if (animationNode)
             {
+
+                LOG("Animation '%s' found.", name.c_str());
+
                 loop = animationNode.attribute("loop").as_bool();
                 speed = animationNode.attribute("speed").as_float();
 
@@ -97,7 +106,16 @@ public:
                 // Utilizar el nodo padre para eliminar el nodo después del bucle
                 parentNode.remove_child(name.c_str());
 
+                LOG("Animations loaded successfully.");
+
             }
+
+            else {
+                LOG("Animation '%s' not found.", name.c_str());
+            }
+        }
+        else {
+            LOG("Failed to load XML file.");
         }
     }
 
