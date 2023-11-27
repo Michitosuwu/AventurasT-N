@@ -73,7 +73,8 @@ public:
         {
             LOG("XML file loaded successfully.");
 
-            pugi::xml_node animationsNode = configFile.child("scene").child("animation");
+            pugi::xml_node animationsNode = configFile.child("config").child("scene").child("animation");
+            //pugi::xml_node animationsNode = configFile.child("scene").child("animation");
 
             // Buscar la animación específica por nombre
             pugi::xml_node animationNode = animationsNode.child(name.c_str());
