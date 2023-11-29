@@ -216,10 +216,11 @@ bool Player::Update(float dt)
 		currentAnimation->Update(dt);
 
 		// Actualizar la animación actual según la entrada del usuario o el estado del jugador
-		SDL_Rect currentFrame = currentAnimation->GetCurrentFrame(dt);
+		SDL_Rect currentAnimFrame = currentAnimation->GetCurrentFrame(dt);
 
 		// Renderizar la textura con el rectángulo de la animación actual
-		app->render->DrawTexture(texture, position.x, position.y, &currentFrame);
+		//app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
+		app->render->DrawTexture(texture, position.x, position.y);
 
 		// Verificar si la animación actual ha terminado
 		if (currentAnimation->Finished()) {

@@ -6,6 +6,7 @@
 #include "PerfTimer.h"
 #include "Timer.h"
 #include "EntityManager.h"
+#include "Animation.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -22,6 +23,7 @@ class EntityManager;
 class Map;
 //L07 DONE 2: Add Physics module
 class Physics;
+//class Animation;
 
 class App
 {

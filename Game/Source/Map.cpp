@@ -90,7 +90,7 @@ bool Map::Update(float dt)
     mapLayer = mapData.layers.start;
 
     // L06: DONE 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
-
+    
     // iterates the layers in the map
     while (mapLayer != NULL) {
         // Check if the property Draw exists and has a value of "false"

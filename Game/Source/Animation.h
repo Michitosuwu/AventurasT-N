@@ -93,7 +93,7 @@ public:
                 // Almacenar el nodo padre antes del bucle
                 pugi::xml_node parentNode = animationNode;
 
-                for (pugi::xml_node frameNode = animationNode.child(name.c_str()); frameNode; frameNode = frameNode.next_sibling(name.c_str()))
+                for (pugi::xml_node frameNode = animationNode; frameNode; frameNode = frameNode.next_sibling(name.c_str()))
                 {
                     /*PushBack({
                         frameNode.attribute("x").as_int(),
