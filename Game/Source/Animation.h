@@ -50,21 +50,7 @@ public:
     pugi::xml_document configFile;
 
     void LoadAnimations(std::string name)
-    {
-        /*pugi::xml_parse_result result = configFile.load_file("config.xml");
-
-        if (result != NULL)
-        {
-            pugi::xml_node animation_name = configFile.child("scene").child("animations").child(name.GetString());
-            loop = animation_name.attribute("loop").as_bool();
-            speed = animation_name.attribute("speed").as_float();
-
-            for (pugi::xml_node animation = animation_name.child("animation"); animation; animation = animation.next_sibling("animation"))
-            {
-                PushBack({ animation.attribute("x").as_int(), animation.attribute("y").as_int(), animation.attribute("w").as_int(), animation.attribute("h").as_int() });
-            }
-        }*/
-        
+    {       
         LOG("Loading animations from XML file");
 
         pugi::xml_parse_result result = configFile.load_file("config.xml");
@@ -95,12 +81,6 @@ public:
 
                 for (pugi::xml_node frameNode = animationNode; frameNode; frameNode = frameNode.next_sibling(name.c_str()))
                 {
-                    /*PushBack({
-                        frameNode.attribute("x").as_int(),
-                        frameNode.attribute("y").as_int(),
-                        frameNode.attribute("w").as_int(),
-                        frameNode.attribute("h").as_int()
-                        });*/
                     int x = frameNode.attribute("x").as_int();
                     int y = frameNode.attribute("y").as_int();
                     int w = frameNode.attribute("w").as_int();

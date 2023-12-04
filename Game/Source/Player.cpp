@@ -130,17 +130,16 @@ bool Player::Update(float dt)
 	if (godMode)
 	{
 		// En God Mode, el jugador puede moverse libremente sin gravedad
-		// Agregar aquí la lógica para el movimiento libre del jugador
 		// Obtener la velocidad actual del cuerpo del jugador
 		b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			// Mover hacia la izquierda
-			velocity.x = -godModeSpeed; // Ajusta la velocidad según tu necesidad
+			velocity.x = -godModeSpeed; // Ajusta la velocidad
 		}
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			// Mover hacia la derecha
-			velocity.x = godModeSpeed; // Ajusta la velocidad según tu necesidad
+			velocity.x = godModeSpeed; // Ajusta la velocidad
 		}
 		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
 			// Mover hacia arriba
@@ -192,6 +191,7 @@ bool Player::Update(float dt)
 			velocity.y = -jumpSpeed;
 			isJumping = true;
 			currentAnimation = &jumpRightAnimation;
+			LOG("Jumping");
 		}
 
 		else {
@@ -209,7 +209,7 @@ bool Player::Update(float dt)
 
 		// Obtener la posición del cuerpo
 		b2Transform pbodyPos = pbody->body->GetTransform();
-		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
+		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2; //MAL!! Revisar això perquè em fot el putu gat a cuenca normal q no el veiem
 		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 
 		// Actualizar la animación actual
@@ -220,7 +220,8 @@ bool Player::Update(float dt)
 
 		// Renderizar la textura con el rectángulo de la animación actual
 		//app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
-		app->render->DrawTexture(texture, position.x, position.y);
+		app->render->DrawTexture(texture, 0, 0, &currentAnimFrame); //app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame); TORNAR A COLOCAR UNA VEGADA VAGI BE POSICIO
+		//IMPLEMENTAR UPDATE A ANIMATION
 
 		// Verificar si la animación actual ha terminado
 		if (currentAnimation->Finished()) {
