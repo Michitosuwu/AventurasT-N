@@ -104,6 +104,9 @@ bool Scene::Update(float dt)
 
 	// Renders the image in the center of the screen 
 	//app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
+	
+	//això posar-ho o no?
+	//player->Update(dt);
 
 	return true;
 }

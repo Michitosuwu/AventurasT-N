@@ -139,12 +139,12 @@ public:
     float speed;
     int loops;
     SDL_Rect frames[MAX_FRAMES];
-    /*bool pingpong = false;
-    int pingpongDirection = 1;*/
+    bool pingpong = false;
+    int pingpongDirection = 1;
 
     void Update(float dt){
         //implementar, aixo ho he mirat del shock troop i mirar si ho puc fer servir
-        /*current_frame += speed;
+        current_frame += speed;
         if (current_frame >= last_frame)
         {
             current_frame = (loop || pingpong) ? 0.0f : last_frame - 1;
@@ -152,7 +152,7 @@ public:
 
             if (pingpong)
                 pingpongDirection = -pingpongDirection;
-        }*/
+        }
     }
 
 private:
