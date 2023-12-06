@@ -139,12 +139,12 @@ public:
     float speed;
     int loops;
     SDL_Rect frames[MAX_FRAMES];
-    bool pingpong = false;
-    int pingpongDirection = 1;
+   /* bool pingpong = false;
+    int pingpongDirection = 1;*/
 
     void Update(float dt){
         //implementar, aixo ho he mirat del shock troop i mirar si ho puc fer servir
-        current_frame += speed;
+       /* current_frame += speed;
         if (current_frame >= last_frame)
         {
             current_frame = (loop || pingpong) ? 0.0f : last_frame - 1;
@@ -152,6 +152,30 @@ public:
 
             if (pingpong)
                 pingpongDirection = -pingpongDirection;
+        }*/
+        if (!loop && isLastFrame())
+        {
+            // Si no está en bucle y está en el último frame, no hacer nada más
+            return;
+        }
+
+        current_frame += speed * dt;
+
+        if (current_frame >= last_frame)
+        {
+            // Si ha superado el último frame
+            if (loop)
+            {
+                // Si está en bucle, reiniciar la animación
+                current_frame = 0.0f;
+                loops++;
+            }
+            else
+            {
+                // Si no está en bucle, mantenerse en el último frame
+                current_frame = static_cast<float>(last_frame - 1);
+                loops++;
+            }
         }
     }
 

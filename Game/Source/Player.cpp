@@ -209,9 +209,13 @@ bool Player::Update(float dt)
 
 		// Obtener la posición del cuerpo
 		b2Transform pbodyPos = pbody->body->GetTransform();
-		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2; //MAL!! Revisar això perquè em fot el putu gat a cuenca normal q no el veiem
-		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
+		position.x = METERS_TO_PIXELS(pbodyPos.p.x);
+		position.y = METERS_TO_PIXELS(pbodyPos.p.y);
 
+		//Això ho deixo aquí comentat perquè era lo que em fallava
+		//position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2; //MAL!! Revisar això perquè em fot el putu gat a cuenca normal q no el veiem
+		//position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
+		
 		// Actualizar la animación actual
 		currentAnimation->Update(dt);
 
@@ -220,7 +224,11 @@ bool Player::Update(float dt)
 
 		// Renderizar la textura con el rectángulo de la animación actual
 		//app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
-		app->render->DrawTexture(texture, 0, 0, &currentAnimFrame); //app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame); TORNAR A COLOCAR UNA VEGADA VAGI BE POSICIO
+		app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame); //app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame); TORNAR A COLOCAR UNA VEGADA VAGI BE POSICIO
+		LOG("Player Position (world): (%.2f, %.2f)", pbodyPos.p.x, pbodyPos.p.y);
+		LOG("Player Position (pixels): (%d, %d)", position.x, position.y);
+		//aquí hi ha l'error
+
 		//IMPLEMENTAR UPDATE A ANIMATION
 
 		// Verificar si la animación actual ha terminado
