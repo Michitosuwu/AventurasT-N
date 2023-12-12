@@ -251,4 +251,3 @@ void Player::SetPosition(int x, int y)
 	//b2Vec2 newPosition((x), (y));  // Convertir de píxeles a metros si es necesario??
 	//pbody->body->SetTransform(newPosition, pbody->body->GetAngle());
 }
-
