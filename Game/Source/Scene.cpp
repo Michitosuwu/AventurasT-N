@@ -40,8 +40,9 @@ bool Scene::Awake(pugi::xml_node config)
 	// Check https://pugixml.org/docs/quickstart.html#access
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
-		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		item->parameters = itemNode;
+		// Poner la monedita
+		//Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		//item->parameters = itemNode;
 	}
 
 	return ret;
