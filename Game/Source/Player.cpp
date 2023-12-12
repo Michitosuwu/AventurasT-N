@@ -165,6 +165,7 @@ bool Player::Update(float dt)
 
 		// Obtener la velocidad actual del cuerpo del jugador
 		b2Vec2 velocity = pbody->body->GetLinearVelocity();
+		LOG("Player Velocity: (%.2f, %.2f)", velocity.x, velocity.y);
 
 		// Aplicar la gravedad
 		if (isJumping)
