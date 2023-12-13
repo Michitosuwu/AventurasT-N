@@ -251,3 +251,21 @@ void Player::SetPosition(int x, int y)
 	//b2Vec2 newPosition((x), (y));  // Convertir de píxeles a metros si es necesario??
 	//pbody->body->SetTransform(newPosition, pbody->body->GetAngle());
 }
+
+bool Player::LoadState(pugi::xml_node node) {
+
+	int loadPositionX = node.child("player").attribute("x").as_int();
+	int loadPositionY = node.child("player").attribute("y").as_int();
+
+	SetPosition(loadPositionX, loadPositionY);
+	return true;
+}
+
+bool Player::SaveState(pugi::xml_node node) {
+
+	pugi::xml_node playerNode = node.append_child("player");
+	playerNode.append_attribute("x").set_value(position.x);
+	playerNode.append_attribute("y").set_value(position.y);
+
+	return true;
+}

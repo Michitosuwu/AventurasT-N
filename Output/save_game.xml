@@ -7,8 +7,10 @@
 	<:anonymous />
 	<scene />
 	<:anonymous />
-	<entitymanager />
+	<entitymanager>
+		<player x="-257" y="-250" />
+	</entitymanager>
 	<renderer>
-		<camera x="382" y="192" />
+		<camera x="-257" y="-250" />
 	</renderer>
 </game_state>
