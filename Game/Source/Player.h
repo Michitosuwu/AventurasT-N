@@ -49,6 +49,12 @@ public:
 	//setear posicion
 	void SetPosition(int x, int y);
 
+	// Return position X
+	int GetPositionX();
+
+	// Return position Y
+	int GetPositionY();
+
 	//god mode
 	bool godMode = false;
 

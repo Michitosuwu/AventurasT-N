@@ -35,17 +35,20 @@ public:
 
 private:
 	float textPosX, textPosY = 0;
-	uint texW, texH;
+	bool cameraDebug = false;
 	uint windowW, windowH;
-
-	SDL_Texture* img;
-	SDL_Texture* img2;
-	SDL_Texture* img3;
-	SDL_Texture* img4;
 
 	//L03: DONE 3b: Declare a Player attribute
 	Player* player;
 
+public:
+
+	// Background attributes
+	SString path;
+	SDL_Texture* backgroundTexture = NULL;
+	uint backgroundPosX, backgroundPosY = 0;
+	float backgroundX, backgroundY = 0;
+	uint BTexW, BTexH = 0;
 };
 
 #endif // __SCENE_H__

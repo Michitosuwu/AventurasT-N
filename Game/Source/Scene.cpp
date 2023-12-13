@@ -38,12 +38,14 @@ bool Scene::Awake(pugi::xml_node config)
 
 	// iterate all items in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
-	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-	{
-		// Poner la monedita
-		//Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
-		//item->parameters = itemNode;
-	}
+
+
+	// Loading and saving background attributes
+	backgroundPosX = config.child("background").attribute("x").as_uint();
+	backgroundPosY = config.child("background").attribute("y").as_uint();
+	BTexH = config.child("background").attribute("height").as_uint();
+	BTexW = config.child("background").attribute("width").as_uint();
+	path = config.child("background").attribute("texturePath").as_string();
 
 	return ret;
 }
@@ -52,24 +54,20 @@ bool Scene::Awake(pugi::xml_node config)
 bool Scene::Start()
 {
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
-	//img = app->tex->Load("Assets/Textures/test.png");
+	backgroundTexture = app->tex->Load(path.GetString());
 	
 	//Music is commented so that you can add your own music
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
-	img = app->tex->Load("Assets/Textures/parallax-demon-woods-bg.png");
-	img2 = app->tex->Load("Assets/Textures/parallax-demon-woods-far-trees.png");
-	img3 = app->tex->Load("Assets/Textures/parallax-demon-woods-mid-trees.png");
-	img4 = app->tex->Load("Assets/Textures/parallax-demon-woods-close-trees.png");
-
 	//Get the size of the window
 	app->win->GetWindowSize(windowW, windowH);
 
-	//Get the size of the texture
-	app->tex->GetSize(img, texW, texH);
+	////Get the size of the texture
+	//app->tex->GetSize(img, texW, texH);
+	app->tex->GetSize(backgroundTexture, BTexW, BTexH);
 
-	textPosX = (float)windowW / 2 - (float)texW / 2;
-	textPosY = (float)windowH / 2 - (float)texH / 2;
+	backgroundX = (float)windowW / 2 - (float)BTexW / 2;
+	backgroundY = (float)windowH / 2 - (float)BTexH / 2;
 
 	return true;
 }
@@ -86,25 +84,61 @@ bool Scene::Update(float dt)
 	//L02 DONE 3: Make the camera movement independent of framerate
 	float camSpeed = 1; 
 
-	if(app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	if (app->render->camera.x - player->GetPositionX() + 200 <= -24 && app->render->camera.x - player->GetPositionX() + 200 >= -10000 && !cameraDebug) 
+	{
+		app->render->camera.x = -player->GetPositionX() + 200;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	{
 		app->render->camera.y -= (int)ceil(camSpeed * dt);
+		cameraDebug = true;
+	}	
+	else if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_UP)
+	{
+		// Restablecer la posicion de la camara
+		cameraDebug = false;
+	}
 
-	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+	{
 		app->render->camera.y += (int)ceil(camSpeed * dt);
+		cameraDebug = true;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_UP)
+	{
+		// Restablecer la posicion de la camara
+		cameraDebug = false;
+	}	
 
-	if(app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x -= (int)ceil(camSpeed * dt);
-
-	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+	{
 		app->render->camera.x += (int)ceil(camSpeed * dt);
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_UP)
+	{
+		// Restablecer la posicion de la camara
+		cameraDebug = false;
+	}	
 
-	app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
-	app->render->DrawTexture(img2, (int)textPosX, (int)textPosY);
-	app->render->DrawTexture(img3, (int)textPosX, (int)textPosY);
-	app->render->DrawTexture(img4, (int)textPosX, (int)textPosY);
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+	{
+		app->render->camera.x -= (int)ceil(camSpeed * dt);
+		cameraDebug = true;
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_UP)
+	{
+		// Restablecer la posicion de la camara
+		cameraDebug = false;
+	}
 
-	// Renders the image in the center of the screen 
-	//app->render->DrawTexture(img, (int)textPosX, (int)textPosY);
+	int cameraX = -app->render->camera.x;  // Negativo para seguir la dirección opuesta de la cámara
+	int cameraY = -app->render->camera.y;
+
+	int adjustedX = backgroundX + cameraX;
+	int adjustedY = backgroundY + cameraY / 2;
+
+	app->render->DrawTexture(backgroundTexture, adjustedX, adjustedY);
 
 	return true;
 }

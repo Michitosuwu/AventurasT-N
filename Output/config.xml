@@ -21,11 +21,7 @@
   <scene>
     <player x="200" y="500" texturePath="Assets/Textures/Gato.png" coinfxpath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg"/>
     <map path="Assets/Maps/" name="CatMap.tmx"/>
-    <item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
-    <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
-    <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>
-    <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
-    <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/>
+	<background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
   </scene>
   
 </config>

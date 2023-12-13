@@ -58,12 +58,6 @@ bool Player::Start() {
 
 bool Player::Update(float dt)
 {
-
-	if (app->render->camera.x - position.x + 200 <= -24 && app->render->camera.x - position.x + 200 >= -10000) {
-		app->render->camera.x = -position.x + 200;
-
-	}
-
 	// Activate or deactivate debug mode
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 		debug = !debug;
@@ -252,3 +246,12 @@ void Player::SetPosition(int x, int y)
 	//pbody->body->SetTransform(newPosition, pbody->body->GetAngle());
 }
 
+int Player::GetPositionX()
+{
+	return position.x;
+}
+
+int Player::GetPositionY()
+{
+	return position.y;
+}
