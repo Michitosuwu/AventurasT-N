@@ -41,46 +41,6 @@ bool Map::Start() {
 
 bool Map::Update(float dt)
 {
-    //bool ret = true;
-
-    //if (mapLoaded == false)
-    //    return false;
-
-    //ListItem<MapLayer*>* mapLayer;
-    //mapLayer = mapData.layers.start;
-
-    //// Iterates the layers in the map
-    //while (mapLayer != NULL) {
-    //    // Check if the "Draw" property exists and has a value of false
-    //    if (mapLayer->data->properties.GetProperty("Draw") != nullptr &&
-    //        mapLayer->data->properties.GetProperty("Draw")->value == false) {
-    //        // Skip drawing this layer
-    //        mapLayer = mapLayer->next;
-    //        continue;
-    //    }
-
-    //    for (int i = 0; i < mapData.width; i++) {
-    //        for (int j = 0; j < mapData.height; j++) {
-    //            int gid = mapLayer->data->Get(i, j);
-
-    //            // L08: DONE 3: Obtain the tile set using GetTilesetFromTileId
-    //            // Get the Rect from the tileSetTexture;
-    //            TileSet* tileSet = GetTilesetFromTileId(gid);
-    //            SDL_Rect tileRect = tileSet->GetRect(gid);
-
-    //            // Get the screen coordinates from the tile coordinates
-    //            iPoint mapCoord = MapToWorld(i, j);
-
-    //            // L06: DONE 9: Complete the draw function
-    //            app->render->DrawTexture(tileSet->texture, mapCoord.x, mapCoord.y, &tileRect);
-    //        }
-    //    }
-
-    //    // Move to the next layer
-    //    mapLayer = mapLayer->next;
-    //}
-
-    //return ret;
     bool ret = true;
 
     if (mapLoaded == false)
@@ -136,7 +96,32 @@ void Map::CreateColliderForTile(int tileX, int tileY)
     int worldY = tileY * tileHeight;
 
     // Crear un colisionador estático (ajusta esto según tu motor de física)
-    PhysBody* collider = app->physics->CreateRectangle(worldX, worldY, tileWidth, tileHeight / 2, STATIC);
+    PhysBody* collider = app->physics->CreateRectangle(worldX + (tileWidth / 2), worldY + (tileHeight / 2), tileWidth, tileHeight, STATIC);
+
+    // Asignar un tipo de colisionador (ajusta esto según tus necesidades)
+    collider->ctype = ColliderType::PLATFORM;
+
+    // Otras configuraciones específicas de tu motor de física, si es necesario
+    // collider->SetDensity(...);
+    // collider->SetFriction(...);
+    // collider->SetRestitution(...);
+    // ...
+
+    // Agregar el colisionador al sistema de física o almacenarlo en una lista, según tu implementación
+    // app->physics->AddCollider(collider);
+    // ...
+}
+
+void Map::CreatePlatformForTile(int tileX, int tileY)
+{
+    // Obtener las dimensiones del tile y la posición en el mundo
+    int tileWidth = mapData.tilewidth;
+    int tileHeight = mapData.tileheight;
+    int worldX = tileX * tileWidth;
+    int worldY = tileY * tileHeight;
+
+    // Crear un colisionador estático (ajusta esto según tu motor de física)
+    PhysBody* collider = app->physics->CreateRectangle(worldX + (tileWidth / 2), worldY + (tileHeight / 4), tileWidth, tileHeight / 2, STATIC);
 
     // Asignar un tipo de colisionador (ajusta esto según tus necesidades)
     collider->ctype = ColliderType::PLATFORM;
@@ -302,7 +287,14 @@ for (ListItem<MapLayer*>* mapLayer = mapData.layers.start; mapLayer != NULL; map
                 // Check if the tile should have a collider (GID is not 0)
                 if (gid != 0) {
                     // Create colliders for tiles with "Draw" set to false
-                    CreateColliderForTile(i, j);
+                    if (!mapLayer->data->properties.GetProperty("Platform")->value)
+                    {
+                        CreateColliderForTile(i, j);
+                    }
+                    else
+                    {
+                        CreatePlatformForTile(i, j);
+                    }
                 }
             }
         }
