@@ -14,7 +14,7 @@
 #define METERS_TO_PIXELS_RATIO 100.0f
 
 
-Player::Player() : Entity(EntityType::PLAYER), currentAnimation(&idleAnimation)
+Player::Player() : Entity(EntityType::PLAYER), currentAnimation(&idleAnimation), speed(5.0f), isJumping(false), jumpSpeed(5.0f), maxJumpSpeed(8.0f), texture(nullptr), pickCoinFxId(0), pbody(nullptr), godMode(false), godModeSpeed(4.0f), debug(false)
 {
 	name.Create("Player");
 
@@ -165,6 +165,7 @@ bool Player::Update(float dt)
 
 		// Obtener la velocidad actual del cuerpo del jugador
 		b2Vec2 velocity = pbody->body->GetLinearVelocity();
+		//b2Vec2 velocity = b2Vec2(0,0);
 		LOG("Player Velocity: (%.2f, %.2f)", velocity.x, velocity.y);
 
 		// Aplicar la gravedad
@@ -210,8 +211,8 @@ bool Player::Update(float dt)
 
 		// Obtener la posición del cuerpo
 		b2Transform pbodyPos = pbody->body->GetTransform();
-		position.x = METERS_TO_PIXELS(pbodyPos.p.x);
-		position.y = METERS_TO_PIXELS(pbodyPos.p.y);
+		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH/2;
+		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH/2;
 
 		//Això ho deixo aquí comentat perquè era lo que em fallava
 		//position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2; //MAL!! Revisar això perquè em fot el putu gat a cuenca normal q no el veiem
