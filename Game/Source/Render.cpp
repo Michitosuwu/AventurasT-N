@@ -46,10 +46,10 @@ bool Render::Awake(pugi::xml_node config)
 	}
 	else
 	{
-		camera.w = app->win->screenSurface->w / 2;
-		camera.h = app->win->screenSurface->h / 2;
+		camera.w = app->win->screenSurface->w;
+		camera.h = app->win->screenSurface->h;
 		camera.x = 0;
-		camera.y = -100;
+		camera.y = -250;
 
 		SDL_RenderSetScale(renderer, 1.5, 1.5);
 	}

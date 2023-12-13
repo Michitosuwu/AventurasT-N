@@ -132,6 +132,7 @@ public:
     bool LoadProperties(pugi::xml_node& node, Properties& properties);
     bool GetTileProperty(int gid, const char* propertyName);
     void CreateColliderForTile(int tileX, int tileY);
+    void CreatePlatformForTile(int tileX, int tileY);
 
 public: 
     SString name;

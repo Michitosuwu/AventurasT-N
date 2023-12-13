@@ -226,36 +226,11 @@ bool Physics::PostUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
 		debug = !debug;
 
-	////Start from first level F1
-	//if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
-	//	
-	//	//if (entityManager.TeleportPlayerToConfig())
-	//	//{
-	//	//	// El jugador fue teletransportado con éxito
-	//	//	LOG("Player teleported successfully.");
-	//	//}
-	//	//else
-	//	//{
-	//	//	// Ocurrió un error al teletransportar al jugador
-	//	//	LOG("Error teleporting player.");
-	//	//}
-	//}
-
-	////Tp to the beginning of the current level F3
-	//if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-	//	//s'ha de fer igual que el de dalt ja q nomes tenim 1 nivell
-	//}
-
 	//Visualize the colliders/logic F9
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
 
 	}
 
-	////GodMode F10
-	//if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN) {
-	//	//TODO ver como llamar al godmode desde entitymanager
-	//	//godMode = !godMode;
-	//}
 
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
