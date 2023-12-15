@@ -165,9 +165,7 @@ bool EntityManager::LoadState(pugi::xml_node node) {
 			player->SetHp(node.child("player").attribute("hp").as_int());
 			player->SetGodMode(node.child("player").attribute("godMode").as_bool());
 			player->SetIsJumping(node.child("player").attribute("isJumping").as_bool());
-			int newPlayerX = node.child("player").attribute("x").as_int();
-			int newPlayerY = node.child("player").attribute("y").as_int();
-			player->SetPosition(newPlayerX, newPlayerY);
+			player->Teleport(node.child("player").attribute("x").as_int(), node.child("player").attribute("y").as_int());
 		}
 	}
 	return true;
@@ -191,12 +189,12 @@ bool EntityManager::SaveState(pugi::xml_node node) {
 			playerIsJumping = player->GetIsJumping();
 
 		}
-	pugi::xml_node playerNode = node.append_child("player");
-	playerNode.append_attribute("x").set_value(playerX);
-	playerNode.append_attribute("y").set_value(playerY);
-	playerNode.append_attribute("hp").set_value(playherHp);
-	playerNode.append_attribute("godMode").set_value(playerGodMode);
-	playerNode.append_attribute("isJumping").set_value(playerIsJumping);
-
+		pugi::xml_node playerNode = node.append_child("player");
+		playerNode.append_attribute("x").set_value(playerX);
+		playerNode.append_attribute("y").set_value(playerY);
+		playerNode.append_attribute("hp").set_value(playherHp);
+		playerNode.append_attribute("godMode").set_value(playerGodMode);
+		playerNode.append_attribute("isJumping").set_value(playerIsJumping);
+	}
 	return true;
 }

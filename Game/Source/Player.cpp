@@ -71,21 +71,12 @@ bool Player::Update(float dt)
 	//Start from first level F1
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
 
-		if (TeleportTo())
-		{
-			// El jugador fue teletransportado con éxito
-			LOG("Player teleported successfully.");
-		}
-		else
-		{
-			// Ocurrió un error al teletransportar al jugador
-			LOG("Error teleporting player.");
-		}
+		Teleport(config.attribute("x").as_int(), config.attribute("y").as_int());
 	}
 	
 	//Tp to the beginning of the current level F3
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		TeleportTo();
+		Teleport(config.attribute("x").as_int(), config.attribute("y").as_int());
 	}
 	
 	//GodMode F10
@@ -199,57 +190,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-bool Player::TeleportTo() {
-
-	//// Cargar el archivo XML
-	//pugi::xml_document doc;
-	//if (!doc.load_file(configFile))
-	//{
-	//	// Manejar errores al cargar el archivo
-	//	return false;
-	//}
-
-	//// Buscar el nodo del jugador
-	//pugi::xml_node playerNode = doc.child("config").child("scene").child("player");
-	//if (!playerNode)
-	//{
-	//	// El nodo del jugador no se encontró en el archivo
-	//	return false;
-	//}
-
-	//parameters.attribute("x").as_int();
-	// Obtener las coordenadas de teletransporte desde el nodo del jugador
-	int teleportX = config.attribute("x").as_int();
-	int teleportY = config.attribute("y").as_int();
-
-	// Teletransportar al jugador a las coordenadas especificadas
-	SetPosition(teleportX, teleportY);
-
-	return true;
-}
-
-void Player::SetPosition(int x, int y)
+void Player::Teleport(int x, int y)
 {
-
-	// Convertir las coordenadas en píxeles a metros (considerando METERS_TO_PIXELS)
-	float metersX = PIXELS_TO_METERS(x);
-	float metersY = PIXELS_TO_METERS(y);
-
-	// Actualizar la posición del cuerpo del jugador en el mundo de física
-	b2Vec2 newPosition(metersX, metersY);
-	pbody->body->SetTransform(newPosition, pbody->body->GetAngle());
-
+	pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y)), 0);
+	pbody->body->SetLinearVelocity(b2Vec2(0, 0));
 	// Actualizar la variable position con las coordenadas en píxeles
 	position.x = x;
 	position.y = y;
 
-	//position.x = x;
-	//position.y = y;
-
-	//// Actualizar la posición del cuerpo del jugador en el mundo de física
-	////TODO cambiar esto ya que tp nose a donde
-	//b2Vec2 newPosition((x), (y));  // Convertir de píxeles a metros si es necesario??
-	//pbody->body->SetTransform(newPosition, pbody->body->GetAngle());
 }
 int Player::GetHp() const
 {

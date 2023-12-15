@@ -57,11 +57,8 @@ public:
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 
-	//funcion de teleport para el debug
-	bool TeleportTo();
-
-	//setear posicion
-	void SetPosition(int x, int y);
+	//teleport
+	void Teleport(int x, int y);
 
 	//god mode
 	bool godMode = false;
