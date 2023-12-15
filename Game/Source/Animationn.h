@@ -17,22 +17,25 @@
 class Animation {
 
 public:
-
-    Animation::Animation() : current_frame(0.0f), last_frame(0), loop(false), speed(0.0f), loops(0) {}
-
-    Animation(const Animation& anim) : loop(anim.loop), speed(anim.speed), last_frame(anim.last_frame)
-    {
-        SDL_memcpy(&frames, anim.frames, sizeof(frames));
-    }
+    
+    SDL_Rect frames[MAX_FRAMES];
+    float speed = 1.0f;
+    bool loop = true;
+    bool pingpong = false;
 
     void PushBack(const SDL_Rect& rect)
     {
-        frames[last_frame++] = rect;
+        frames[totalFrames++] = rect;
     }
 
-    SDL_Rect& GetCurrentFrame(float dt)
+    const SDL_Rect& GetCurrentFrame(float dt) const
     {
-        if (this)
+        int actualFrame = currentFrame;
+        if (pingpongDirection == -1)
+            actualFrame = totalFrames - currentFrame;
+
+        return frames[actualFrame];
+        /*if (this)
         {
             current_frame += speed * dt;
             if (current_frame >= last_frame)
@@ -41,7 +44,7 @@ public:
                 loops++;
             }
             return frames[(int)current_frame];
-        }
+        } */
     }
 
     pugi::xml_document configFile;
@@ -71,7 +74,7 @@ public:
                 speed = animationNode.attribute("speed").as_float();
 
                 // Limpiar las frames antes de cargar nuevas
-                last_frame = 0;
+                totalFrames = 0;
 
                 // Almacenar el nodo padre antes del bucle
                 pugi::xml_node parentNode = animationNode;
@@ -106,11 +109,11 @@ public:
     }
 
     float Getframe_pos() {
-        return current_frame;
+        return currentFrame;
     }
 
     bool isLastFrame() {
-        return (int)current_frame >= last_frame - 1;
+        return (int)currentFrame >= totalFrames - 1;
     }
 
     bool equal(Animation* anim) {
@@ -119,67 +122,63 @@ public:
 
     bool Finished()
     {
-        if (loops > 0) {
-            return true;
-        }
-        else
-            return false;
+        return !loop && !pingpong && loopCount > 0;
     }
 
     void Reset()
     {
-        current_frame = 0;
-        loops = 0;
+        currentFrame = 0;
+        loopCount = 0;
     }
 
-    bool loop;
-    float speed;
-    int loops;
-    SDL_Rect frames[MAX_FRAMES];
+    
+    
     /* bool pingpong = false;
      int pingpongDirection = 1;*/
 
     void Update(float dt) {
-        //implementar, aixo ho he mirat del shock troop i mirar si ho puc fer servir
-       /* current_frame += speed;
-        if (current_frame >= last_frame)
+        //if (!loop && isLastFrame())
+        //{
+        //    // Si no está en bucle y está en el último frame, no hacer nada más
+        //    return;
+        //}
+
+        //current_frame += speed * dt;
+
+        //if (current_frame >= last_frame)
+        //{
+        //    // Si ha superado el último frame
+        //    if (loop)
+        //    {
+        //        // Si está en bucle, reiniciar la animación
+        //        current_frame = 0.0f;
+        //        loops++;
+        //    }
+        //    else
+        //    {
+        //        // Si no está en bucle, mantenerse en el último frame
+        //        current_frame = static_cast<float>(last_frame - 1);
+        //        loops++;
+        //    }
+        //}
+        currentFrame += speed;
+        if (currentFrame >= totalFrames)
         {
-            current_frame = (loop || pingpong) ? 0.0f : last_frame - 1;
-            ++loops;
+            currentFrame = (loop || pingpong) ? 0.0f : totalFrames - 1;
+            ++loopCount;
 
             if (pingpong)
                 pingpongDirection = -pingpongDirection;
-        }*/
-        if (!loop && isLastFrame())
-        {
-            // Si no está en bucle y está en el último frame, no hacer nada más
-            return;
-        }
-
-        current_frame += speed * dt;
-
-        if (current_frame >= last_frame)
-        {
-            // Si ha superado el último frame
-            if (loop)
-            {
-                // Si está en bucle, reiniciar la animación
-                current_frame = 0.0f;
-                loops++;
-            }
-            else
-            {
-                // Si no está en bucle, mantenerse en el último frame
-                current_frame = static_cast<float>(last_frame - 1);
-                loops++;
-            }
         }
     }
 
 private:
 
-    float current_frame;
-    int last_frame = 0;
+    float currentFrame = 0.0f;
+    //int last_frame = 0;
+    int totalFrames = 0;
+    int loopCount = 0;
+    int pingpongDirection = 1;
 
 };
 
