@@ -28,6 +28,8 @@ bool EnemyWolf::Awake() {
 
 bool EnemyWolf::Start() {
 
+	pbody = app->physics->CreateRectangle(position.x, position.y, 50, 50, bodyType::DYNAMIC);
+
 	//texture = app->tex->Load(config.attribute("texturePath").as_string());
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
@@ -35,10 +37,10 @@ bool EnemyWolf::Start() {
 	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
-	//pbody->listener = this;
+	pbody->listener = this;
 
 	// L07 DONE 7: Assign collider type
-	//pbody->ctype = ColliderType::ENEMY;
+	pbody->ctype = ColliderType::ENEMY;
 
 	return true;
 }
@@ -62,9 +64,6 @@ void EnemyWolf::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLAYER:
 		LOG("Collision PLAYER");
 		// TODO : IMPLEMENTAR COLISION CON player
-		break;
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
