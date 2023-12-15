@@ -33,13 +33,15 @@ public:
 
 	void AddEntity(Entity* entity);
 
+	bool LoadState(pugi::xml_node node);
+	bool SaveState(pugi::xml_node node);
+
 public:
 
 	List<Entity*> entities;
 
 	//para el teleport del debug
 	//bool TeleportPlayerToConfig();
-
 };
 
 #endif // __ENTITYMANAGER_H__

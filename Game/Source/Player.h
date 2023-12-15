@@ -26,10 +26,25 @@ public:
 	// L07 DONE 6: Define OnCollision function for the player. 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	//create getters and setters
+	int GetHp() const;
+	bool GetIsJumping() const;
+	bool GetGodMode() const;
+	int GetPositionX() const;
+	int GetPositionY() const;
+	
+	void SetHp(int hp);
+	void SetIsJumping(bool isJumping);
+	void SetGodMode(bool godMode);
+	void SetPositionX(int x);
+	void SetPositionY(int y);
+
 public:
 
 	//L02: DONE 2: Declare player parameters
+	int hp = 100;
 	float speed = 5.0f;
+	bool canJump = false;
 	bool isJumping = false;
 	float jumpSpeed = 5.0f;
 	float maxJumpSpeed = 8.0f;
@@ -43,11 +58,8 @@ public:
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 
-	//funcion de teleport para el debug
-	bool TeleportTo();
-
-	//setear posicion
-	void SetPosition(int x, int y);
+	//teleport
+	void Teleport(int x, int y);
 
 	// Return position X
 	int GetPositionX();
