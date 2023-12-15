@@ -56,6 +56,8 @@ bool Scene::Awake(pugi::xml_node config)
 	BTexW = config.child("background").attribute("width").as_uint();
 	path = config.child("background").attribute("texturePath").as_string();
 
+	app->audio->PlayMusic(config.child("mainmusic").attribute("path").as_string());
+
 	return ret;
 }
 

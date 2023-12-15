@@ -46,7 +46,7 @@ bool Player::Start() {
 	pbody->ctype = ColliderType::PLAYER;
 
 	//initialize audio effect
-	pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string());
+	jumpFxId = app->audio->LoadFx(config.attribute("jumpfxpath").as_string());
 
 	//godmode
 	godMode = false;
@@ -141,6 +141,7 @@ bool Player::Update(float dt)
 				velocity.y = -jumpSpeed;
 				canJump= false;
 				isJumping = true;
+				app->audio->PlayFx(jumpFxId);
 			}
 			LOG("JUMP");
 		}
@@ -179,9 +180,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");
 		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
-		break;
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
