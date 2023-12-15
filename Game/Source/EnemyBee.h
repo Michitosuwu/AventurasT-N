@@ -24,7 +24,11 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-	//void StateMachine();
+	void StateMachine();
+
+	void Attack();
+
+	void Shoot();
 
 public:
 	

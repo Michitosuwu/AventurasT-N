@@ -79,8 +79,14 @@ void EnemyBee::OnCollision(PhysBody* physA, PhysBody* physB) {
 	}
 }
 
-//void EnemyBee::StateMachine() {
-//	switch () {
-//
-//	}
-//}
+void EnemyBee::StateMachine() {
+	
+}
+
+void EnemyBee::Attack() {
+	Shoot();
+}
+
+void EnemyBee::Shoot() {
+
+}
