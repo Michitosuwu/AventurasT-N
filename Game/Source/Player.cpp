@@ -251,21 +251,43 @@ void Player::SetPosition(int x, int y)
 	//b2Vec2 newPosition((x), (y));  // Convertir de píxeles a metros si es necesario??
 	//pbody->body->SetTransform(newPosition, pbody->body->GetAngle());
 }
-
-bool Player::LoadState(pugi::xml_node node) {
-
-	int loadPositionX = node.child("player").attribute("x").as_int();
-	int loadPositionY = node.child("player").attribute("y").as_int();
-
-	SetPosition(loadPositionX, loadPositionY);
-	return true;
+int Player::GetHp() const
+{
+	return hp;
 }
-
-bool Player::SaveState(pugi::xml_node node) {
-
-	pugi::xml_node playerNode = node.append_child("player");
-	playerNode.append_attribute("x").set_value(position.x);
-	playerNode.append_attribute("y").set_value(position.y);
-
-	return true;
+bool Player::GetIsJumping() const
+{
+	return isJumping;
+}
+bool Player::GetGodMode() const
+{
+	return godMode;
+}
+int Player::GetPositionX() const
+{
+	return position.x;
+}
+int Player::GetPositionY() const
+{
+	return position.y;
+}
+void Player::SetHp(int hp)
+{
+	this->hp = hp;
+}
+void Player::SetIsJumping(bool isJumping)
+{
+	this->isJumping = isJumping;
+}
+void Player::SetGodMode(bool godMode)
+{
+	this->godMode = godMode;
+}
+void Player::SetPositionX(int x)
+{
+	position.x = x;
+}
+void Player::SetPositionY(int y)
+{
+	position.y = y;
 }

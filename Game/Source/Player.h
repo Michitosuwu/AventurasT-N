@@ -26,12 +26,23 @@ public:
 	// L07 DONE 6: Define OnCollision function for the player. 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-	bool LoadState(pugi::xml_node node);
-	bool SaveState(pugi::xml_node node);
+	//create getters and setters
+	int GetHp() const;
+	bool GetIsJumping() const;
+	bool GetGodMode() const;
+	int GetPositionX() const;
+	int GetPositionY() const;
+	
+	void SetHp(int hp);
+	void SetIsJumping(bool isJumping);
+	void SetGodMode(bool godMode);
+	void SetPositionX(int x);
+	void SetPositionY(int y);
 
 public:
 
 	//L02: DONE 2: Declare player parameters
+	int hp = 100;
 	float speed = 5.0f;
 	bool isJumping = false;
 	float jumpSpeed = 5.0f;
