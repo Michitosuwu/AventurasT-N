@@ -222,21 +222,10 @@ PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType typ
 bool Physics::PostUpdate()
 {
 	bool ret = true;
-	// Activate or deactivate debug mode
-	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
-		debug = !debug;
-
-	//Visualize the colliders/logic F9
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) {
-
-	}
-
-
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
 		debug = !debug;  // Cambia el valor de debug a su opuesto
 	}
-
 
 	//F11 capar FPS en esta entrega no
 	
