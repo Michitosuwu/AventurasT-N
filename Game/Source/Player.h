@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "Animationn.h"
 
 struct SDL_Texture;
 
@@ -56,6 +57,15 @@ public:
 
 	// Debug mode
 	bool debug;
+
+	//Declaramos animaciones
+	Animation idleAnimation;
+	Animation moveRightAnimation;
+	Animation moveLeftAnimation;
+	Animation jumpRightAnimation;
+	Animation jumpLeftAnimation;
+
+	Animation* currentAnimation;
 };
 
 #endif // __PLAYER_H__
