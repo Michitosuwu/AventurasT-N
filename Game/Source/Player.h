@@ -39,6 +39,9 @@ public:
 	void SetPositionX(int x);
 	void SetPositionY(int y);
 
+	// Teleport
+	void Teleport(int x, int y);
+
 public:
 
 	//L02: DONE 2: Declare player parameters
@@ -57,15 +60,6 @@ public:
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
-
-	//teleport
-	void Teleport(int x, int y);
-
-	// Return position X
-	int GetPositionX();
-
-	// Return position Y
-	int GetPositionY();
 
 	//god mode
 	bool godMode = false;
