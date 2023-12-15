@@ -142,11 +142,15 @@ bool Player::Update(float dt)
 		}
 
 		// Controlar el salto con la tecla espacio
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && !isJumping) {
-			velocity.y = -jumpSpeed;
-			isJumping = true;
+		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && canJump && !isJumping) {
+			if (canJump)
+			{
+				velocity.y = -jumpSpeed;
+				canJump= false;
+				isJumping = true;
+			}
+			LOG("JUMP");
 		}
-
 		// Limitar la velocidad vertical máxima para evitar un salto brusco
 		if (velocity.y < -maxJumpSpeed) {
 			velocity.y = -maxJumpSpeed;
@@ -177,6 +181,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
+		canJump = true;
 		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");

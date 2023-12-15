@@ -44,6 +44,7 @@ public:
 	//L02: DONE 2: Declare player parameters
 	int hp = 100;
 	float speed = 5.0f;
+	bool canJump = false;
 	bool isJumping = false;
 	float jumpSpeed = 5.0f;
 	float maxJumpSpeed = 8.0f;
