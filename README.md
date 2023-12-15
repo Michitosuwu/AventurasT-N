@@ -1,12 +1,13 @@
 # Kitty Adventure
 
-Project made by @Apb8 & @MartaGnarta
+Project made by @Apb8, @MartaGnarta & @nsortsauquillo
 
 ## Key Features
 
  - Run
  - Jump
  - Explore the map as a kitten
+ - Fight enemies
  
 ## Controls
 
@@ -14,6 +15,8 @@ Project made by @Apb8 & @MartaGnarta
  - F1 Teleport start level
  - F2 Teleport second level
  - F3 Start from the beginning
+ - F5 Save the current game state
+ - F6 Load the previous state
  - F9 Visualize the colliders
  - F10 God Mode
  - F11 Enble / Disble FPS
@@ -22,6 +25,7 @@ Project made by @Apb8 & @MartaGnarta
 
  - Alexia Palacín - Programmer
  - Marta Jover - Programmer
+ - Nicolás Sort - Programmer
 
 ## License
 
