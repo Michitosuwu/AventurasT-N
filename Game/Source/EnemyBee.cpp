@@ -45,7 +45,8 @@ bool EnemyBee::Start() {
 
 bool EnemyBee::Update(float dt) {
 
-	//Logica de movimiento Pathfinding
+	//Logica de movimiento Pathfinding con modulos de pathfinding
+	//Implementacion maquina de estados
 
 	app->render->DrawTexture(texture, position.x, position.y);
 
@@ -77,3 +78,9 @@ void EnemyBee::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	}
 }
+
+//void EnemyBee::StateMachine() {
+//	switch () {
+//
+//	}
+//}

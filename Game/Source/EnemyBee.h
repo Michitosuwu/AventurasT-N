@@ -24,6 +24,8 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
+	//void StateMachine();
+
 public:
 	
 	//Declaare enemy parameters
