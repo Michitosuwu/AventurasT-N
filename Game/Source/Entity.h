@@ -9,8 +9,20 @@
 enum class EntityType
 {
 	PLAYER,
+	ENEMYWOLF,
+	ENEMYMOSQUITO, // PROVISIONAL
 	ITEM,
 	UNKNOWN
+};
+
+enum class EntityState
+{
+	IDLE,
+	WALK,
+	JUMP,
+	ATTACK,
+	DEATH,
+	NONE
 };
 
 class PhysBody;

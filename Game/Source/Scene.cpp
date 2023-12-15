@@ -26,20 +26,29 @@ bool Scene::Awake(pugi::xml_node config)
 	LOG("Loading Scene");
 	bool ret = true;
 
-	//L03: DONE 3b: Instantiate the player using the entity manager
-	//L04 DONE 7: Get player paremeters
-	player = (Player*) app->entityManager->CreateEntity(EntityType::PLAYER);
-	//Assigns the XML node to a member in player
-	player->config = config.child("player");
+	// iterate all items in the scene
 
+	// MAP
 	//Get the map name from the config file and assigns the value in the module
 	app->map->name = config.child("map").attribute("name").as_string();
 	app->map->path = config.child("map").attribute("path").as_string();
 
-	// iterate all items in the scene
-	// Check https://pugixml.org/docs/quickstart.html#access
+	// PLAYER
+	// Instantiate the player using the entity manager
+	// Get player paremeters
+	// Assigns the XML node to a member in player
+	player = (Player*) app->entityManager->CreateEntity(EntityType::PLAYER);	
+	player->config = config.child("player");
 
+	//ENEMIES
+	// Wolf enemy 
+	wolf = (EnemyWolf*)app->entityManager->CreateEntity(EntityType::ENEMYWOLF);
+	wolf->config = config.child("enemies").child("enemywolf");
 
+	// Mosquito enemy
+	// TODO : Instanciar enemigo mosquito
+
+	//BACKGROUND
 	// Loading and saving background attributes
 	backgroundPosX = config.child("background").attribute("x").as_uint();
 	backgroundPosY = config.child("background").attribute("y").as_uint();
@@ -132,7 +141,7 @@ bool Scene::Update(float dt)
 		cameraDebug = false;
 	}
 
-	int cameraX = -app->render->camera.x;  // Negativo para seguir la dirección opuesta de la cámara
+	int cameraX = -app->render->camera.x;
 	int cameraY = -app->render->camera.y;
 
 	int adjustedX = backgroundX + cameraX;

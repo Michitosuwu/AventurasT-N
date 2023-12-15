@@ -12,7 +12,6 @@
 #define PIXELS_TO_METERS(pixels) (pixels / METERS_TO_PIXELS_RATIO)
 #define METERS_TO_PIXELS_RATIO 100.0f
 
-
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
@@ -181,9 +180,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::PLATFORM:
 		LOG("Collision PLATFORM");
 		break;
+	case ColliderType::ENEMY:
+		LOG("Collision ENEMY");
+		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
+		break;
 	case ColliderType::ITEM:
 		LOG("Collision ITEM");
-		app->audio->PlayFx(pickCoinFxId);
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

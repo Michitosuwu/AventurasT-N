@@ -19,9 +19,13 @@
   </window>
 
   <scene>
-    <player x="200" y="500" texturePath="Assets/Textures/Gato.png" coinfxpath="Assets/Audio/Fx/retro-video-game-coin-pickup-38299.ogg"/>
-    <map path="Assets/Maps/" name="CatMap.tmx"/>
-	<background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
+	  <map path="Assets/Maps/" name="CatMap.tmx"/>
+	  <player x="200" y="500" texturePath="Assets/Textures/Gato.png"/>
+	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
+	  <enemies>
+		  <enemywolf x="300" y="400" texturePath=""/>
+		  <!-- Add flying enemy -->
+	  </enemies>
   </scene>
   
 </config>
