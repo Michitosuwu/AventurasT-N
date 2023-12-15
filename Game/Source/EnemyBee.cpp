@@ -28,22 +28,26 @@ bool EnemyBee::Awake() {
 
 bool EnemyBee::Start() {
 
-	//texture = app->tex->Load(config.attribute("texturePath").as_string());
+	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	//app->tex->GetSize(texture, texW, texH);
-	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
+	app->tex->GetSize(texture, texW, texH);
+	pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
-	//pbody->listener = this;
+	pbody->listener = this;
 
 	// L07 DONE 7: Assign collider type
-	//pbody->ctype = ColliderType::ENEMY;
+	pbody->ctype = ColliderType::ENEMY;
 
 	return true;
 }
 
 bool EnemyBee::Update(float dt) {
+
+	//Logica de movimiento Pathfinding
+
+	app->render->DrawTexture(texture, position.x, position.y);
 
 	return true;
 }

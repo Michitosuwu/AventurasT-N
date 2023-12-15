@@ -23,6 +23,7 @@
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\EnemyWolf.cpp" />
+    <ClCompile Include="Source\EnemyBee.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -69,6 +70,7 @@
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\EnemyWolf.h" />
+    <ClInclude Include="Source\EnemyBee.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
