@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "DynArray.h"
 
 EnemyWolf::EnemyWolf() : Entity(EntityType::ENEMYWOLF)
 {
@@ -47,6 +48,33 @@ bool EnemyWolf::Start() {
 
 bool EnemyWolf::Update(float dt)
 {
+
+	/*if (app->map.pathfinding->GetLastPath()->Count() > 0)
+		{
+			const DynArray<iPoint>* path = app->map.pathfinding->GetLastPath();
+			iPoint playerPos = iPoint(app->scene->player->position.x, app->scene->player->position.y);
+			iPoint nextPos = iPoint(path->At(0)->x, path->At(0)->y);
+			iPoint enemyPos = iPoint(position.x, position.y);
+
+			if (nextPos.x > enemyPos.x)
+			{
+				position.x += 1;
+			}
+			else if (nextPos.x < enemyPos.x)
+			{
+				position.x -= 1;
+			}
+
+			if (nextPos.y > enemyPos.y)
+			{
+				position.y += 1;
+			}
+			else if (nextPos.y < enemyPos.y)
+			{
+				position.y -= 1;
+			}
+		}*/
+
 	return true;
 }
 

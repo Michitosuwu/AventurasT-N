@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "List.h"
 #include "Point.h"
+#include "DynArray.h"
+#include "Pathfinding.h"
 
 #include "PugiXml\src\pugixml.hpp"
 
@@ -137,11 +139,14 @@ public:
 public: 
     SString name;
     SString path;
+    PathFinding* pathfinding;
 
 private:
     // L05: DONE 1: Declare a variable data of the struct MapData
     MapData mapData;
     bool mapLoaded;
+    MapLayer* navigationLayer;
+    int blockedGid = 1224;
 };
 
 
