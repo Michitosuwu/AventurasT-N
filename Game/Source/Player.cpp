@@ -46,7 +46,10 @@ bool Player::Start() {
 	}
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	app->tex->GetSize(texture, texW, texH);
+	//app->tex->GetSize(texture, texW, texH);
+	 
+	texW = 32;
+	texH = 32;
 	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
 	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 

@@ -19,7 +19,7 @@ class Animation {
 public:
     
     SDL_Rect frames[MAX_FRAMES];
-    float speed = 1.0f;
+    float speed = 0.05f;
     bool loop = true;
     bool pingpong = false;
 
@@ -70,8 +70,8 @@ public:
 
                 LOG("Animation '%s' found.", name.c_str());
 
-                loop = animationNode.attribute("loop").as_bool();
-                speed = animationNode.attribute("speed").as_float();
+                /*loop = animationNode.attribute("loop").as_bool();
+                speed = animationNode.attribute("speed").as_float();*/
 
                 // Limpiar las frames antes de cargar nuevas
                 totalFrames = 0;
