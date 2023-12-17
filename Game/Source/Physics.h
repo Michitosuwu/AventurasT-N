@@ -77,12 +77,13 @@ public:
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
+
+	// Box2D World
+	b2World* world;
+
 private:
 
 	// Debug mode
 	bool debug = false;
 	bool debugPressed = false;
-
-	// Box2D World
-	b2World* world;
 };

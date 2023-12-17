@@ -1,4 +1,4 @@
-#include "EnemyWolf.h"
+﻿#include "EnemyWolf.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -9,6 +9,8 @@
 #include "Point.h"
 #include "Physics.h"
 #include "DynArray.h"
+#include "Map.h"
+#include "EntityManager.h"
 
 EnemyWolf::EnemyWolf() : Entity(EntityType::ENEMYWOLF)
 {
@@ -49,32 +51,51 @@ bool EnemyWolf::Start() {
 bool EnemyWolf::Update(float dt)
 {
 
-	/*if (app->map.pathfinding->GetLastPath()->Count() > 0)
+	b2Vec2 velocity = pbody->body->GetLinearVelocity();
+
+	origin = app->map->WorldToMap(position.x, position.y);
+	destiny = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+
+	//int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
+
+	app->map->pathfinding->CreatePath(origin, destiny);
+	lastPath = *app->map->pathfinding->GetLastPath();
+
+	if (lastPath.Count() > 0)
+	{
+		iPoint* nextPath;
+		nextPath = lastPath.At(lastPath.Count() - 1);
+
+		if (nextPath->x < origin.x)
 		{
-			const DynArray<iPoint>* path = app->map.pathfinding->GetLastPath();
-			iPoint playerPos = iPoint(app->scene->player->position.x, app->scene->player->position.y);
-			iPoint nextPos = iPoint(path->At(0)->x, path->At(0)->y);
-			iPoint enemyPos = iPoint(position.x, position.y);
+			velocity.x = -speed;
+		}
+		else if (nextPath->x > origin.x)
+		{
+			velocity.x = +speed;
+		}
+		if (nextPath->x == origin.x) {
+			lastPath.Pop(*nextPath);
+		}
+	}
 
-			if (nextPos.x > enemyPos.x)
-			{
-				position.x += 1;
-			}
-			else if (nextPos.x < enemyPos.x)
-			{
-				position.x -= 1;
-			}
+	if (!alive)
+	{
+		pbody->body->SetActive(false);
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
+	}
 
-			if (nextPos.y > enemyPos.y)
-			{
-				position.y += 1;
-			}
-			else if (nextPos.y < enemyPos.y)
-			{
-				position.y -= 1;
-			}
-		}*/
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
 
+	pbody->body->SetLinearVelocity(velocity);
+
+	// Obtener la posici�n del cuerpo
+	b2Transform pbodyPos = pbody->body->GetTransform();
+
+	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
+	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 	return true;
 }
 

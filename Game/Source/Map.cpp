@@ -350,6 +350,25 @@ iPoint Map::MapToWorld(int x, int y) const
     return ret;
 }
 
+iPoint Map::WorldToMap(int x, int y) {
+
+    iPoint ret(0, 0);
+
+    if (mapData.orientation == MapOrientation::ORTOGRAPHIC) {
+        ret.x = x / mapData.tilewidth;
+        ret.y = y / mapData.tileheight;
+    }
+
+    if (mapData.orientation == MapOrientation::ISOMETRIC) {
+        float half_width = mapData.tilewidth / 2;
+        float half_height = mapData.tileheight / 2;
+        ret.x = int((x / half_width + y / half_height) / 2);
+        ret.y = int((y / half_height - (x / half_width)) / 2);
+    }
+
+    return ret;
+}
+
 // L08: DONE 6: Load a group of properties from a node and fill a list with it
 bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
