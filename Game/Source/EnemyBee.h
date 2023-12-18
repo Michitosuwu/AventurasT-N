@@ -45,11 +45,11 @@ public:
 	pugi::xml_node config;
 	uint texW, texH;
 
-	iPoint origin, destiny;
+	/*iPoint origin, destiny;
 
 	DynArray<iPoint> lastPath;
 
-	bool alive = true;
+	bool alive = true;*/
 
 private:
 	//Por si de cara a futuro lo necesitamos

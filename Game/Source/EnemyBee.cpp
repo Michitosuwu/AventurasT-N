@@ -50,41 +50,41 @@ bool EnemyBee::Update(float dt) {
 
 	//Logica de movimiento Pathfinding con modulos de pathfinding
 	//Implementacion maquina de estados
-	origin = app->map->WorldToMap(position.x, position.y);
-	destiny = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+	//origin = app->map->WorldToMap(position.x, position.y);
+	//destiny = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 
-	int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
+	//int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
 
-	if (distance < 5)
-	{
-		app->map->pathfinding->CreatePath(origin, destiny);
-		lastPath = *app->map->pathfinding->GetLastPath();
+	//if (distance < 5)
+	//{
+	//	app->map->pathfinding->CreatePath(origin, destiny);
+	//	lastPath = *app->map->pathfinding->GetLastPath();
 
-		if (lastPath.Count() > 0)
-		{
-			iPoint* nextPath;
-			nextPath = lastPath.At(lastPath.Count() - 1);
+	//	if (lastPath.Count() > 0)
+	//	{
+	//		iPoint* nextPath;
+	//		nextPath = lastPath.At(lastPath.Count() - 1);
 
-			if (nextPath->x < origin.x)
-			{
-				velocity.x = -speed;
-			}
-			else if (nextPath->x > origin.x)
-			{
-				velocity.x = +speed;
-			}
-			if (nextPath->x == origin.x) {
-				lastPath.Pop(*nextPath);
-			}
-		}
-	}
+	//		if (nextPath->x < origin.x)
+	//		{
+	//			velocity.x = -speed;
+	//		}
+	//		else if (nextPath->x > origin.x)
+	//		{
+	//			velocity.x = +speed;
+	//		}
+	//		if (nextPath->x == origin.x) {
+	//			lastPath.Pop(*nextPath);
+	//		}
+	//	}
+	//}
 
-	if (!alive)
-	{
-		pbody->body->SetActive(false);
-		app->entityManager->DestroyEntity(this);
-		app->physics->world->DestroyBody(pbody->body);
-	}
+	//if (!alive)
+	//{
+	//	pbody->body->SetActive(false);
+	//	app->entityManager->DestroyEntity(this);
+	//	app->physics->world->DestroyBody(pbody->body);
+	//}
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
