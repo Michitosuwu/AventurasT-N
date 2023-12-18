@@ -23,7 +23,7 @@
 	  <player x="200" y="500" texturePath="Assets/Textures/Gato.png"/>
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <enemies>
-		  <enemywolf x="300" y="400" texturePath=""/>
+		  <enemywolf x="350" y="400" texturePath=""/>
 		  <enemybee x="300" y="400" texturePath="Assets/Textures/bee.png"/>
 	  </enemies>
   </scene>
