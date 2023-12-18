@@ -56,7 +56,7 @@ bool EnemyWolf::Update(float dt)
 
 	int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
 
-	if (distance < 5)
+	if (distance < 8)
 	{
 		app->map->pathfinding->CreatePath(origin, destiny);
 		lastPath = *app->map->pathfinding->GetLastPath();
@@ -78,6 +78,10 @@ bool EnemyWolf::Update(float dt)
 				lastPath.Pop(*nextPath);
 			}
 		}
+	}
+	else
+	{
+		velocity.x = 0;
 	}
 
 	if (!alive)
@@ -116,7 +120,10 @@ void EnemyWolf::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLAYER:
 		LOG("Enemy Collision PLAYER");
-		// TODO : IMPLEMENTAR COLISION CON player
+		if (app->scene->player->GetPositionY() < this->position.y)
+		{
+			this->alive=false;
+		}
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Enemy Collision UNKNOWN");
