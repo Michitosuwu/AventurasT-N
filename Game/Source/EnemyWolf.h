@@ -56,8 +56,7 @@ public:
 	pugi::xml_node config;
 	uint texW, texH;
 
-	iPoint origin;
-	iPoint destiny;
+	iPoint origin, destiny;
 
 	DynArray<iPoint> lastPath;
 

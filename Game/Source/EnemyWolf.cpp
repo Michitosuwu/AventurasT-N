@@ -31,13 +31,12 @@ bool EnemyWolf::Awake() {
 
 bool EnemyWolf::Start() {
 
-	pbody = app->physics->CreateRectangle(position.x, position.y, 50, 50, bodyType::DYNAMIC);
-
-	//texture = app->tex->Load(config.attribute("texturePath").as_string());
+	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	//app->tex->GetSize(texture, texW, texH);
+	app->tex->GetSize(texture, texW, texH);
 	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
+	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
@@ -50,32 +49,34 @@ bool EnemyWolf::Start() {
 
 bool EnemyWolf::Update(float dt)
 {
-
 	b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
 	origin = app->map->WorldToMap(position.x, position.y);
 	destiny = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 
-	//int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
+	int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
 
-	app->map->pathfinding->CreatePath(origin, destiny);
-	lastPath = *app->map->pathfinding->GetLastPath();
-
-	if (lastPath.Count() > 0)
+	if (distance < 5)
 	{
-		iPoint* nextPath;
-		nextPath = lastPath.At(lastPath.Count() - 1);
+		app->map->pathfinding->CreatePath(origin, destiny);
+		lastPath = *app->map->pathfinding->GetLastPath();
 
-		if (nextPath->x < origin.x)
+		if (lastPath.Count() > 0)
 		{
-			velocity.x = -speed;
-		}
-		else if (nextPath->x > origin.x)
-		{
-			velocity.x = +speed;
-		}
-		if (nextPath->x == origin.x) {
-			lastPath.Pop(*nextPath);
+			iPoint* nextPath;
+			nextPath = lastPath.At(lastPath.Count() - 1);
+
+			if (nextPath->x < origin.x)
+			{
+				velocity.x = -speed;
+			}
+			else if (nextPath->x > origin.x)
+			{
+				velocity.x = +speed;
+			}
+			if (nextPath->x == origin.x) {
+				lastPath.Pop(*nextPath);
+			}
 		}
 	}
 
@@ -96,6 +97,9 @@ bool EnemyWolf::Update(float dt)
 
 	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
+
+	app->render->DrawTexture(texture, position.x, position.y);
+
 	return true;
 }
 
@@ -108,14 +112,14 @@ void EnemyWolf::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
+		LOG("Enemy Collision PLATFORM");
 		break;
 	case ColliderType::PLAYER:
-		LOG("Collision PLAYER");
+		LOG("Enemy Collision PLAYER");
 		// TODO : IMPLEMENTAR COLISION CON player
 		break;
 	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
+		LOG("Enemy Collision UNKNOWN");
 		break;
 	default:
 		break;

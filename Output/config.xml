@@ -20,10 +20,10 @@
 
   <scene>
 	  <map path="Assets/Maps/" name="CatMap.tmx"/>
-	  <player x="200" y="500" texturePath="Assets/Textures/Gato.png"/>
+	  <player x="200" y="700" texturePath="Assets/Textures/Gato.png"/>
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <enemies>
-		  <enemywolf x="300" y="400" texturePath=""/>
+		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png"/>
 		  <!-- Add flying enemy -->
 	  </enemies>
   </scene>

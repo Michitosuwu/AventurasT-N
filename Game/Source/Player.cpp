@@ -45,9 +45,6 @@ bool Player::Start() {
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
 
-	//initialize audio effect
-	pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string());
-
 	//godmode
 	godMode = false;
 	godModeSpeed = 4.0f;
