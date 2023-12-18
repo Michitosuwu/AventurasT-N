@@ -42,7 +42,7 @@ bool EnemyWolf::Start() {
 	pbody->listener = this;
 
 	// L07 DONE 7: Assign collider type
-	pbody->ctype = ColliderType::ENEMY;
+	pbody->ctype = ColliderType::WALKINGENEMY;
 
 	return true;
 }

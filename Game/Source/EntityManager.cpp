@@ -90,6 +90,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::ENEMYWOLF:
 		entity = new EnemyWolf();
 		break;
+	case EntityType::ENEMYBEE:
+		entity = new EnemyBee();
+		break;
 	case EntityType::ITEM:
 		entity = new Item();
 		break;

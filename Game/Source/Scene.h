@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "EnemyWolf.h"
+#include "EnemyBee.h"
 
 struct SDL_Texture;
 
@@ -54,6 +55,7 @@ public:
 
 	// Declare wolf enemy
 	EnemyWolf* wolf;
+	EnemyBee* bee;
 };
 
 #endif // __SCENE_H__

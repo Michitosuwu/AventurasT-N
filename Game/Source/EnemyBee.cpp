@@ -8,7 +8,9 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "DynArray.h"
 #include "Map.h"
+#include "EntityManager.h"
 
 EnemyBee::EnemyBee() : Entity(EntityType::ENEMYBEE) {
 	
@@ -39,7 +41,7 @@ bool EnemyBee::Start() {
 	pbody->listener = this;
 
 	// L07 DONE 7: Assign collider type
-	pbody->ctype = ColliderType::ENEMY;
+	pbody->ctype = ColliderType::FLYINGGENEMY;
 
 	return true;
 }
@@ -48,43 +50,53 @@ bool EnemyBee::Update(float dt) {
 
 	b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
-	//Logica de movimiento Pathfinding con modulos de pathfinding
-	//Implementacion maquina de estados
-	//origin = app->map->WorldToMap(position.x, position.y);
-	//destiny = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+	origin = app->map->WorldToMap(this->position.x, this->position.y);
+	destiny = app->map->WorldToMap(app->scene->player->GetPositionX(), app->scene->player->GetPositionY()-150);
 
-	//int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
+	int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
 
-	//if (distance < 5)
-	//{
-	//	app->map->pathfinding->CreatePath(origin, destiny);
-	//	lastPath = *app->map->pathfinding->GetLastPath();
+	if (distance < 10)
+	{
+		app->map->pathfinding->CreatePath(origin, destiny);
+		lastPath = *app->map->pathfinding->GetLastPath();
 
-	//	if (lastPath.Count() > 0)
-	//	{
-	//		iPoint* nextPath;
-	//		nextPath = lastPath.At(lastPath.Count() - 1);
+		if (lastPath.Count() > 0)
+		{
+			iPoint* nextPath;
+			nextPath = lastPath.At(lastPath.Count() - 1);
 
-	//		if (nextPath->x < origin.x)
-	//		{
-	//			velocity.x = -speed;
-	//		}
-	//		else if (nextPath->x > origin.x)
-	//		{
-	//			velocity.x = +speed;
-	//		}
-	//		if (nextPath->x == origin.x) {
-	//			lastPath.Pop(*nextPath);
-	//		}
-	//	}
-	//}
+			if (nextPath->x < origin.x)
+			{
+				velocity.x = -speed;
+			}
+			else if (nextPath->x > origin.x)
+			{
+				velocity.x = +speed;
+			}
+			if (nextPath->y < origin.y)
+			{
+				velocity.y = -speed;
+			}
+			else if (nextPath->y > origin.y)
+			{
+				velocity.y = +speed;
+			}
+			if (nextPath->x == origin.x) {
+				lastPath.Pop(*nextPath);
+			}
+		}
+	}
+	else
+	{
+		velocity.x = 0;
+	}
 
-	//if (!alive)
-	//{
-	//	pbody->body->SetActive(false);
-	//	app->entityManager->DestroyEntity(this);
-	//	app->physics->world->DestroyBody(pbody->body);
-	//}
+	if (!alive)
+	{
+		pbody->body->SetActive(false);
+		app->entityManager->DestroyEntity(this);
+		app->physics->world->DestroyBody(pbody->body);
+	}
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
@@ -111,17 +123,17 @@ void EnemyBee::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLATFORM:
-		LOG("Collision PLATFORM");
+		LOG("Flying Enemy Collision PLATFORM");
 		break;
 	case ColliderType::PLAYER:
-		LOG("Collision PLAYER");
-		// TODO : IMPLEMENTAR COLISION CON player
-		break;
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
+		LOG("Flying Enemy Collision PLAYER");
+		if (app->scene->player->GetPositionY() < this->position.y)
+		{
+			this->alive = false;
+		}
 		break;
 	case ColliderType::UNKNOWN:
-		LOG("Collision UNKNOWN");
+		LOG("Flying Enemy Collision UNKNOWN");
 		break;
 	default:
 		break;
