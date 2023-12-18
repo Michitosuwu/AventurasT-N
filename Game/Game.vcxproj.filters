@@ -23,7 +23,7 @@
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Physics.cpp" />
     <ClCompile Include="Source\EnemyWolf.cpp" />
-    <ClCompile Include="Source\EnemyBee.cpp" />
+    <ClCompile Include="Source\Pathfinding.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -70,7 +70,7 @@
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\EnemyWolf.h" />
-    <ClInclude Include="Source\EnemyBee.h" />
+    <ClInclude Include="Source\Pathfinding.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

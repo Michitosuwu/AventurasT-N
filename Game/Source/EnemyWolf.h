@@ -3,6 +3,8 @@
 
 #include "Entity.h"
 #include "Point.h"
+#include "Physics.h"
+#include "DynArray.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture; 
@@ -31,7 +33,7 @@ class EnemyWolf : public Entity
 		////bool AddEnemy(Enemy_Type type, int x, int y);
 
 		////funcion de teleport para el debug
-		//bool TeleportTo();
+		bool TeleportTo();
 
 		////setear posicion
 		//void SetPosition(int x, int y);
@@ -48,11 +50,17 @@ public:
 	SDL_Texture* texture = NULL;
 
 	// Add physics to the enemy - declare a Physics body
-	float speed = 5.0f;
+	float speed = 3.0f;
 	PhysBody* pbody;
 	
 	pugi::xml_node config;
 	uint texW, texH;
+
+	iPoint origin, destiny;
+
+	DynArray<iPoint> lastPath;
+
+	bool alive = true;
 
 private:
 	// All spawned enemies in the scene
