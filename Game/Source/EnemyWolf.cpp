@@ -51,8 +51,8 @@ bool EnemyWolf::Update(float dt)
 {
 	b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
-	origin = app->map->WorldToMap(position.x, position.y);
-	destiny = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+	origin = app->map->WorldToMap(this->position.x, this->position.y);
+	destiny = app->map->WorldToMap(app->scene->player->GetPositionX(), app->scene->player->GetPositionY());
 
 	int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
 

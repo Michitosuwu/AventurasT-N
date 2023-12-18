@@ -146,6 +146,11 @@ public:
     void CreateColliderForTile(int tileX, int tileY);
     void CreatePlatformForTile(int tileX, int tileY);
 
+    void CreateNavigationMap(int& width, int& height, uchar** buffer) const;
+
+    int GetTileWidth();
+    int GetTileHeight();
+
 public: 
     SString name;
     SString path;
@@ -156,7 +161,7 @@ private:
     MapData mapData;
     bool mapLoaded;
     MapLayer* navigationLayer;
-    int blockedGid = 49;
+    int blockedGid = 1223;
 };
 
 
