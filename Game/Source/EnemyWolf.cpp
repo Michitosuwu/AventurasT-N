@@ -132,3 +132,36 @@ void EnemyWolf::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	}
 }
+void EnemyWolf::Teleport(int x, int y)
+{
+	pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y)), 0);
+	pbody->body->SetLinearVelocity(b2Vec2(0, 0));
+	// Actualizar la variable position con las coordenadas en p�xeles
+	position.x = x;
+	position.y = y;
+
+}
+int EnemyWolf::GetPositionX() const
+{
+	return position.x;
+}
+int EnemyWolf::GetPositionY() const
+{
+	return position.y;
+}
+bool EnemyWolf::GetAlive() const
+{
+	return alive;
+}
+void EnemyWolf::SetPositionX(int x)
+{
+	position.x = x;
+}
+void EnemyWolf::SetPositionY(int y)
+{
+	position.y = y;
+}
+void EnemyWolf::SetAlive(bool alive)
+{
+	this->alive = alive;
+}

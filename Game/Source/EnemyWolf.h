@@ -3,7 +3,6 @@
 
 #include "Entity.h"
 #include "Point.h"
-#include "Physics.h"
 #include "DynArray.h"
 #include "SDL/include/SDL.h"
 
@@ -33,16 +32,16 @@ class EnemyWolf : public Entity
 		////bool AddEnemy(Enemy_Type type, int x, int y);
 
 		////funcion de teleport para el debug
-		bool TeleportTo();
+		void Teleport(int x, int y);
 
-		////setear posicion
-		//void SetPosition(int x, int y);
+		//create getters and setters
+		int GetPositionX() const;
+		int GetPositionY() const;
+		bool GetAlive() const;
 
-		//// Return position X
-		//int GetPositionX();
-
-		//// Return position Y
-		//int GetPositionY();
+		void SetPositionX(int x);
+		void SetPositionY(int y);
+		void SetAlive(bool alive);
 
 public:
 

@@ -55,9 +55,6 @@ public:
 	pugi::xml_node config;
 	uint texW, texH;
 
-	//Audio fx
-	int pickCoinFxId;
-
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
 

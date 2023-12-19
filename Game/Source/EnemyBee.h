@@ -3,7 +3,6 @@
 
 #include "Entity.h"
 #include "Point.h"
-#include "Physics.h"
 #include "DynArray.h"
 #include "SDL/include/SDL.h"
 
@@ -32,8 +31,17 @@ public:
 
 	void Shoot();
 
-	//Tp para el debug
-	bool TeleportTo();
+	////funcion de teleport para el debug
+	void Teleport(int x, int y);
+
+	//create getters and setters
+	int GetPositionX() const;
+	int GetPositionY() const;
+	bool GetAlive() const;
+
+	void SetPositionX(int x);
+	void SetPositionY(int y);
+	void SetAlive(bool alive);
 
 public:
 	

@@ -151,3 +151,36 @@ void EnemyBee::Attack() {
 void EnemyBee::Shoot() {
 
 }
+void EnemyBee::Teleport(int x, int y)
+{
+	pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y)), 0);
+	pbody->body->SetLinearVelocity(b2Vec2(0, 0));
+	// Actualizar la variable position con las coordenadas en p�xeles
+	position.x = x;
+	position.y = y;
+
+}
+int EnemyBee::GetPositionX() const
+{
+	return position.x;
+}
+int EnemyBee::GetPositionY() const
+{
+	return position.y;
+}
+bool EnemyBee::GetAlive() const
+{
+	return alive;
+}
+void EnemyBee::SetPositionX(int x)
+{
+	position.x = x;
+}
+void EnemyBee::SetPositionY(int y)
+{
+	position.y = y;
+}
+void EnemyBee::SetAlive(bool alive)
+{
+	this->alive = alive;
+}
