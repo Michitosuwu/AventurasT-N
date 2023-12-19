@@ -22,6 +22,7 @@ enum class EntityState
 	JUMP,
 	ATTACK,
 	DEATH,
+	GODMODE,
 	NONE
 };
 

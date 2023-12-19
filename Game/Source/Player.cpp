@@ -15,7 +15,6 @@
 Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
-	
 }
 
 Player::~Player() {
@@ -46,13 +45,149 @@ bool Player::Start() {
 	pbody->ctype = ColliderType::PLAYER;
 
 	//initialize audio effect
-	pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string());
+	//pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string()); // Forma de cargar audios TODO Quitar este y poner los buenos.
 
 	//godmode
 	godMode = false;
 	godModeSpeed = 4.0f;
 
 	return true;
+}
+
+void Player::StateMachine(float dt)
+{
+	// Obtén la gravedad del mundo de Box2D a través del módulo de física
+	b2Vec2 gravity = app->physics->GetGravity();
+
+	// Obtener la velocidad actual del cuerpo del jugador
+	b2Vec2 velocity = pbody->body->GetLinearVelocity();
+
+	switch (currentState)
+	{
+		case EntityState::IDLE:
+
+			if (isMoving)
+			{
+				Move(velocity);
+				currentState = EntityState::WALK;
+				LOG("Current State: Walk");
+			}
+
+			if (isJumping)
+			{
+				Jump(gravity, velocity, dt);
+				currentState = EntityState::JUMP;
+				LOG("Current State: Jump");
+			}
+
+			if (isDeath)
+			{
+				currentState = EntityState::DEATH;
+				LOG("Current State: Death");
+			}
+
+			break;
+
+		case EntityState::WALK:
+
+			if (!isMoving)
+			{
+				currentState = EntityState::IDLE;
+				LOG("Current State: Idle");
+			}
+
+			if (isJumping)
+			{
+				Jump(gravity, velocity, dt);
+				currentState = EntityState::JUMP;
+				LOG("Current State: Jump");
+			}
+
+			if (isDeath)
+			{
+				currentState = EntityState::DEATH;
+				LOG("Current State: Death");
+			}
+
+			break;
+
+		case EntityState::JUMP:
+			
+			if (!isJumping)
+			{
+				Move(velocity);
+				currentState = EntityState::WALK;
+				LOG("Current State: Walk");
+			}
+
+			if (isDeath)
+			{
+				currentState = EntityState::DEATH;
+				LOG("Current State: Death");
+			}
+			
+			break;
+
+		case EntityState::DEATH:
+
+			// Pensar que hacer aqui
+			break;
+	}
+
+	// Actualizar la posición basada en la velocidad
+	pbody->body->SetLinearVelocity(velocity);
+
+	// Obtener la posición del cuerpo
+	b2Transform pbodyPos = pbody->body->GetTransform();
+	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
+	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
+}
+
+// Función de movimiento
+void Player::Move(b2Vec2 vel)
+{
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	{
+		vel.x = -speed;
+		SetIsMoving(true);
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
+	{
+		SetIsMoving(false);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	{
+		vel.x = speed;
+		SetIsMoving(true);
+	}
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+	{
+		SetIsMoving(false);
+	}
+}
+
+ //Función de salto
+b2Vec2 Player::Jump(b2Vec2 grav, b2Vec2 vel, float dt)
+{
+    // Aplicar la gravedad
+	vel.x += grav.x * dt;
+	vel.y += grav.y * dt;
+
+    // Controlar el salto con la tecla espacio
+    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && canJump && !isJumping) {
+        if (canJump)
+        {
+			vel.y = -jumpSpeed;
+            canJump = false;
+            isJumping = true;
+        }
+        LOG("JUMP");
+    }
+
+    // Limitar la velocidad vertical máxima para evitar un salto brusco
+    if (vel.y < -maxJumpSpeed) {
+		vel.y = -maxJumpSpeed;
+    }
 }
 
 bool Player::Update(float dt)
@@ -110,52 +245,9 @@ bool Player::Update(float dt)
 		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 	}
-	else {
-		// Aplicar la l�gica de movimiento normal con gravedad
-		// Definir la gravedad
-		b2Vec2 gravity(0, GRAVITY_Y);
-
-		// Obtener la velocidad actual del cuerpo del jugador
-		b2Vec2 velocity = pbody->body->GetLinearVelocity();
-
-		// Aplicar la gravedad
-		if (isJumping)
-		{
-			velocity.x += gravity.x * dt;
-			velocity.y += gravity.y * dt;
-			isJumping = false;
-		}
-
-		// Controlar el movimiento horizontal
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			velocity.x = -speed;
-		}
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			velocity.x = speed;
-		}
-
-		// Controlar el salto con la tecla espacio
-		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && canJump && !isJumping) {
-			if (canJump)
-			{
-				velocity.y = -jumpSpeed;
-				canJump= false;
-				isJumping = true;
-			}
-			LOG("JUMP");
-		}
-		// Limitar la velocidad vertical m�xima para evitar un salto brusco
-		if (velocity.y < -maxJumpSpeed) {
-			velocity.y = -maxJumpSpeed;
-		}
-
-		// Actualizar la posici�n basada en la velocidad
-		pbody->body->SetLinearVelocity(velocity);
-
-		// Obtener la posici�n del cuerpo
-		b2Transform pbodyPos = pbody->body->GetTransform();
-		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
-		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
+	else
+	{
+		StateMachine(dt);
 	}
 
 	app->render->DrawTexture(texture, position.x, position.y);
@@ -190,7 +282,14 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	}
 }
-
+bool Player::GetIsMoving() const
+{
+	return isMoving;
+}
+void Player::SetIsMoving(bool det)
+{
+	this->isMoving = det;
+}
 void Player::Teleport(int x, int y)
 {
 	pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y)), 0);

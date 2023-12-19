@@ -69,6 +69,7 @@
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\EnemyWolf.h" />
+    <ClInclude Include="Source\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
