@@ -55,52 +55,49 @@ bool EnemyBee::Update(float dt) {
 
 	int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
 
-	if (distance < 10)
-	{
-		app->map->pathfinding->CreatePath(origin, destiny);
-		lastPath = *app->map->pathfinding->GetLastPath();
-
-		if (lastPath.Count() > 0)
+	if (alive) {
+		if (distance < 10)
 		{
-			iPoint* nextPath;
-			nextPath = lastPath.At(lastPath.Count() - 1);
+			app->map->pathfinding->CreatePath(origin, destiny);
+			lastPath = *app->map->pathfinding->GetLastPath();
 
-			if (nextPath->x < origin.x)
+			if (lastPath.Count() > 0)
 			{
-				velocity.x = -speed;
-			}
-			else if (nextPath->x > origin.x)
-			{
-				velocity.x = +speed;
-			}
-			if (nextPath->y < origin.y)
-			{
-				velocity.y = -speed;
-			}
-			else if (nextPath->y > origin.y)
-			{
-				velocity.y = +speed;
-			}
-			if (nextPath->x == origin.x) {
-				lastPath.Pop(*nextPath);
+				iPoint* nextPath;
+				nextPath = lastPath.At(lastPath.Count() - 1);
+
+				if (nextPath->x < origin.x)
+				{
+					velocity.x = -speed;
+				}
+				else if (nextPath->x > origin.x)
+				{
+					velocity.x = +speed;
+				}
+				if (nextPath->y < origin.y)
+				{
+					velocity.y = -speed;
+				}
+				else if (nextPath->y > origin.y)
+				{
+					velocity.y = +speed;
+				}
+				if (nextPath->x == origin.x) {
+					lastPath.Pop(*nextPath);
+				}
 			}
 		}
+		else
+		{
+			velocity.x = 0;
+		}
 	}
-	else
-	{
-		velocity.x = 0;
-	}
+	
 
 	if (!alive)
 	{
-		pbody->body->SetActive(false);
-		app->entityManager->DestroyEntity(this);
-		app->physics->world->DestroyBody(pbody->body);
+		//meter animacion muerte
 	}
-
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x);
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y);
-
 	pbody->body->SetLinearVelocity(velocity);
 
 	// Obtener la posici�n del cuerpo
@@ -116,6 +113,9 @@ bool EnemyBee::Update(float dt) {
 
 bool EnemyBee::CleanUp()
 {
+	pbody->body->SetActive(false);
+	app->entityManager->DestroyEntity(this);
+	app->physics->world->DestroyBody(pbody->body);
 	return true;
 }
 
