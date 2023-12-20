@@ -11,8 +11,9 @@
 #include "DynArray.h"
 #include "Map.h"
 #include "EntityManager.h"
+#include "Animationn.h"
 
-EnemyWolf::EnemyWolf() : Entity(EntityType::ENEMYWOLF)
+EnemyWolf::EnemyWolf() : Entity(EntityType::ENEMYWOLF), currentAnim(&wolfIdle)
 {
 	name.Create("EnemyWolf");
 }
@@ -33,8 +34,10 @@ bool EnemyWolf::Start() {
 
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
+	texW = 60;
+	texH = 63;
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	app->tex->GetSize(texture, texW, texH);
+	//app->tex->GetSize(texture, texW, texH);
 	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
 	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
@@ -43,6 +46,11 @@ bool EnemyWolf::Start() {
 
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::WALKINGENEMY;
+
+	//cargamos animaciones
+	wolfIdle.LoadAnimations("wolfIdle");
+	wolfWalk.LoadAnimations("wolfWalk");
+	wolfDeath.LoadAnimations("wolfDeath");
 
 	return true;
 }
@@ -69,10 +77,12 @@ bool EnemyWolf::Update(float dt)
 				if (nextPath->x < origin.x)
 				{
 					velocity.x = -speed;
+					currentAnim = &wolfWalk;
 				}
 				else if (nextPath->x > origin.x)
 				{
 					velocity.x = +speed;
+					currentAnim = &wolfWalk;
 				}
 				if (nextPath->x == origin.x) {
 					lastPath.Pop(*nextPath);
@@ -82,11 +92,13 @@ bool EnemyWolf::Update(float dt)
 		else
 		{
 			velocity.x = 0;
+			currentAnim = &wolfIdle;
 		}
 	}
 	if (!alive)
 	{
 		//meter animacion de muerte
+		currentAnim = &wolfDeath;
 	}
 
 	pbody->body->SetLinearVelocity(velocity);
@@ -97,7 +109,16 @@ bool EnemyWolf::Update(float dt)
 	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 
-	app->render->DrawTexture(texture, position.x, position.y);
+	//Actualizamos animacion
+	currentAnim->Update(dt);
+	SDL_Rect currentAnimFrame = currentAnim->GetCurrentFrame(dt);
+
+	app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
+
+	if (currentAnim->Finished()) {
+		currentAnim->Reset();
+		currentAnim = &wolfIdle;
+	}
 
 	return true;
 }

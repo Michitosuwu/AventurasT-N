@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "DynArray.h"
+#include "Animationn.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture; 
@@ -60,6 +61,13 @@ public:
 	DynArray<iPoint> lastPath;
 
 	bool alive = true;
+
+	//Declaro animaciones
+	Animation wolfIdle;
+	Animation wolfWalk;
+	Animation wolfDeath;
+
+	Animation* currentAnim;
 
 private:
 	// All spawned enemies in the scene
