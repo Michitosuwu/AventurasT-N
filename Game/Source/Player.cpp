@@ -8,13 +8,11 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
-#include "Animationn.h"
 
 #define PIXELS_TO_METERS(pixels) (pixels / METERS_TO_PIXELS_RATIO)
 #define METERS_TO_PIXELS_RATIO 100.0f
 
-
-Player::Player() : Entity(EntityType::PLAYER), currentAnimation(&idleAnimation)
+Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
 }
@@ -33,23 +31,10 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	LOG("Player Start");
-
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
-	if (texture == nullptr) {
-		LOG("Failed to load player texture.");
-		return false;
-	}
-	else {
-		LOG("Player texture loaded successfully.");
-	}
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	//app->tex->GetSize(texture, texW, texH);
-	 
-	texW = 32;
-	texH = 19;
-
+	app->tex->GetSize(texture, texW, texH);
 	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
 	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
@@ -65,15 +50,6 @@ bool Player::Start() {
 	//godmode
 	godMode = false;
 	godModeSpeed = 4.0f;
-
-	//cargamos animaciones del fichero xml
-	LOG("Loading animations");
-	idleAnimation.LoadAnimations("idle");
-	moveRightAnimation.LoadAnimations("moveRight");
-	moveLeftAnimation.LoadAnimations("moveLeft");
-	jumpRightAnimation.LoadAnimations("jumpRight");
-	jumpLeftAnimation.LoadAnimations("jumpLeft");
-	LOG("Animations loaded successfully.");
 
 	return true;
 }
@@ -314,21 +290,7 @@ bool Player::Update(float dt)
 
 	StateMachine();
 
-	//Actualizar la animacion actual
-	currentAnimation->Update(dt);
-
-	//Actualizar la anim actual segun la entrada del usuario o el estado del jugador
-	SDL_Rect currentAnimFrame = currentAnimation->GetCurrentFrame(dt);
-
-	app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
-	
-	//??LOG("Player Position (world): (%.2f, %.2f)", pbodyPos.p.x, pbodyPos.p.y);
-	LOG("Player Position (pixels): (%d, %d)", position.x, position.y);
-
-	if (currentAnimation->Finished()) {
-		currentAnimation->Reset();
-		currentAnimation = &idleAnimation;
-	}
+	app->render->DrawTexture(texture, position.x, position.y);
 
 	return true;
 }

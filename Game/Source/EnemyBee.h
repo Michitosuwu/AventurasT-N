@@ -4,7 +4,6 @@
 #include "Entity.h"
 #include "Point.h"
 #include "DynArray.h"
-#include "Animationn.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
@@ -63,12 +62,6 @@ public:
 	bool alive = true;
 
 	SDL_Texture* tileTex = nullptr;
-	//Declaramos animaciones
-	Animation beeFlyAnim;
-	Animation beeAttackAnim;
-	Animation beeDeathAnim;
-	
-	Animation* currentAnim;
 
 private:
 	//Por si de cara a futuro lo necesitamos

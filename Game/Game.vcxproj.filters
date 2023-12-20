@@ -72,7 +72,6 @@
     <ClInclude Include="Source\EnemyWolf.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Pathfinding.h" />
-    <ClInclude Include="Source\Animationn.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
