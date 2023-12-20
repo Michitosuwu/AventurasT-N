@@ -175,6 +175,21 @@ void EnemyBee::Attack() {
 
 void EnemyBee::Shoot() {
 
+	//Get the player position
+	iPoint playerPos = app->map->WorldToMap(app->scene->player->GetPositionX(), app->scene->player->GetPositionY() - 150);
+
+	//calculate the direction vector from enemy position to player position
+	iPoint enemyPos = app->map->WorldToMap(this->position.x, this->position.y);
+	iPoint direction = playerPos - enemyPos;
+
+	// Normalize the direction vector
+	float length = sqrtf(direction.x * direction.x + direction.y * direction.y);
+	if (length != 0) {
+		direction.x /= length;
+		direction.y /= length;
+	}
+
+
 }
 void EnemyBee::Teleport(int x, int y)
 {

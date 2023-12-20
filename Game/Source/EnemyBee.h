@@ -62,6 +62,8 @@ public:
 
 	bool alive = true;
 
+	int delayShoot = 100;
+
 	//Declaramos animaciones
 	Animation beeFlyAnim;
 	Animation beeAttackAnim;
