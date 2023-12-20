@@ -62,6 +62,8 @@ void Player::StateMachine()
 	// Obtener la velocidad actual del cuerpo del jugador
 	b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
+	pbody->body->SetGravityScale(1);
+
 	velocity = Move(velocity);
 	velocity = Jump(velocity);
 
@@ -186,8 +188,6 @@ void Player::StateMachine()
 // Función de movimiento
 b2Vec2 Player::Move(b2Vec2 vel)
 {
-	pbody->body->SetGravityScale(1);
-
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		vel.x = -speed;
@@ -212,8 +212,6 @@ b2Vec2 Player::Move(b2Vec2 vel)
  //Función de salto
 b2Vec2 Player::Jump(b2Vec2 vel)
 {
-	pbody->body->SetGravityScale(1);
-
     // Controlar el salto con la tecla espacio
     if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
