@@ -57,6 +57,7 @@ bool Player::Start() {
 
 	//initialize audio effect
 	jumpFxId = app->audio->LoadFx(config.attribute("jumpFxPath").as_string());
+	hitFxId = app->audio->LoadFx(config.attribute("hitFxPath").as_string());
 
 	//godmode
 	godMode = false;
@@ -342,19 +343,21 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::WALKINGENEMY:
 		LOG("Collision ENEMY");
 		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
-		if (app->scene->wolf->GetPositionY() < this->position.y)
+		if (app->scene->wolf->GetPositionY() < this->position.y && app->scene->wolf->alive && this->godMode == false)
 		{
 			hp -= 25;
+			app->audio->PlayFx(hitFxId);
 			LOG("Player hp: %d", hp);
 		}
 		break;
 	case ColliderType::FLYINGGENEMY:
 		LOG("Collision ENEMY");
 		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
-		if (app->scene->bee->GetPositionY() < this->position.y)
+		if (app->scene->bee->GetPositionY() < this->position.y && app->scene->bee->alive && this->godMode == false)
 		{
-			hp -= 25;
-			LOG("Player hp: %d", 10);
+			hp -= 10;
+			app->audio->PlayFx(hitFxId);
+			LOG("Player hp: %d", hp);
 		}
 		break;
 	case ColliderType::UNKNOWN:

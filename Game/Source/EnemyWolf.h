@@ -63,6 +63,9 @@ public:
 
 	SDL_Texture* tileTex = nullptr;
 
+	//Audio fx
+	int hitFxId;
+
 private:
 	// All spawned enemies in the scene
 	// TODO : POSIBILIDAD SI DE CARA A FUTURO NECESITAMOS CONTROLAR LOS ENEMIGOS DEL JUEGO (CUANDO HAYA MUCHOS)
