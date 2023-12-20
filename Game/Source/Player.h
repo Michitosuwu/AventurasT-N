@@ -55,6 +55,7 @@ public:
 	SDL_Texture* texture = NULL;
 	pugi::xml_node config;
 	uint texW, texH;
+	bool lookRight;
 
 	//Audio fx
 	int jumpFxId;

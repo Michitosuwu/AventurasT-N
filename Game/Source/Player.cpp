@@ -49,7 +49,7 @@ bool Player::Start() {
 	//app->tex->GetSize(texture, texW, texH);
 	 
 	texW = 32;
-	texH = 32;
+	texH = 19;
 	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
 	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
@@ -58,6 +58,9 @@ bool Player::Start() {
 
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
+
+	//Initialize audio effect
+	jumpFxId = app->audio->LoadFx(config.attribute("jumpfxpath").as_string());
 
 	//godmode
 	godMode = false;
@@ -163,11 +166,13 @@ bool Player::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 			velocity.x = -speed;
 			currentAnimation = &moveLeftAnimation;
+			lookRight = false;
 			LOG("Moving left");
 		}
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 			velocity.x = speed;
 			currentAnimation = &moveRightAnimation;
+			lookRight = true;
 			LOG("Moving right");
 		}
 
@@ -183,8 +188,13 @@ bool Player::Update(float dt)
 				velocity.y = -jumpSpeed;
 				canJump= false;
 				isJumping = true;
-				currentAnimation = &jumpRightAnimation;
 				app->audio->PlayFx(jumpFxId);
+				if (lookRight) {
+					currentAnimation = &jumpRightAnimation;
+				}
+				else if (!lookRight) {
+					currentAnimation = &jumpLeftAnimation;
+				}
 			}
 			LOG("JUMP");
 		}

@@ -131,10 +131,6 @@ public:
         loopCount = 0;
     }
 
-    
-    
-    /* bool pingpong = false;
-     int pingpongDirection = 1;*/
 
     void Update(float dt) {
         //if (!loop && isLastFrame())
