@@ -45,7 +45,7 @@ bool Player::Start() {
 	pbody->ctype = ColliderType::PLAYER;
 
 	//initialize audio effect
-	//pickCoinFxId = app->audio->LoadFx(config.attribute("coinfxpath").as_string()); // Forma de cargar audios TODO Quitar este y poner los buenos.
+	jumpFxId = app->audio->LoadFx(config.attribute("jumpfxpath").as_string());
 
 	//godmode
 	godMode = false;
@@ -177,6 +177,7 @@ b2Vec2 Player::Jump(b2Vec2 vel)
         if (canJump && isJumping)
         {
 			vel.y = -jumpSpeed;
+			app->audio->PlayFx(jumpFxId);
             canJump = false;
         }
         LOG("JUMP");
@@ -192,7 +193,7 @@ b2Vec2 Player::Jump(b2Vec2 vel)
 bool Player::Update(float dt)
 {
 	// Activate or deactivate debug mode
-	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 	
 	//Start from first level F1
@@ -214,6 +215,7 @@ bool Player::Update(float dt)
 	//god mode
 	if (godMode)
 	{
+		pbody->body->SetGravityScale(0);
 		// En God Mode, el jugador puede moverse libremente sin gravedad
 		// Agregar aqu� la l�gica para el movimiento libre del jugador
 		// Obtener la velocidad actual del cuerpo del jugador
@@ -234,6 +236,16 @@ bool Player::Update(float dt)
 		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
 			// Mover hacia abajo
 			velocity.y = godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_S) == KEY_IDLE)
+		{
+			velocity.y = 0;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
+		{
+			velocity.x = 0;
 		}
 
 		// Actualizar la velocidad del cuerpo
@@ -270,9 +282,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::ENEMY:
 		LOG("Collision ENEMY");
 		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
-		break;
-	case ColliderType::ITEM:
-		LOG("Collision ITEM");
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");

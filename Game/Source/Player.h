@@ -73,8 +73,8 @@ public:
 	bool isMoving = false;
 	bool isDeath = false;
 
-	//Audio FX 
-	// Poner audios xd
+	//Audio fx
+	int jumpFxId;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
