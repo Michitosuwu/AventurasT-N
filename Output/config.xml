@@ -23,7 +23,7 @@
 	  <mainmusic path="Assets/Audio/Music/nami_theme.mp3"/>
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <enemies>
-		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png"/>
+		  <enemywolf x="200" y="400" texturePath="Assets/Textures/wolf_spritesheet.png"/>
 		  <enemybee x="250" y="400" texturePath="Assets/Textures/bee_spritesheet.png"/>
 	  </enemies>
 		<player x="200" y="500" texturePath="Assets/Textures/michi.png"/>
