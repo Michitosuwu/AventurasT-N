@@ -177,6 +177,11 @@ PhysBody* Physics::CreateRectangleSensor(int x, int y, int width, int height, bo
 	return pbody;
 }
 
+b2Vec2 Physics::GetGravity() const
+{
+	return world->GetGravity();
+}
+
 PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType type)
 {
 	// Create BODY at position x,y

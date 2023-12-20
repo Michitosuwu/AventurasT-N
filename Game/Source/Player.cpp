@@ -54,7 +54,7 @@ bool Player::Start() {
 	return true;
 }
 
-void Player::StateMachine(float dt)
+void Player::StateMachine()
 {
 	// Obtén la gravedad del mundo de Box2D a través del módulo de física
 	b2Vec2 gravity = app->physics->GetGravity();
@@ -62,20 +62,24 @@ void Player::StateMachine(float dt)
 	// Obtener la velocidad actual del cuerpo del jugador
 	b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
+	Move(velocity);
+	Jump(velocity);
+
+	// Actualizar la posición basada en la velocidad
+	pbody->body->SetLinearVelocity(velocity);
+
 	switch (currentState)
 	{
 		case EntityState::IDLE:
 
 			if (isMoving)
 			{
-				Move(velocity);
 				currentState = EntityState::WALK;
 				LOG("Current State: Walk");
 			}
 
 			if (isJumping)
 			{
-				Jump(gravity, velocity, dt);
 				currentState = EntityState::JUMP;
 				LOG("Current State: Jump");
 			}
@@ -98,7 +102,6 @@ void Player::StateMachine(float dt)
 
 			if (isJumping)
 			{
-				Jump(gravity, velocity, dt);
 				currentState = EntityState::JUMP;
 				LOG("Current State: Jump");
 			}
@@ -115,7 +118,6 @@ void Player::StateMachine(float dt)
 			
 			if (!isJumping)
 			{
-				Move(velocity);
 				currentState = EntityState::WALK;
 				LOG("Current State: Walk");
 			}
@@ -134,17 +136,14 @@ void Player::StateMachine(float dt)
 			break;
 	}
 
-	// Actualizar la posición basada en la velocidad
-	pbody->body->SetLinearVelocity(velocity);
-
-	// Obtener la posición del cuerpo
+	//// Obtener la posición del cuerpo
 	b2Transform pbodyPos = pbody->body->GetTransform();
 	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 }
 
 // Función de movimiento
-void Player::Move(b2Vec2 vel)
+b2Vec2 Player::Move(b2Vec2 vel)
 {
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
@@ -164,30 +163,30 @@ void Player::Move(b2Vec2 vel)
 	{
 		SetIsMoving(false);
 	}
+
+	return vel;
 }
 
  //Función de salto
-b2Vec2 Player::Jump(b2Vec2 grav, b2Vec2 vel, float dt)
+b2Vec2 Player::Jump(b2Vec2 vel)
 {
-    // Aplicar la gravedad
-	vel.x += grav.x * dt;
-	vel.y += grav.y * dt;
-
     // Controlar el salto con la tecla espacio
-    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && canJump && !isJumping) {
-        if (canJump)
+    if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
+	{
+		isJumping = true;
+        if (canJump && isJumping)
         {
 			vel.y = -jumpSpeed;
             canJump = false;
-            isJumping = true;
         }
         LOG("JUMP");
     }
+	else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+	{
+		isJumping = false;
+	}
 
-    // Limitar la velocidad vertical máxima para evitar un salto brusco
-    if (vel.y < -maxJumpSpeed) {
-		vel.y = -maxJumpSpeed;
-    }
+	return vel;
 }
 
 bool Player::Update(float dt)
@@ -247,7 +246,7 @@ bool Player::Update(float dt)
 	}
 	else
 	{
-		StateMachine(dt);
+		StateMachine();
 	}
 
 	app->render->DrawTexture(texture, position.x, position.y);

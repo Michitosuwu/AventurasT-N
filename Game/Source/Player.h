@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "Physics.h"
 #include "Animation.h"
 
 struct SDL_Texture;
@@ -21,9 +22,9 @@ public:
 	bool CleanUp();
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 	// Main functions
-	void StateMachine(float dt);
-	void Move(b2Vec2& vel);
-	void Jump(b2Vec2& grav, b2Vec2& vel, float dt);
+	void StateMachine();
+	b2Vec2 Move(b2Vec2 vel);
+	b2Vec2 Jump(b2Vec2 vel);
 
 	// Create Getters and Setters
 	int GetHp() const;
