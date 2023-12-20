@@ -57,10 +57,10 @@
 		  <jumpLeft x="642" y="165" w="32" h="19"/>
 		  <jumpLeft x="610" y="165" w="32" h="19"/>
 
-		  <beeFly x="0.5" y="0.5" w="25" h="26"/>
-		  <beeFly x="25.5" y="0.5" w="25" h="26"/>
-		  <beeFly x="50.5" y="0.5" w="25" h="26"/>
-		  <beeFly x="75.5" y="0.5" w="25" h="26"/>
+		  <beeFly x="1" y="0.5" w="25" h="26"/>
+		  <beeFly x="26" y="0.5" w="25" h="26"/>
+		  <beeFly x="51" y="0.5" w="25" h="26"/>
+		  <beeFly x="76" y="0.5" w="25" h="26"/>
 
 		  <beeDeath x="2.5" y="29.5" w="37" h="27"/>
 		  <beeDeath x="39.5" y="29.5" w="37" h="27"/>
@@ -72,17 +72,17 @@
 		  <beeDeath x="261.5" y="29.5" w="37" h="27"/>
 
 		  <beeAttack x="0.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="25.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="50.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="75.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="100.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="125.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="150.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="175.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="200.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="225.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="250.5" y="63.5" w="25" h="29"/>
-		  <beeAttack x="275.5" y="63.5" w="25" h="29"/>
+		  <beeAttack x="27" y="63.5" w="25" h="29"/>
+		  <beeAttack x="53" y="63.5" w="25" h="29"/>
+		  <beeAttack x="79" y="63.5" w="25" h="29"/>
+		  <beeAttack x="105" y="63.5" w="25" h="29"/>
+		  <beeAttack x="131" y="63.5" w="25" h="29"/>
+		  <beeAttack x="157" y="63.5" w="25" h="29"/>
+		  <beeAttack x="184" y="63.5" w="25" h="29"/>
+		  <beeAttack x="209" y="63.5" w="25" h="29"/>
+		  <beeAttack x="235" y="63.5" w="25" h="29"/>
+		  <beeAttack x="261" y="63.5" w="25" h="29"/>
+		  <beeAttack x="287" y="63.5" w="25" h="29"/>
 
 	  </animation>
   </scene>
