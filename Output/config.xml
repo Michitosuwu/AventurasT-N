@@ -24,7 +24,7 @@
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <enemies>
 		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png"/>
-		  <enemybee x="250" y="400" texturePath="Assets/Textures/Bee.png"/>
+		  <enemybee x="250" y="400" texturePath="Assets/Textures/bee_spritesheet.png"/>
 	  </enemies>
 		<player x="200" y="500" texturePath="Assets/Textures/michi.png"/>
 	  <animation>
