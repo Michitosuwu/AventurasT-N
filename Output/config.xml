@@ -25,7 +25,7 @@
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <enemies>
 		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png" hitFxPath="Assets/Audio/Fx/dog-hurt.ogg"/>
-		  <enemybee x="250" y="400" texturePath="Assets/Textures/Bee.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
+		  <enemybee x="250" y="400" texturePath="Assets/Textures/bee_spritesheet.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
 	  </enemies>
 	  <animation>
 		  <idle x="128" y="32" w="32" h="25"/>

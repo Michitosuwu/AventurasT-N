@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "DynArray.h"
+#include "Animation.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture;
@@ -65,6 +66,13 @@ public:
 
 	//Audio fx
 	int hitFxId;
+
+	//Declaramos animaciones
+	Animation beeFlyAnim;
+	Animation beeAttackAnim;
+	Animation beeDeathAnim;
+
+	Animation* currentAnim;
 
 private:
 	//Por si de cara a futuro lo necesitamos

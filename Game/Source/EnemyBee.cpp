@@ -11,8 +11,9 @@
 #include "DynArray.h"
 #include "Map.h"
 #include "EntityManager.h"
+#include "Animation.h"
 
-EnemyBee::EnemyBee() : Entity(EntityType::ENEMYBEE) {
+EnemyBee::EnemyBee() : Entity(EntityType::ENEMYBEE), currentAnim(&beeFlyAnim) {
 	
 	name.Create("EnemyBee");
 }
@@ -34,7 +35,10 @@ bool EnemyBee::Start() {
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	app->tex->GetSize(texture, texW, texH);
+
+	texW = 37;
+	texH = 29;
+
 	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
@@ -47,6 +51,11 @@ bool EnemyBee::Start() {
 	tileTex = app->tex->Load("Assets/Maps/tileSelection.png");
 
 	hitFxId = app->audio->LoadFx(config.attribute("hitFxPath").as_string());
+
+	//Load all animations
+	beeFlyAnim.LoadAnimations("beeFly");
+	beeAttackAnim.LoadAnimations("beeAttack");
+	beeDeathAnim.LoadAnimations("beeDeath");
 
 	return true;
 }
@@ -74,18 +83,22 @@ bool EnemyBee::Update(float dt) {
 				if (nextPath->x < origin.x)
 				{
 					velocity.x = -speed;
+					currentAnim = &beeFlyAnim;
 				}
 				else if (nextPath->x > origin.x)
 				{
 					velocity.x = +speed;
+					currentAnim = &beeFlyAnim;
 				}
 				if (nextPath->y < origin.y)
 				{
 					velocity.y = -speed;
+					currentAnim = &beeFlyAnim;
 				}
 				else if (nextPath->y > origin.y)
 				{
 					velocity.y = +speed;
+					currentAnim = &beeFlyAnim;
 				}
 				if (nextPath->x == origin.x) {
 					lastPath.Pop(*nextPath);
@@ -95,13 +108,14 @@ bool EnemyBee::Update(float dt) {
 		else
 		{
 			velocity.x = 0;
+			currentAnim = &beeAttackAnim;
 		}
 	}
 	
 
 	if (!alive)
 	{
-		//meter animacion muerte
+		currentAnim = &beeDeathAnim;
 	}
 
 	if (app->physics->debug)
@@ -122,7 +136,16 @@ bool EnemyBee::Update(float dt) {
 	position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
 	position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 
-	app->render->DrawTexture(texture, position.x, position.y);
+	//Actualizamos animacion
+	currentAnim->Update(dt);
+	SDL_Rect currentAnimFrame = currentAnim->GetCurrentFrame(dt);
+
+	app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
+
+	if (currentAnim->Finished()) {
+		currentAnim->Reset();
+		currentAnim = &beeFlyAnim;
+	}
 
 	return true;
 }
