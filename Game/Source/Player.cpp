@@ -150,18 +150,17 @@ b2Vec2 Player::Move(b2Vec2 vel)
 		vel.x = -speed;
 		SetIsMoving(true);
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_UP)
-	{
-		SetIsMoving(false);
-	}
+
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
 	{
 		vel.x = speed;
 		SetIsMoving(true);
 	}
-	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_UP)
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
 	{
 		SetIsMoving(false);
+		vel.x = 0;
 	}
 
 	return vel;
