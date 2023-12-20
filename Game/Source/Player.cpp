@@ -62,8 +62,8 @@ void Player::StateMachine()
 	// Obtener la velocidad actual del cuerpo del jugador
 	b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
-	Move(velocity);
-	Jump(velocity);
+	velocity = Move(velocity);
+	velocity = Jump(velocity);
 
 	// Actualizar la posición basada en la velocidad
 	pbody->body->SetLinearVelocity(velocity);
