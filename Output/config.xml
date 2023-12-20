@@ -24,7 +24,7 @@
 	  <player x="200" y="700" texturePath="Assets/Textures/michi.png" jumpFxPath="Assets/Audio/Fx/meow.ogg" hitFxPath="Assets/Audio/Fx/cat-hurt.ogg"/>
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <enemies>
-		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png" hitFxPath="Assets/Audio/Fx/dog-hurt.ogg"/>
+		  <enemywolf x="200" y="400" texturePath="Assets/Textures/wolf_spritesheet.png" hitFxPath="Assets/Audio/Fx/dog-hurt.ogg"/>
 		  <enemybee x="250" y="400" texturePath="Assets/Textures/bee_spritesheet.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
 	  </enemies>
 	  <animation>
@@ -83,6 +83,36 @@
 		  <beeAttack x="235" y="63.5" w="25" h="29"/>
 		  <beeAttack x="261" y="63.5" w="25" h="29"/>
 		  <beeAttack x="287" y="63.5" w="25" h="29"/>
+
+		  <wolfIdle x="0" y="62" w="60" h="63"/>
+		  <wolfIdle x="60" y="62" w="60" h="63"/>
+		  <wolfIdle x="121" y="62" w="60" h="63"/>
+		  <wolfIdle x="184" y="62" w="60" h="63"/>
+		  <wolfIdle x="246" y="62" w="60" h="63"/>
+		  <wolfIdle x="310" y="62" w="60" h="63"/>
+		  <wolfIdle x="372" y="62" w="60" h="63"/>
+		  <wolfIdle x="435" y="62" w="60" h="63"/>
+
+		  <wolfWalk x="0" y="0" w="60" h="63"/>
+		  <wolfWalk x="60" y="0" w="60" h="63"/>
+		  <wolfWalk x="125" y="0" w="60" h="63"/>
+		  <wolfWalk x="185" y="0" w="60" h="63"/>
+		  <wolfWalk x="246" y="0" w="60" h="63"/>
+		  <wolfWalk x="308" y="0" w="60" h="63"/>
+		  <wolfWalk x="374" y="0" w="60" h="63"/>
+		  <wolfWalk x="434" y="0" w="60" h="63"/>
+		  
+		  <wolfDeath x="0" y="175" w="48" h="45"/>
+		  <wolfDeath x="43" y="175" w="48" h="45"/>
+		  <wolfDeath x="94" y="175" w="48" h="45"/>
+		  <wolfDeath x="148" y="175" w="48" h="45"/>
+		  <wolfDeath x="200" y="176" w="48" h="45"/>
+		  <wolfDeath x="250" y="176" w="48" h="45"/>
+		  <wolfDeath x="300" y="176" w="48" h="45"/>
+		  <wolfDeath x="350" y="176" w="48" h="45"/>
+		  <wolfDeath x="400" y="176" w="48" h="45"/>
+		  <wolfDeath x="450" y="176" w="48" h="45"/>
+
 	  </animation>
   </scene>
   

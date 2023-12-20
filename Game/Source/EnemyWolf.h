@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "DynArray.h"
+#include "Animation.h"
 #include "SDL/include/SDL.h"
 
 struct SDL_Texture; 
@@ -65,6 +66,12 @@ public:
 
 	//Audio fx
 	int hitFxId;
+	//Declaro animaciones
+	Animation wolfIdle;
+	Animation wolfWalk;
+	Animation wolfDeath;
+
+	Animation* currentAnim;
 
 private:
 	// All spawned enemies in the scene
