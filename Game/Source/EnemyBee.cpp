@@ -57,6 +57,8 @@ bool EnemyBee::Start() {
 	beeAttackAnim.LoadAnimations("beeAttack");
 	beeDeathAnim.LoadAnimations("beeDeath");
 
+	beeDeathAnim.loop = false;
+
 	return true;
 }
 

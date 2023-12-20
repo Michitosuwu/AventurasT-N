@@ -56,6 +56,8 @@ bool EnemyWolf::Start() {
 	wolfWalk.LoadAnimations("wolfWalk");
 	wolfDeath.LoadAnimations("wolfDeath");
 
+	wolfDeath.loop = false;
+
 	return true;
 }
 
