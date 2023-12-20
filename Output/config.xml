@@ -20,12 +20,42 @@
 
   <scene>
 	  <map path="Assets/Maps/" name="CatMap.tmx"/>
-	  <player x="200" y="700" texturePath="Assets/Textures/Gato.png"/>
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <enemies>
 		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png"/>
 		  <enemybee x="250" y="400" texturePath="Assets/Textures/Bee.png"/>
 	  </enemies>
+		<player x="200" y="500" texturePath="Assets/Textures/michi.png"/>
+		<animation>
+			<idle x="128" y="32" w="32" h="25"/>
+			<!-- moving head anim as idle anim-->
+			<idle x="160" y="32" w="32" h="25"/>
+			<idle x="192" y="32" w="32" h="25"/>
+			<idle x="224" y="32" w="32" h="25"/>
+
+			<!-- canviar tot a la manera de com hem posat a dalt, i revisar bucle de loadanimations perque me les agafi-->
+			<moveRight x="385" y="421" w="32" h="19"/>
+			<moveRight x="417" y="421" w="32" h="19"/>
+			<moveRight x="449" y="421" w="32" h="19"/>
+			<moveRight x="481" y="421" w="32" h="19"/>
+
+			<moveLeft x="480" y="165" w="32" h="19"/>
+			<moveLeft x="448" y="165" w="32" h="19"/>
+			<moveLeft x="416" y="165" w="32" h="19"/>
+			<moveLeft x="384" y="165" w="32" h="19"/>
+
+			<jumpRight x="607" y="421" w="32" h="19"/>
+			<jumpRight x="639" y="421" w="32" h="19"/>
+			<jumpRight x="671" y="421" w="32" h="19"/>
+			<jumpRight x="703" y="421" w="32" h="19"/>
+			<jumpRight x="735" y="421" w="32" h="19"/>
+
+			<jumpLeft x="738" y="165" w="32" h="19"/>
+			<jumpLeft x="706" y="165" w="32" h="19"/>
+			<jumpLeft x="674" y="165" w="32" h="19"/>
+			<jumpLeft x="642" y="165" w="32" h="19"/>
+			<jumpLeft x="610" y="165" w="32" h="19"/>
+		</animation>
   </scene>
   
 </config>
