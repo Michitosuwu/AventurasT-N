@@ -116,6 +116,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\EnemyBee.h" />
     <ClInclude Include="Source\EnemyWolf.h" />
+    <ClInclude Include="Source\Animationn.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\Item.h" />

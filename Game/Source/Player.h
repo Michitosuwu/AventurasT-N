@@ -6,6 +6,7 @@
 #include "SDL/include/SDL.h"
 #include "Physics.h"
 #include "Animation.h"
+#include "Animationn.h"
 
 struct SDL_Texture;
 
@@ -66,6 +67,7 @@ public:
 	SDL_Texture* texture = NULL;
 	pugi::xml_node config;
 	uint texW, texH;
+	bool lookRight;
 
 	// State Machine
 	EntityState currentState;
@@ -87,6 +89,15 @@ public:
 
 	// Debug mode
 	bool debug;
+
+	//Declaramos animaciones
+	Animation idleAnimation;
+	Animation moveRightAnimation;
+	Animation moveLeftAnimation;
+	Animation jumpRightAnimation;
+	Animation jumpLeftAnimation;
+
+	Animation* currentAnimation;
 };
 
 #endif // __PLAYER_H__
