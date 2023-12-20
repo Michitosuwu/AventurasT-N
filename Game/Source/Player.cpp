@@ -78,7 +78,7 @@ bool Player::Start() {
 bool Player::Update(float dt)
 {
 	// Activate or deactivate debug mode
-	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 	
 	//Start from first level F1
@@ -100,6 +100,7 @@ bool Player::Update(float dt)
 	//god mode
 	if (godMode)
 	{
+		pbody->body->SetGravityScale(0);
 		// En God Mode, el jugador puede moverse libremente sin gravedad
 		// Agregar aqu� la l�gica para el movimiento libre del jugador
 		// Obtener la velocidad actual del cuerpo del jugador
@@ -122,6 +123,16 @@ bool Player::Update(float dt)
 			velocity.y = godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
 		}
 
+		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_S) == KEY_IDLE)
+		{
+			velocity.y = 0;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
+		{
+			velocity.x = 0;
+		}
+
 		// Actualizar la velocidad del cuerpo
 		pbody->body->SetLinearVelocity(velocity);
 
@@ -131,6 +142,7 @@ bool Player::Update(float dt)
 		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
 	}
 	else {
+		pbody->body->SetGravityScale(1);
 		// Aplicar la l�gica de movimiento normal con gravedad
 		// Definir la gravedad
 		b2Vec2 gravity(0, GRAVITY_Y);
@@ -159,6 +171,11 @@ bool Player::Update(float dt)
 			LOG("Moving right");
 		}
 
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
+		{
+			velocity.x = 0;
+		}
+
 		// Controlar el salto con la tecla espacio
 		if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN && canJump && !isJumping) {
 			if (canJump)
@@ -167,6 +184,7 @@ bool Player::Update(float dt)
 				canJump= false;
 				isJumping = true;
 				currentAnimation = &jumpRightAnimation;
+				app->audio->PlayFx(jumpFxId);
 			}
 			LOG("JUMP");
 		}

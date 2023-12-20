@@ -1,22 +1,22 @@
 <!-- Config file for the game -->
 <!-- L01: DONE 1: Create configuration file-->
 <config>
-  <app>
-    <title>Adventures T and N</title>
-    <maxFrameDuration value="16"/>
-  </app>
+    <app>
+        <title>Adventures T and N</title>
+        <maxFrameDuration value="16"/>
+    </app>
 
-  <renderer>
-    <vsync value="false"/>
-  </renderer>
+    <renderer>
+        <vsync value="false"/>
+    </renderer>
 
-  <window>
-    <resolution width="1280" height="780" scale="1"/>
-    <fullscreen value="false"/>
-    <borderless value="false"/>
-    <resizable value="true"/>
-    <fullscreen_window value="false"/>
-  </window>
+    <window>
+        <resolution width="1280" height="780" scale="1"/>
+        <fullscreen value="false"/>
+        <borderless value="false"/>
+        <resizable value="true"/>
+        <fullscreen_window value="false"/>
+    </window>
 
   <scene>
 	  <map path="Assets/Maps/" name="CatMap.tmx"/>
