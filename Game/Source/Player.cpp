@@ -45,7 +45,7 @@ bool Player::Start() {
 	pbody->ctype = ColliderType::PLAYER;
 
 	//initialize audio effect
-	jumpFxId = app->audio->LoadFx(config.attribute("jumpfxpath").as_string());
+	jumpFxId = app->audio->LoadFx(config.attribute("jumpFxPath").as_string());
 
 	//godmode
 	godMode = false;
