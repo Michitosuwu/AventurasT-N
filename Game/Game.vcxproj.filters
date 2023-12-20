@@ -25,7 +25,6 @@
     <ClCompile Include="Source\EnemyWolf.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\EnemyBee.cpp" />
-    <ClCompile Include="Particle.cpp" />
     <ClCompile Include="Source\Particle.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -76,7 +75,6 @@
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\Animationn.h" />
     <ClInclude Include="Source\EnemyBee.h" />
-    <ClInclude Include="Particle.h" />
     <ClInclude Include="Source\Particle.h" />
   </ItemGroup>
   <ItemGroup>
