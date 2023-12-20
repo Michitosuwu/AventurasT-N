@@ -50,6 +50,7 @@ bool Player::Start() {
 	 
 	texW = 32;
 	texH = 19;
+
 	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
 	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
