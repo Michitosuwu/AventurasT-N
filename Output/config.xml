@@ -21,11 +21,11 @@
   <scene>
 	  <map path="Assets/Maps/" name="CatMap.tmx"/>
       <mainmusic path="Assets/Audio/Music/nami_theme.mp3"/>
-	  <player x="200" y="700" texturePath="Assets/Textures/Gato.png" jumpFxPath="Assets/Audio/Fx/meow.ogg"/>
+	  <player x="200" y="700" texturePath="Assets/Textures/Gato.png" jumpFxPath="Assets/Audio/Fx/meow.ogg" hitFxPath="Assets/Audio/Fx/cat-hurt.ogg"/>
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <enemies>
-		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png"/>
-		  <enemybee x="250" y="400" texturePath="Assets/Textures/Bee.png"/>
+		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png" hitFxPath="Assets/Audio/Fx/dog-hurt.ogg"/>
+		  <enemybee x="250" y="400" texturePath="Assets/Textures/Bee.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
 	  </enemies>
   </scene>
   

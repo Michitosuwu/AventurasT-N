@@ -63,6 +63,9 @@ public:
 
 	SDL_Texture* tileTex = nullptr;
 
+	//Audio fx
+	int hitFxId;
+
 private:
 	//Por si de cara a futuro lo necesitamos
 };

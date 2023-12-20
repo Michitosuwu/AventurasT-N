@@ -47,6 +47,8 @@ bool EnemyWolf::Start() {
 	// Texture to highligh pathfinding
 	tileTex = app->tex->Load("Assets/Maps/tileSelection.png");
 
+	hitFxId = app->audio->LoadFx(config.attribute("hitFxPath").as_string());
+
 	return true;
 }
 
@@ -131,8 +133,9 @@ void EnemyWolf::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLAYER:
 		LOG("Enemy Collision PLAYER");
-		if (app->scene->player->GetPositionY() < this->position.y)
+		if (app->scene->player->GetPositionY() < this->position.y && this->alive)
 		{
+			app->audio->PlayFx(hitFxId);
 			this->alive=false;
 		}
 		break;

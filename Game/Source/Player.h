@@ -77,6 +77,7 @@ public:
 
 	//Audio fx
 	int jumpFxId;
+	int hitFxId;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
