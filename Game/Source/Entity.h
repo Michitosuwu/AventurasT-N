@@ -12,7 +12,8 @@ enum class EntityType
 	ENEMYWOLF,
 	ENEMYBEE,
 	ITEM,
-	UNKNOWN
+	UNKNOWN,
+	BULLET
 };
 
 enum class EntityState

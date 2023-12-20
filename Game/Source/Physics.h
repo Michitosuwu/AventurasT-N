@@ -29,7 +29,8 @@ enum class ColliderType {
 	FLYINGGENEMY,
 	ITEM,
 	PLATFORM, 
-	UNKNOWN
+	UNKNOWN,
+	BULLET
 	// ..
 };
 

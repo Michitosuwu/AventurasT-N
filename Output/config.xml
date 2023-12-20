@@ -84,6 +84,8 @@
 		  <beeAttack x="261" y="63.5" w="25" h="29"/>
 		  <beeAttack x="287" y="63.5" w="25" h="29"/>
 
+		  <beeBullet x="117" y="14" w="6" h="6"/>
+
 		  <wolfIdle x="0" y="62" w="60" h="63"/>
 		  <wolfIdle x="60" y="62" w="60" h="63"/>
 		  <wolfIdle x="121" y="62" w="60" h="63"/>
@@ -101,7 +103,7 @@
 		  <wolfWalk x="308" y="0" w="60" h="63"/>
 		  <wolfWalk x="374" y="0" w="60" h="63"/>
 		  <wolfWalk x="434" y="0" w="60" h="63"/>
-		  
+
 		  <wolfDeath x="0" y="175" w="48" h="45"/>
 		  <wolfDeath x="43" y="175" w="48" h="45"/>
 		  <wolfDeath x="94" y="175" w="48" h="45"/>
