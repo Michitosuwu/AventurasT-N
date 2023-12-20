@@ -12,8 +12,8 @@ Project made by @Apb8, @MartaGnarta & @nsortsauquillo
 ## Controls
 
  - W, A, S, D Movement
+ - SPACE Jump
  - F1 Teleport start level
- - F2 Teleport second level
  - F3 Start from the beginning
  - F5 Save the current game state
  - F6 Load the previous state
