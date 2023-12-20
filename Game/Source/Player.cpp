@@ -78,7 +78,6 @@ bool Player::Start() {
 	return true;
 }
 
-// State Machine function
 void Player::StateMachine()
 {
 	// Obtén la gravedad del mundo de Box2D a través del módulo de física
