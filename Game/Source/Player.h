@@ -21,10 +21,12 @@ public:
 	bool Update(float dt);
 	bool CleanUp();
 	void OnCollision(PhysBody* physA, PhysBody* physB);
+
 	// Main functions
 	void StateMachine();
 	b2Vec2 Move(b2Vec2 vel);
 	b2Vec2 Jump(b2Vec2 vel);
+	b2Vec2 GodMode(b2Vec2 vel);
 
 	// Create Getters and Setters
 	int GetHp() const;

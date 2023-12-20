@@ -65,9 +65,6 @@ void Player::StateMachine()
 	velocity = Move(velocity);
 	velocity = Jump(velocity);
 
-	// Actualizar la posición basada en la velocidad
-	pbody->body->SetLinearVelocity(velocity);
-
 	switch (currentState)
 	{
 		case EntityState::IDLE:
@@ -88,6 +85,12 @@ void Player::StateMachine()
 			{
 				currentState = EntityState::DEATH;
 				LOG("Current State: Death");
+			}
+
+			if (godMode)
+			{
+				currentState = EntityState::GODMODE;
+				LOG("Current State: GodMode");
 			}
 
 			break;
@@ -112,20 +115,38 @@ void Player::StateMachine()
 				LOG("Current State: Death");
 			}
 
+			if (godMode)
+			{
+				currentState = EntityState::GODMODE;
+				LOG("Current State: GodMode");
+			}
+
 			break;
 
 		case EntityState::JUMP:
 			
-			if (!isJumping)
+			if (!isJumping && isMoving)
 			{
 				currentState = EntityState::WALK;
 				LOG("Current State: Walk");
 			}
 
-			if (isDeath)
+			if (!isJumping && !isMoving)
+			{
+				currentState = EntityState::IDLE;
+				LOG("Current State: Idle");
+			}
+
+			if (!isJumping && isDeath)
 			{
 				currentState = EntityState::DEATH;
 				LOG("Current State: Death");
+			}
+
+			if (godMode)
+			{
+				currentState = EntityState::GODMODE;
+				LOG("Current State: GodMode");
 			}
 			
 			break;
@@ -134,7 +155,27 @@ void Player::StateMachine()
 
 			// Pensar que hacer aqui
 			break;
+
+		case EntityState::GODMODE:
+			velocity = GodMode(velocity);
+
+			if (!godMode && !isMoving)
+			{
+				currentState = EntityState::IDLE;
+				LOG("Current State: Idle");
+			}
+
+			if (!godMode && isMoving)
+			{
+				currentState = EntityState::WALK;
+				LOG("Current State: Walk");
+			}
+
+			break;
 	}
+
+	// Actualizar la posición basada en la velocidad
+	pbody->body->SetLinearVelocity(velocity);
 
 	//// Obtener la posición del cuerpo
 	b2Transform pbodyPos = pbody->body->GetTransform();
@@ -145,6 +186,8 @@ void Player::StateMachine()
 // Función de movimiento
 b2Vec2 Player::Move(b2Vec2 vel)
 {
+	pbody->body->SetGravityScale(1);
+
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
 	{
 		vel.x = -speed;
@@ -169,6 +212,8 @@ b2Vec2 Player::Move(b2Vec2 vel)
  //Función de salto
 b2Vec2 Player::Jump(b2Vec2 vel)
 {
+	pbody->body->SetGravityScale(1);
+
     // Controlar el salto con la tecla espacio
     if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) 
 	{
@@ -184,6 +229,40 @@ b2Vec2 Player::Jump(b2Vec2 vel)
 	else if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
 	{
 		isJumping = false;
+	}
+
+	return vel;
+}
+
+b2Vec2 Player::GodMode(b2Vec2 vel)
+{
+	pbody->body->SetGravityScale(0);
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+		// Mover hacia la izquierda
+		vel.x = -godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
+	}
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+		// Mover hacia la derecha
+		vel.x = godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
+	}
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		// Mover hacia arriba
+		vel.y = -godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
+	}
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		// Mover hacia abajo
+		vel.y = godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_S) == KEY_IDLE)
+	{
+		vel.y = 0;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+	{
+		vel.x = 0;
 	}
 
 	return vel;
@@ -211,54 +290,7 @@ bool Player::Update(float dt)
 		godMode = !godMode;
 	}
 
-	//god mode
-	if (godMode)
-	{
-		pbody->body->SetGravityScale(0);
-		// En God Mode, el jugador puede moverse libremente sin gravedad
-		// Agregar aqu� la l�gica para el movimiento libre del jugador
-		// Obtener la velocidad actual del cuerpo del jugador
-		b2Vec2 velocity = pbody->body->GetLinearVelocity();
-
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
-			// Mover hacia la izquierda
-			velocity.x = -godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
-		}
-		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
-			// Mover hacia la derecha
-			velocity.x = godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
-		}
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
-			// Mover hacia arriba
-			velocity.y = -godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
-		}
-		if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-			// Mover hacia abajo
-			velocity.y = godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_W) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_S) == KEY_IDLE)
-		{
-			velocity.y = 0;
-		}
-
-		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE )
-		{
-			velocity.x = 0;
-		}
-
-		// Actualizar la velocidad del cuerpo
-		pbody->body->SetLinearVelocity(velocity);
-
-		// Actualizar la posici�n del cuerpo basada en la velocidad
-		b2Transform pbodyPos = pbody->body->GetTransform();
-		position.x = METERS_TO_PIXELS(pbodyPos.p.x) - texH / 2;
-		position.y = METERS_TO_PIXELS(pbodyPos.p.y) - texH / 2;
-	}
-	else
-	{
-		StateMachine();
-	}
+	StateMachine();
 
 	app->render->DrawTexture(texture, position.x, position.y);
 
