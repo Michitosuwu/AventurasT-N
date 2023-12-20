@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Player.h"
 #include "EnemyWolf.h"
+#include "EnemyBee.h"
 
 struct SDL_Texture;
 
@@ -39,12 +40,6 @@ private:
 	bool cameraDebug = false;
 	uint windowW, windowH;
 
-	// Declare a Player attribute
-	Player* player;
-
-	// Declare wolf enemy
-	EnemyWolf* wolf;
-
 public:
 
 	// Background attributes
@@ -53,6 +48,14 @@ public:
 	uint backgroundPosX, backgroundPosY = 0;
 	float backgroundX, backgroundY = 0;
 	uint BTexW, BTexH = 0;
+
+
+	// Declare a Player attribute
+	Player* player;
+
+	// Declare wolf enemy
+	EnemyWolf* wolf;
+	EnemyBee* bee;
 };
 
 #endif // __SCENE_H__

@@ -44,9 +44,10 @@ bool Scene::Awake(pugi::xml_node config)
 	// Wolf enemy 
 	wolf = (EnemyWolf*)app->entityManager->CreateEntity(EntityType::ENEMYWOLF);
 	wolf->config = config.child("enemies").child("enemywolf");
-
-	// Mosquito enemy
-	// TODO : Instanciar enemigo mosquito
+	
+	// Bee enemy 
+	bee = (EnemyBee*)app->entityManager->CreateEntity(EntityType::ENEMYBEE);
+	bee->config = config.child("enemies").child("enemybee");
 
 	//BACKGROUND
 	// Loading and saving background attributes

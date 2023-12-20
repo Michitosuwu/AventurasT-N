@@ -25,7 +25,8 @@ enum bodyType {
 
 enum class ColliderType {
 	PLAYER, 
-	ENEMY,
+	WALKINGENEMY,
+	FLYINGGENEMY,
 	ITEM,
 	PLATFORM, 
 	UNKNOWN
@@ -78,12 +79,11 @@ public:
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
-private:
+
+	// Box2D World
+	b2World* world;
 
 	// Debug mode
 	bool debug = false;
 	bool debugPressed = false;
-
-	// Box2D World
-	b2World* world;
 };

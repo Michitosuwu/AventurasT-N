@@ -10,7 +10,7 @@ enum class EntityType
 {
 	PLAYER,
 	ENEMYWOLF,
-	ENEMYMOSQUITO, // PROVISIONAL
+	ENEMYBEE,
 	ITEM,
 	UNKNOWN
 };

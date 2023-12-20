@@ -18,14 +18,15 @@
         <fullscreen_window value="false"/>
     </window>
 
-    <scene>
-        <map path="Assets/Maps/" name="CatMap.tmx" music="Assets/Audio/Fx/meow.ogg"/>
-		<mainmusic path="Assets/Audio/Music/nami_theme.mp3"/>
-        <player x="200" y="500" texturePath="Assets/Textures/Gato.png" jumpfxpath="Assets/Audio/Fx/meow.ogg"/>
-        <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
-        <enemies>
-            <enemywolf x="300" y="400" texturePath=""/>
-            <!-- Add flying enemy -->
-        </enemies>
-    </scene>
+  <scene>
+	  <map path="Assets/Maps/" name="CatMap.tmx"/>
+      <mainmusic path="Assets/Audio/Music/nami_theme.mp3"/>
+	  <player x="200" y="700" texturePath="Assets/Textures/Gato.png"/>
+	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
+	  <enemies>
+		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png"/>
+		  <enemybee x="250" y="400" texturePath="Assets/Textures/Bee.png"/>
+	  </enemies>
+  </scene>
+  
 </config>

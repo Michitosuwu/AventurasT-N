@@ -1,4 +1,4 @@
-﻿#include "EnemyWolf.h"
+﻿#include "EnemyBee.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -12,16 +12,16 @@
 #include "Map.h"
 #include "EntityManager.h"
 
-EnemyWolf::EnemyWolf() : Entity(EntityType::ENEMYWOLF)
-{
-	name.Create("EnemyWolf");
+EnemyBee::EnemyBee() : Entity(EntityType::ENEMYBEE) {
+	
+	name.Create("EnemyBee");
 }
 
-EnemyWolf::~EnemyWolf() {
+EnemyBee::~EnemyBee() {
 
 }
 
-bool EnemyWolf::Awake() {
+bool EnemyBee::Awake() {
 
 	//L03: DONE 2: Initialize Player parameters
 	position = iPoint(config.attribute("x").as_int(), config.attribute("y").as_int());
@@ -29,20 +29,19 @@ bool EnemyWolf::Awake() {
 	return true;
 }
 
-bool EnemyWolf::Start() {
+bool EnemyBee::Start() {
 
 	texture = app->tex->Load(config.attribute("texturePath").as_string());
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	app->tex->GetSize(texture, texW, texH);
-	//pbody = app->physics->CreateRectangle(position.x, position.y, texW, texH, bodyType::DYNAMIC);
 	pbody = app->physics->CreateCircle(position.x, position.y, texW / 2, bodyType::DYNAMIC);
 
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this;
 
 	// L07 DONE 7: Assign collider type
-	pbody->ctype = ColliderType::WALKINGENEMY;
+	pbody->ctype = ColliderType::FLYINGGENEMY;
 
 	// Texture to highligh pathfinding
 	tileTex = app->tex->Load("Assets/Maps/tileSelection.png");
@@ -50,16 +49,17 @@ bool EnemyWolf::Start() {
 	return true;
 }
 
-bool EnemyWolf::Update(float dt)
-{
+bool EnemyBee::Update(float dt) {
+
 	b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
 	origin = app->map->WorldToMap(this->position.x, this->position.y);
-	destiny = app->map->WorldToMap(app->scene->player->GetPositionX(), app->scene->player->GetPositionY());
+	destiny = app->map->WorldToMap(app->scene->player->GetPositionX(), app->scene->player->GetPositionY()-150);
 
 	int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
+
 	if (alive) {
-		if (distance < 8)
+		if (distance < 10)
 		{
 			app->map->pathfinding->CreatePath(origin, destiny);
 			lastPath = *app->map->pathfinding->GetLastPath();
@@ -77,6 +77,14 @@ bool EnemyWolf::Update(float dt)
 				{
 					velocity.x = +speed;
 				}
+				if (nextPath->y < origin.y)
+				{
+					velocity.y = -speed;
+				}
+				else if (nextPath->y > origin.y)
+				{
+					velocity.y = +speed;
+				}
 				if (nextPath->x == origin.x) {
 					lastPath.Pop(*nextPath);
 				}
@@ -87,9 +95,11 @@ bool EnemyWolf::Update(float dt)
 			velocity.x = 0;
 		}
 	}
+	
+
 	if (!alive)
 	{
-		//meter animacion de muerte
+		//meter animacion muerte
 	}
 
 	if (app->physics->debug)
@@ -115,7 +125,7 @@ bool EnemyWolf::Update(float dt)
 	return true;
 }
 
-bool EnemyWolf::CleanUp()
+bool EnemyBee::CleanUp()
 {
 	pbody->body->SetActive(false);
 	app->entityManager->DestroyEntity(this);
@@ -123,27 +133,39 @@ bool EnemyWolf::CleanUp()
 	return true;
 }
 
-void EnemyWolf::OnCollision(PhysBody* physA, PhysBody* physB) {
+void EnemyBee::OnCollision(PhysBody* physA, PhysBody* physB) {
 	switch (physB->ctype)
 	{
 	case ColliderType::PLATFORM:
-		LOG("Enemy Collision PLATFORM");
+		LOG("Flying Enemy Collision PLATFORM");
 		break;
 	case ColliderType::PLAYER:
-		LOG("Enemy Collision PLAYER");
+		LOG("Flying Enemy Collision PLAYER");
 		if (app->scene->player->GetPositionY() < this->position.y)
 		{
-			this->alive=false;
+			this->alive = false;
 		}
 		break;
 	case ColliderType::UNKNOWN:
-		LOG("Enemy Collision UNKNOWN");
+		LOG("Flying Enemy Collision UNKNOWN");
 		break;
 	default:
 		break;
 	}
 }
-void EnemyWolf::Teleport(int x, int y)
+
+void EnemyBee::StateMachine() {
+	
+}
+
+void EnemyBee::Attack() {
+	Shoot();
+}
+
+void EnemyBee::Shoot() {
+
+}
+void EnemyBee::Teleport(int x, int y)
 {
 	pbody->body->SetTransform(b2Vec2(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y)), 0);
 	pbody->body->SetLinearVelocity(b2Vec2(0, 0));
@@ -152,27 +174,27 @@ void EnemyWolf::Teleport(int x, int y)
 	position.y = y;
 
 }
-int EnemyWolf::GetPositionX() const
+int EnemyBee::GetPositionX() const
 {
 	return position.x;
 }
-int EnemyWolf::GetPositionY() const
+int EnemyBee::GetPositionY() const
 {
 	return position.y;
 }
-bool EnemyWolf::GetAlive() const
+bool EnemyBee::GetAlive() const
 {
 	return alive;
 }
-void EnemyWolf::SetPositionX(int x)
+void EnemyBee::SetPositionX(int x)
 {
 	position.x = x;
 }
-void EnemyWolf::SetPositionY(int y)
+void EnemyBee::SetPositionY(int y)
 {
 	position.y = y;
 }
-void EnemyWolf::SetAlive(bool alive)
+void EnemyBee::SetAlive(bool alive)
 {
 	this->alive = alive;
 }

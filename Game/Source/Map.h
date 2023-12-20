@@ -4,11 +4,19 @@
 #include "Module.h"
 #include "List.h"
 #include "Point.h"
+#include "DynArray.h"
+#include "Pathfinding.h"
 
 #include "PugiXml\src\pugixml.hpp"
 
 // L05: DONE 2: Create a struct to hold information for a TileSet
 // Ignore Terrain Types and Tile Types for now, but we want the image!
+enum MapOrientation
+{
+    ORTOGRAPHIC = 0,
+    ISOMETRIC
+};
+
 struct TileSet
 {
     int firstgid;
@@ -94,6 +102,8 @@ struct MapData
     int tileheight;
     List<TileSet*> tilesets;
 
+    MapOrientation orientation;
+
     // L06: DONE 2: Add a list/array of layers to the map
     List<MapLayer*> layers;
 };
@@ -125,6 +135,8 @@ public:
     // L06: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
     iPoint MapToWorld(int x, int y) const;
 
+    iPoint WorldToMap(int x, int y);
+
     // L08: DONE 2: Implement function to the Tileset based on a tile id
     TileSet* GetTilesetFromTileId(int gid) const;
 
@@ -134,14 +146,22 @@ public:
     void CreateColliderForTile(int tileX, int tileY);
     void CreatePlatformForTile(int tileX, int tileY);
 
+    void CreateNavigationMap(int& width, int& height, uchar** buffer) const;
+
+    int GetTileWidth();
+    int GetTileHeight();
+
 public: 
     SString name;
     SString path;
+    PathFinding* pathfinding;
 
 private:
     // L05: DONE 1: Declare a variable data of the struct MapData
     MapData mapData;
     bool mapLoaded;
+    MapLayer* navigationLayer;
+    int blockedGid = 1223;
 };
 
 

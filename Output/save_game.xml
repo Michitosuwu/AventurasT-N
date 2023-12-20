@@ -8,9 +8,9 @@
 	<scene />
 	<:anonymous />
 	<entitymanager>
-		<player x="1803" y="626" hp="100" godMode="false" isJumping="false" />
+		<player x="179" y="690" hp="100" godMode="false" isJumping="false" />
+		<enemyWolf x="169" y="367" alive="true" />
+		<enemyBee x="209" y="390" alive="true" />
 	</entitymanager>
-	<renderer>
-		<camera x="-1607" y="-250" />
-	</renderer>
+	<renderer />
 </game_state>

@@ -278,7 +278,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision PLATFORM");
 		canJump = true;
 		break;
-	case ColliderType::ENEMY:
+	case ColliderType::WALKINGENEMY:
+		LOG("Collision ENEMY");
+		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
+		break;
+	case ColliderType::FLYINGGENEMY:
 		LOG("Collision ENEMY");
 		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
 		break;
