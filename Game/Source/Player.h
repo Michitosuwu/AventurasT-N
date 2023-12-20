@@ -61,7 +61,7 @@ public:
 	int hp = 100;
 	float speed = 5.0f;
 	bool canJump = false;
-	float jumpSpeed = 5.0f;
+	float jumpSpeed = 6.5f;
 	float maxJumpSpeed = 8.0f;
 	SDL_Texture* texture = NULL;
 	pugi::xml_node config;
