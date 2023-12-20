@@ -311,10 +311,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	case ColliderType::WALKINGENEMY:
 		LOG("Collision ENEMY");
 		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
+		hp -= 25;
+		//create a log message with the current hp of the player
 		break;
 	case ColliderType::FLYINGGENEMY:
 		LOG("Collision ENEMY");
 		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
+		hp -= 10;
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
