@@ -61,6 +61,8 @@ public:
 
 	bool alive = true;
 
+	SDL_Texture* tileTex = nullptr;
+
 private:
 	//Por si de cara a futuro lo necesitamos
 };

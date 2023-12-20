@@ -43,6 +43,9 @@ bool EnemyBee::Start() {
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::FLYINGGENEMY;
 
+	// Texture to highligh pathfinding
+	tileTex = app->tex->Load("Assets/Maps/tileSelection.png");
+
 	return true;
 }
 
@@ -98,6 +101,17 @@ bool EnemyBee::Update(float dt) {
 	{
 		//meter animacion muerte
 	}
+
+	if (app->physics->debug)
+	{
+		const DynArray<iPoint>* path = app->map->pathfinding->GetLastPath();
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+			app->render->DrawTexture(tileTex, pos.x, pos.y);
+		}
+	}
+
 	pbody->body->SetLinearVelocity(velocity);
 
 	// Obtener la posici�n del cuerpo

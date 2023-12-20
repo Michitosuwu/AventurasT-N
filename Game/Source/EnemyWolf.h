@@ -61,6 +61,8 @@ public:
 
 	bool alive = true;
 
+	SDL_Texture* tileTex = nullptr;
+
 private:
 	// All spawned enemies in the scene
 	// TODO : POSIBILIDAD SI DE CARA A FUTURO NECESITAMOS CONTROLAR LOS ENEMIGOS DEL JUEGO (CUANDO HAYA MUCHOS)
