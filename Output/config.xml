@@ -21,12 +21,69 @@
   <scene>
 	  <map path="Assets/Maps/" name="CatMap.tmx"/>
       <mainmusic path="Assets/Audio/Music/nami_theme.mp3"/>
-	  <player x="200" y="700" texturePath="Assets/Textures/Gato.png" jumpFxPath="Assets/Audio/Fx/meow.ogg"/>
+	  <player x="200" y="700" texturePath="Assets/Textures/michi.png" jumpFxPath="Assets/Audio/Fx/meow.ogg"/>
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <enemies>
 		  <enemywolf x="200" y="400" texturePath="Assets/Textures/Gato.png"/>
 		  <enemybee x="250" y="400" texturePath="Assets/Textures/Bee.png"/>
 	  </enemies>
+	  <animation>
+		  <idle x="128" y="32" w="32" h="25"/>
+		  <!-- moving head anim as idle anim-->
+		  <idle x="160" y="32" w="32" h="25"/>
+		  <idle x="192" y="32" w="32" h="25"/>
+		  <idle x="224" y="32" w="32" h="25"/>
+
+		  <!-- canviar tot a la manera de com hem posat a dalt, i revisar bucle de loadanimations perque me les agafi-->
+		  <moveRight x="385" y="421" w="32" h="19"/>
+		  <moveRight x="417" y="421" w="32" h="19"/>
+		  <moveRight x="449" y="421" w="32" h="19"/>
+		  <moveRight x="481" y="421" w="32" h="19"/>
+
+		  <moveLeft x="480" y="165" w="32" h="19"/>
+		  <moveLeft x="448" y="165" w="32" h="19"/>
+		  <moveLeft x="416" y="165" w="32" h="19"/>
+		  <moveLeft x="384" y="165" w="32" h="19"/>
+
+		  <jumpRight x="607" y="421" w="32" h="19"/>
+		  <jumpRight x="639" y="421" w="32" h="19"/>
+		  <jumpRight x="671" y="421" w="32" h="19"/>
+		  <jumpRight x="703" y="421" w="32" h="19"/>
+		  <jumpRight x="735" y="421" w="32" h="19"/>
+
+		  <jumpLeft x="738" y="165" w="32" h="19"/>
+		  <jumpLeft x="706" y="165" w="32" h="19"/>
+		  <jumpLeft x="674" y="165" w="32" h="19"/>
+		  <jumpLeft x="642" y="165" w="32" h="19"/>
+		  <jumpLeft x="610" y="165" w="32" h="19"/>
+
+		  <beeFly x="1" y="0.5" w="25" h="26"/>
+		  <beeFly x="26" y="0.5" w="25" h="26"/>
+		  <beeFly x="51" y="0.5" w="25" h="26"/>
+		  <beeFly x="76" y="0.5" w="25" h="26"/>
+
+		  <beeDeath x="2.5" y="29.5" w="37" h="27"/>
+		  <beeDeath x="39.5" y="29.5" w="37" h="27"/>
+		  <beeDeath x="76.5" y="29.5" w="37" h="27"/>
+		  <beeDeath x="113.5" y="29.5" w="37" h="27"/>
+		  <beeDeath x="150.5" y="29.5" w="37" h="27"/>
+		  <beeDeath x="187.5" y="29.5" w="37" h="27"/>
+		  <beeDeath x="224.5" y="29.5" w="37" h="27"/>
+		  <beeDeath x="261.5" y="29.5" w="37" h="27"/>
+
+		  <beeAttack x="0.5" y="63.5" w="25" h="29"/>
+		  <beeAttack x="27" y="63.5" w="25" h="29"/>
+		  <beeAttack x="53" y="63.5" w="25" h="29"/>
+		  <beeAttack x="79" y="63.5" w="25" h="29"/>
+		  <beeAttack x="105" y="63.5" w="25" h="29"/>
+		  <beeAttack x="131" y="63.5" w="25" h="29"/>
+		  <beeAttack x="157" y="63.5" w="25" h="29"/>
+		  <beeAttack x="184" y="63.5" w="25" h="29"/>
+		  <beeAttack x="209" y="63.5" w="25" h="29"/>
+		  <beeAttack x="235" y="63.5" w="25" h="29"/>
+		  <beeAttack x="261" y="63.5" w="25" h="29"/>
+		  <beeAttack x="287" y="63.5" w="25" h="29"/>
+	  </animation>
   </scene>
   
 </config>
