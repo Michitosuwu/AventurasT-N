@@ -127,11 +127,11 @@ bool EnemyWolf::Update(float dt)
 
 	//Actualizamos animacion
 	currentAnim->Update(dt);
-	SDL_Rect currentAnimFrame = currentAnim->GetCurrentFrame(dt);
+	SDL_Rect currentAnimFrame = currentAnim->GetCurrentFrame();
 
 	app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
 
-	if (currentAnim->Finished()) {
+	if (currentAnim->HasFinished()) {
 		currentAnim->Reset();
 		currentAnim = &wolfIdle;
 	}

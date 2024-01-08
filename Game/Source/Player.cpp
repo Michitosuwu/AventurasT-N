@@ -314,13 +314,14 @@ bool Player::Update(float dt)
 		godMode = !godMode;
 	}
 
+	// Update the State Machine function
 	StateMachine();
 
 	//Actualizar la animacion actual
 	currentAnimation->Update(dt);
 
 	//Actualizar la anim actual segun la entrada del usuario o el estado del jugador
-	SDL_Rect currentAnimFrame = currentAnimation->GetCurrentFrame(dt);
+	SDL_Rect currentAnimFrame = currentAnimation->GetCurrentFrame();
 
 	app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
 
