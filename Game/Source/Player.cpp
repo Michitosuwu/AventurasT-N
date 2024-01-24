@@ -341,6 +341,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		LOG("Collision PLATFORM");
 		canJump = true;
 		break;
+	case ColliderType::CHECKPOINT:
+		LOG("Collision CHECKPOINT");
+		break;
 	case ColliderType::WALKINGENEMY:
 		LOG("Collision ENEMY");
 		// TODO : IMPLEMENTAR COLISION CON ENEMIGO

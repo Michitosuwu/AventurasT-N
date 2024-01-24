@@ -145,6 +145,7 @@ public:
     bool GetTileProperty(int gid, const char* propertyName);
     void CreateColliderForTile(int tileX, int tileY);
     void CreatePlatformForTile(int tileX, int tileY);
+    void CreateCheckpointForTile(int tileX, int tileY);
 
     void CreateNavigationMap(int& width, int& height, uchar** buffer) const;
 
