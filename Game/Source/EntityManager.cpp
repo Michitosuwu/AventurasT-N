@@ -5,6 +5,7 @@
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
+#include "Checkpoints.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -95,6 +96,9 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::ITEM:
 		entity = new Item();
+		break;
+	case EntityType::CHECKPOINT:
+		entity = new Checkpoints();
 		break;
 	default:
 		break;

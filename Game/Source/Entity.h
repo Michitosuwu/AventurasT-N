@@ -12,6 +12,7 @@ enum class EntityType
 	ENEMYWOLF,
 	ENEMYBEE,
 	ITEM,
+	CHECKPOINT,
 	UNKNOWN
 };
 
