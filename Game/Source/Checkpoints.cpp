@@ -14,14 +14,15 @@ Checkpoints::~Checkpoints(){}
 
 bool Checkpoints::Awake()
 {
-	position = iPoint(parameters.attribute("x").as_int(), parameters.attribute("y").as_int());
+	position = iPoint(config.attribute("x").as_int(), config.attribute("y").as_int());
+	id = config.attribute("id").as_int();
 
 	return true;
 }
 
 bool Checkpoints::Start()
 {
-	texture = app->tex->Load(parameters.attribute("texturePath").as_string());
+	texture = app->tex->Load(config.attribute("texturePath").as_string());
 	pbody = app->physics->CreateRectangle(position.x, position.y, size.x, size.y, bodyType::STATIC);
 	pbody->ctype = ColliderType::CHECKPOINT;
 	pbody->listener = this;

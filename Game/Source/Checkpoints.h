@@ -30,8 +30,11 @@ public:
 
 	SDL_Texture* texture;
 	iPoint size;
+	pugi::xml_node config;
 
 	bool isPicked = false;
+
+	int id;
 
 private:
 

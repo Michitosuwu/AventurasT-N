@@ -346,23 +346,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::WALKINGENEMY:
 		LOG("Collision ENEMY");
-		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
-		if (app->scene->wolf->GetPositionY() < this->position.y && app->scene->wolf->alive && this->godMode == false)
-		{
-			hp -= 25;
-			app->audio->PlayFx(hitFxId);
-			LOG("Player hp: %d", hp);
-		}
 		break;
 	case ColliderType::FLYINGGENEMY:
 		LOG("Collision ENEMY");
-		// TODO : IMPLEMENTAR COLISION CON ENEMIGO
-		if (app->scene->bee->GetPositionY() < this->position.y && app->scene->bee->alive && this->godMode == false)
-		{
-			hp -= 10;
-			app->audio->PlayFx(hitFxId);
-			LOG("Player hp: %d", hp);
-		}
 		break;
 	case ColliderType::UNKNOWN:
 		LOG("Collision UNKNOWN");
