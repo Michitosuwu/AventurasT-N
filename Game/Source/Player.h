@@ -35,6 +35,7 @@ public:
 	bool GetGodMode() const;
 	int GetPositionX() const;
 	int GetPositionY() const;
+	int GetLives() const;
 	
 	void SetHp(int hp);
 	void SetIsMoving(bool det);
@@ -42,6 +43,7 @@ public:
 	void SetGodMode(bool godMode);
 	void SetPositionX(int x);
 	void SetPositionY(int y);
+	void SetLives(int lives);
 
 	// Teleport
 	void Teleport(int x, int y);
@@ -58,6 +60,7 @@ public:
 	Animation* currentAnimation;
 
 	// Declare player parameters
+	int lives = 3;
 	int hp = 100;
 	float speed = 5.0f;
 	bool canJump = false;
