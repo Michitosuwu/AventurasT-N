@@ -27,6 +27,7 @@ bool EnemyBee::Awake() {
 	//L03: DONE 2: Initialize Player parameters
 	position.x = config.attribute("x").as_int();
 	position.y = config.attribute("y").as_int();
+	id = config.attribute("id").as_int();
 
 	return true;
 }
@@ -68,7 +69,10 @@ bool EnemyBee::Update(float dt) {
 	b2Vec2 velocity = pbody->body->GetLinearVelocity();
 
 	origin = app->map->WorldToMap(this->position.x, this->position.y);
-	destiny = app->map->WorldToMap(app->scene->player->GetPositionX(), app->scene->player->GetPositionY()-150);
+	destiny = app->map->WorldToMap(app->scene->player->GetPositionX(), app->scene->player->GetPositionY());
+
+	//Comentar linea anterior y descomentar esta para que la abeja se situe encima del jugador para implementar funcion de disparo
+	//destiny = app->map->WorldToMap(app->scene->player->GetPositionX(), app->scene->player->GetPositionY() - 150);
 
 	int distance = sqrt(pow((origin.x - destiny.x), 2) + pow((origin.y - destiny.y), 2)); //distancia entre el enemigo y el player
 
@@ -223,6 +227,10 @@ bool EnemyBee::GetAlive() const
 {
 	return alive;
 }
+int EnemyBee::GetId() const
+{
+	return id;
+}
 void EnemyBee::SetPositionX(int x)
 {
 	position.x = x;
@@ -234,4 +242,8 @@ void EnemyBee::SetPositionY(int y)
 void EnemyBee::SetAlive(bool alive)
 {
 	this->alive = alive;
+}
+void EnemyBee::SetId(int id)
+{
+	this->id = id;
 }

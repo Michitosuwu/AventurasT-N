@@ -29,10 +29,12 @@ public:
 	int GetPositionX() const;
 	int GetPositionY() const;
 	bool GetPicked() const;
+	int GetId() const;
 
 	void SetPositionX(int x);
 	void SetPositionY(int y);
 	void SetPicked(bool picked);
+	void SetId(int id);
 
 public:
 	SDL_Texture* texture;

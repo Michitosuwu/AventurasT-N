@@ -8,11 +8,12 @@
 	<scene />
 	<:anonymous />
 	<entitymanager>
-		<player x="373" y="628" hp="100" godMode="false" isJumping="false" />
-		<enemyWolf x="199" y="674" alive="true" />
-		<enemyWolf x="258" y="674" alive="true" />
-		<enemyBee x="233" y="464" alive="true" />
-		<enemyBee x="268" y="464" alive="true" />
+		<player x="70" y="582" hp="100" godMode="false" isJumping="false" />
+		<enemyWolf x="63" y="674" id="1" alive="false" />
+		<enemyWolf x="425" y="642" id="2" alive="false" />
+		<enemyBee x="1522" y="607" id="1" alive="true" />
+		<enemyBee x="1522" y="607" id="2" alive="true" />
+		<checkpoint x="334" y="664" id="1" picked="false" />
 	</entitymanager>
 	<renderer />
 </game_state>

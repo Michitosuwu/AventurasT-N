@@ -42,10 +42,10 @@ bool Scene::Awake(pugi::xml_node config)
 
 	//ENEMIES
 	// Wolf enemy 
-	for (pugi::xml_node beeNode = config.child("enemies").child("enemywolf"); beeNode; beeNode = beeNode.next_sibling("enemywolf"))
+	for (pugi::xml_node wolfNode = config.child("enemies").child("enemywolf"); wolfNode; wolfNode = wolfNode.next_sibling("enemywolf"))
 	{
 		EnemyWolf* wolf = (EnemyWolf*)app->entityManager->CreateEntity(EntityType::ENEMYWOLF);
-		wolf->config = config.child("enemies").child("enemywolf");
+		wolf->config = wolfNode;
 		LOG("wolf created");
 	}
 	
@@ -53,7 +53,7 @@ bool Scene::Awake(pugi::xml_node config)
 	for (pugi::xml_node beeNode = config.child("enemies").child("enemybee"); beeNode; beeNode = beeNode.next_sibling("enemybee"))
 	{
 		EnemyBee* bee = (EnemyBee*)app->entityManager->CreateEntity(EntityType::ENEMYBEE);
-		bee->config = config.child("enemies").child("enemybee");
+		bee->config = beeNode;
 		LOG("bee created");
 	}
 
@@ -61,7 +61,7 @@ bool Scene::Awake(pugi::xml_node config)
 	for (pugi::xml_node checkpointNode = config.child("checkpoint"); checkpointNode; checkpointNode = checkpointNode.next_sibling("checkpoint"))
 	{
 		Checkpoints* Checkpoint = (Checkpoints*)app->entityManager->CreateEntity(EntityType::CHECKPOINT);
-		Checkpoint->config = config.child("checkpoint");
+		Checkpoint->config = checkpointNode;
 		LOG("checkpoint created");
 	}
 

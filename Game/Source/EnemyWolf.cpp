@@ -27,6 +27,7 @@ bool EnemyWolf::Awake() {
 	//L03: DONE 2: Initialize Player parameters
 	position.x = config.attribute("x").as_int();
 	position.y = config.attribute("y").as_int();
+	id = config.attribute("id").as_int();
 
 	return true;
 }
@@ -198,6 +199,10 @@ bool EnemyWolf::GetAlive() const
 {
 	return alive;
 }
+int EnemyWolf::GetId() const
+{
+	return id;
+}
 void EnemyWolf::SetPositionX(int x)
 {
 	position.x = x;
@@ -209,4 +214,8 @@ void EnemyWolf::SetPositionY(int y)
 void EnemyWolf::SetAlive(bool alive)
 {
 	this->alive = alive;
+}
+void EnemyWolf::SetId(int id)
+{
+	this->id = id;
 }

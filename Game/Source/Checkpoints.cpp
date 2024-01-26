@@ -81,6 +81,11 @@ bool Checkpoints::GetPicked() const
 	return isPicked;
 }
 
+int Checkpoints::GetId() const
+{
+	return id;
+}
+
 void Checkpoints::SetPositionX(int x)
 {
 	position.x = x;
@@ -94,4 +99,9 @@ void Checkpoints::SetPositionY(int y)
 void Checkpoints::SetPicked(bool picked)
 {
 	isPicked = picked;
+}
+
+void Checkpoints::SetId(int id)
+{
+	this->id = id;
 }

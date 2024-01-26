@@ -197,7 +197,7 @@ bool EntityManager::LoadState(pugi::xml_node node) {
 
 bool EntityManager::SaveState(pugi::xml_node node) {
 
-	int playherHp, playerX, playerY, wolfX, wolfY, beeX, beeY, checkpointX, checkpointY;
+	int playherHp, playerX, playerY, wolfX, wolfY, wolfId, beeX, beeY, beeId, checkpointX, checkpointY, checkpointId;
 	bool playerGodMode, playerIsJumping, wolfAlive, beeAlive, checkpointPicked;
 
 	ListItem<Entity*>* Entities = entities.start;
@@ -228,11 +228,13 @@ bool EntityManager::SaveState(pugi::xml_node node) {
 			{
 				wolfX = enemyWolf->GetPositionX();
 				wolfY = enemyWolf->GetPositionY();
+				wolfId = enemyWolf->GetId();
 				wolfAlive = enemyWolf->GetAlive();
 			}
 			pugi::xml_node wolfNode = node.append_child("enemyWolf");
 			wolfNode.append_attribute("x").set_value(wolfX);
 			wolfNode.append_attribute("y").set_value(wolfY);
+			wolfNode.append_attribute("id").set_value(wolfId);
 			wolfNode.append_attribute("alive").set_value(wolfAlive);
 		}else if (Entities->data->type == EntityType::ENEMYBEE)
 		{
@@ -241,11 +243,13 @@ bool EntityManager::SaveState(pugi::xml_node node) {
 			{
 				beeX = enemyBee->GetPositionX();
 				beeY = enemyBee->GetPositionY();
+				beeId = enemyBee->GetId();
 				beeAlive = enemyBee->GetAlive();
 			}
 			pugi::xml_node beeNode = node.append_child("enemyBee");
 			beeNode.append_attribute("x").set_value(beeX);
 			beeNode.append_attribute("y").set_value(beeY);
+			beeNode.append_attribute("id").set_value(beeId);
 			beeNode.append_attribute("alive").set_value(beeAlive);
 		}else if (Entities->data->type == EntityType::CHECKPOINT)
 		{
@@ -254,11 +258,13 @@ bool EntityManager::SaveState(pugi::xml_node node) {
 			{
 				checkpointX = checkpoint->GetPositionX();
 				checkpointY = checkpoint->GetPositionY();
+				checkpointId = checkpoint->GetId();
 				checkpointPicked = checkpoint->GetPicked();
 			}
 			pugi::xml_node checkpointNode = node.append_child("checkpoint");
 			checkpointNode.append_attribute("x").set_value(checkpointX);
 			checkpointNode.append_attribute("y").set_value(checkpointY);
+			checkpointNode.append_attribute("id").set_value(checkpointId);
 			checkpointNode.append_attribute("picked").set_value(checkpointPicked);
 		}
 
