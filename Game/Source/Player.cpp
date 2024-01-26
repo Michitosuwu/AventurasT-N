@@ -211,21 +211,21 @@ void Player::StateMachine()
 // Función de movimiento
 b2Vec2 Player::Move(b2Vec2 vel)
 {
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canMove == true)
 	{
 		currentAnimation = &moveLeftAnimation;
 		vel.x = -speed;
 		SetIsMoving(true);
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canMove == true)
 	{
 		currentAnimation = &moveRightAnimation;
 		vel.x = speed;
 		SetIsMoving(true);
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && canMove == true)
 	{
 		SetIsMoving(false);
 		vel.x = 0;
@@ -262,29 +262,29 @@ b2Vec2 Player::GodMode(b2Vec2 vel)
 {
 	pbody->body->SetGravityScale(0);
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && canMove == true) {
 		// Mover hacia la izquierda
 		vel.x = -godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
 	}
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && canMove == true) {
 		// Mover hacia la derecha
 		vel.x = godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
 	}
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && canMove == true) {
 		// Mover hacia arriba
 		vel.y = -godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
 	}
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && canMove == true) {
 		// Mover hacia abajo
 		vel.y = godModeSpeed; // Ajusta la velocidad seg�n tu necesidad
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_S) == KEY_IDLE)
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_S) == KEY_IDLE && canMove == true)
 	{
 		vel.y = 0;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_IDLE && app->input->GetKey(SDL_SCANCODE_D) == KEY_IDLE && canMove == true)
 	{
 		vel.x = 0;
 	}
@@ -336,10 +336,15 @@ bool Player::Update(float dt)
 		SDL_Rect currentAnimFrame = currentAnimation->GetCurrentFrame();
 
 		app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
+
+		if (hp>100)
+		{
+			hp = 100;
+		}
 	}
 	else if (lives == 0)
 	{
-		int cameraX = app->render->camera.x;
+		int cameraX = -app->render->camera.x;
 		int cameraY = -app->render->camera.y;
 
 		app->render->DrawTexture(app->scene->deathTexture, cameraX, cameraY);
@@ -355,6 +360,9 @@ bool Player::Update(float dt)
 
 bool Player::CleanUp()
 {
+	pbody->body->SetActive(false);
+	app->entityManager->DestroyEntity(this);
+	app->physics->world->DestroyBody(pbody->body);
 	return true;
 }
 
@@ -423,6 +431,10 @@ int Player::GetLives() const
 {
 	return lives;
 }
+int Player::GetPoints() const
+{
+	return points;
+}
 void Player::SetHp(int hp)
 {
 	this->hp = hp;
@@ -446,4 +458,8 @@ void Player::SetPositionY(int y)
 void Player::SetLives(int lives)
 {
 	this->lives = lives;
+}
+void Player::SetPoints(int points)
+{
+	this->points = points;
 }

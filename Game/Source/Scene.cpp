@@ -33,6 +33,22 @@ bool Scene::Awake(pugi::xml_node config)
 	app->map->name = config.child("map").attribute("name").as_string();
 	app->map->path = config.child("map").attribute("path").as_string();
 
+	//Checkpoints
+	for (pugi::xml_node checkpointNode = config.child("checkpoint"); checkpointNode; checkpointNode = checkpointNode.next_sibling("checkpoint"))
+	{
+		Checkpoints* Checkpoint = (Checkpoints*)app->entityManager->CreateEntity(EntityType::CHECKPOINT);
+		Checkpoint->config = checkpointNode;
+		LOG("checkpoint created");
+	}
+
+	//Items
+	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+	{
+		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		item->config = itemNode;
+		LOG("item created");
+	}
+
 	//ENEMIES
 	// Wolf enemy 
 	for (pugi::xml_node wolfNode = config.child("enemies").child("enemywolf"); wolfNode; wolfNode = wolfNode.next_sibling("enemywolf"))
@@ -48,14 +64,6 @@ bool Scene::Awake(pugi::xml_node config)
 		EnemyBee* bee = (EnemyBee*)app->entityManager->CreateEntity(EntityType::ENEMYBEE);
 		bee->config = beeNode;
 		LOG("bee created");
-	}
-
-	//checkpoints
-	for (pugi::xml_node checkpointNode = config.child("checkpoint"); checkpointNode; checkpointNode = checkpointNode.next_sibling("checkpoint"))
-	{
-		Checkpoints* Checkpoint = (Checkpoints*)app->entityManager->CreateEntity(EntityType::CHECKPOINT);
-		Checkpoint->config = checkpointNode;
-		LOG("checkpoint created");
 	}
 
 	// PLAYER
@@ -81,6 +89,16 @@ bool Scene::Awake(pugi::xml_node config)
 	DTexH = config.child("deathscreen").attribute("width").as_uint();
 	deathpath = config.child("deathscreen").attribute("texturePath").as_string();
 
+	//DEATH SCREEN
+	// Loading and saving death screen attributes
+	finishPosX = config.child("finishscreen").attribute("x").as_uint();
+	finishPosY = config.child("finishscreen").attribute("y").as_uint();
+	FTexW = config.child("finishscreen").attribute("height").as_uint();
+	FTexH = config.child("finishscreen").attribute("width").as_uint();
+	finishpath = config.child("finishscreen").attribute("texturePath").as_string();
+
+
+
 	app->audio->PlayMusic(config.child("mainmusic").attribute("path").as_string());
 
 	return ret;
@@ -92,6 +110,7 @@ bool Scene::Start()
 	// NOTE: We have to avoid the use of paths in the code, we will move it later to a config file
 	backgroundTexture = app->tex->Load(path.GetString());
 	deathTexture = app->tex->Load(deathpath.GetString());
+	finishTexture = app->tex->Load(finishpath.GetString());
 	
 	//Music is commented so that you can add your own music
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
@@ -108,9 +127,14 @@ bool Scene::Start()
 
 	//Get the size of the texture
 	app->tex->GetSize(deathTexture, DTexW, DTexH);
-
 	deathX = (float)windowW / 2 - (float)DTexW / 2;
 	deathY = (float)windowH / 2 - (float)DTexH / 2;
+	
+	//Get the size of the texture
+	app->tex->GetSize(finishTexture, FTexW, FTexH);
+
+	finishX = (float)windowW / 2 - (float)FTexW / 2;
+	finishY = (float)windowH / 2 - (float)FTexH / 2;
 
 	return true;
 }

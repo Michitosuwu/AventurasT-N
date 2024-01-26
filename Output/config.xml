@@ -25,18 +25,35 @@
 	  <player x="200" y="700" texturePath="Assets/Textures/michi.png" jumpFxPath="Assets/Audio/Fx/meow.ogg" hitFxPath="Assets/Audio/Fx/cat-hurt.ogg"/>
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
 	  <deathscreen x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/death_screen.png"/>
+	  <finishscreen x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/finish_screen.png"/>
 	  <enemies>
 		  <enemywolf x="500" y="700" id="1" texturePath="Assets/Textures/wolf_spritesheet.png" hitFxPath="Assets/Audio/Fx/dog-hurt.ogg"/>
 		  <enemywolf x="800" y="700" id="2" texturePath="Assets/Textures/wolf_spritesheet.png" hitFxPath="Assets/Audio/Fx/dog-hurt.ogg"/>
 		  <enemybee x="1750" y="150" id="1" texturePath="Assets/Textures/bee_spritesheet.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
 		  <enemybee x="2550" y="150" id="2" texturePath="Assets/Textures/bee_spritesheet.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
 	  </enemies>
-	  <checkpoint x="350" y="680" id="1" texturepath="Assets/Textures/Gato.png"/>
-	  <checkpoint x="1550" y="610" id="2" texturepath="Assets/Textures/Gato.png"/>
-	  <checkpoint x="2720" y="672" id="3" texturepath="Assets/Textures/Gato.png"/>
-	  <items>
-		  
-	  </items>
+	  <checkpoint x="350" y="680" id="1" texturepath="Assets/Textures/star.png" activationFxPath="Assets/Audio/Fx/wololo.ogg"/>
+	  <checkpoint x="1550" y="610" id="2" texturepath="Assets/Textures/star.png" activationFxPath="Assets/Audio/Fx/wololo.ogg"/>
+	  <checkpoint x="2720" y="672" id="3" texturepath="Assets/Textures/star.png" activationFxPath="Assets/Audio/Fx/wololo.ogg"/>
+	  <item x="50" y="385" id="1" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="125" y="385" id="2" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="200" y="385" id="3" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="400" y="450" id="4" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="445" y="450" id="5" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="490" y="450" id="6" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="655" y="545" id="7" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="750" y="545" id="8" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="1740" y="513" id="9" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="1790" y="513" id="10" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="1840" y="513" id="11" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="1995" y="385" id="12" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="2095" y="385" id="13" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="2285" y="320" id="14" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="2335" y="320" id="15" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="2385" y="320" id="16" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="700" y="545" id="1" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
+	  <item x="1345" y="607" id="2" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
+	  <item x="2045" y="385" id="3" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
 	  <animation>
 		  <idle x="128" y="32" w="32" h="25" speed="0.05" loop="true"/>
 		  <!-- moving head anim as idle anim-->
