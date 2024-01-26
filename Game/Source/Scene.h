@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "EnemyWolf.h"
 #include "EnemyBee.h"
+#include "Boss.h"
 #include "Checkpoints.h"
 #include "Item.h"
 
@@ -75,6 +76,7 @@ public:
 	// Declare wolf enemy
 	EnemyWolf* wolf;
 	EnemyBee* bee;
+	Boss* boss;
 	Checkpoints* checkpoint;
 	Item* item;
 };

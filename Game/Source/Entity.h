@@ -11,6 +11,7 @@ enum class EntityType
 	PLAYER,
 	ENEMYWOLF,
 	ENEMYBEE,
+	BOSS,
 	ITEM,
 	CHECKPOINT,
 	UNKNOWN

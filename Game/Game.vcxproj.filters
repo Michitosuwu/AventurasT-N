@@ -26,6 +26,7 @@
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\EnemyBee.cpp" />
     <ClCompile Include="Source\Checkpoints.cpp" />
+    <ClCompile Include="Source\Boss.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -76,6 +77,7 @@
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\EnemyBee.h" />
     <ClInclude Include="Source\Checkpoints.h" />
+    <ClInclude Include="Source\Boss.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

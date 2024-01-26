@@ -69,8 +69,8 @@ bool Scene::Awake(pugi::xml_node config)
 	// Boss enemy
 	for (pugi::xml_node bossNode = config.child("enemies").child("enemyboss"); bossNode; bossNode = bossNode.next_sibling("enemyboss"))
 	{
-		EnemyWolf* wolf = (EnemyWolf*)app->entityManager->CreateEntity(EntityType::ENEMYWOLF);
-		wolf->config = bossNode;
+		Boss* boss = (Boss*)app->entityManager->CreateEntity(EntityType::BOSS);
+		boss->config = bossNode;
 		LOG("boss created");
 	}
 
