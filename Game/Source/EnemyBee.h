@@ -39,10 +39,12 @@ public:
 	int GetPositionX() const;
 	int GetPositionY() const;
 	bool GetAlive() const;
+	int GetId() const;
 
 	void SetPositionX(int x);
 	void SetPositionY(int y);
 	void SetAlive(bool alive);
+	void SetId(int id);
 
 public:
 	
@@ -59,6 +61,8 @@ public:
 	iPoint origin, destiny;
 
 	DynArray<iPoint> lastPath;
+
+	int id;
 
 	bool alive = true;
 

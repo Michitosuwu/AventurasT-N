@@ -25,7 +25,9 @@ EnemyWolf::~EnemyWolf() {
 bool EnemyWolf::Awake() {
 
 	//L03: DONE 2: Initialize Player parameters
-	position = iPoint(config.attribute("x").as_int(), config.attribute("y").as_int());
+	position.x = config.attribute("x").as_int();
+	position.y = config.attribute("y").as_int();
+	id = config.attribute("id").as_int();
 
 	return true;
 }
@@ -155,10 +157,18 @@ void EnemyWolf::OnCollision(PhysBody* physA, PhysBody* physB) {
 		break;
 	case ColliderType::PLAYER:
 		LOG("Enemy Collision PLAYER");
-		if (app->scene->player->GetPositionY() < this->position.y && this->alive)
+		if (this->alive)
 		{
-			app->audio->PlayFx(hitFxId);
-			this->alive=false;
+			if (app->scene->player->GetPositionY() > this->position.y) {
+				app->scene->player->hp -= 25;
+				app->audio->PlayFx(app->scene->player->hitFxId);
+				LOG("Player hp: %d", app->scene->player->hp);
+			}
+			else if (app->scene->player->GetPositionY() < this->position.y)
+			{
+				app->audio->PlayFx(hitFxId);
+				this->alive = false;
+			}
 		}
 		break;
 	case ColliderType::UNKNOWN:
@@ -189,6 +199,10 @@ bool EnemyWolf::GetAlive() const
 {
 	return alive;
 }
+int EnemyWolf::GetId() const
+{
+	return id;
+}
 void EnemyWolf::SetPositionX(int x)
 {
 	position.x = x;
@@ -200,4 +214,8 @@ void EnemyWolf::SetPositionY(int y)
 void EnemyWolf::SetAlive(bool alive)
 {
 	this->alive = alive;
+}
+void EnemyWolf::SetId(int id)
+{
+	this->id = id;
 }

@@ -33,21 +33,37 @@ bool Scene::Awake(pugi::xml_node config)
 	app->map->name = config.child("map").attribute("name").as_string();
 	app->map->path = config.child("map").attribute("path").as_string();
 
+	//ENEMIES
+	// Wolf enemy 
+	for (pugi::xml_node wolfNode = config.child("enemies").child("enemywolf"); wolfNode; wolfNode = wolfNode.next_sibling("enemywolf"))
+	{
+		EnemyWolf* wolf = (EnemyWolf*)app->entityManager->CreateEntity(EntityType::ENEMYWOLF);
+		wolf->config = wolfNode;
+		LOG("wolf created");
+	}
+	
+	// Bee enemy 
+	for (pugi::xml_node beeNode = config.child("enemies").child("enemybee"); beeNode; beeNode = beeNode.next_sibling("enemybee"))
+	{
+		EnemyBee* bee = (EnemyBee*)app->entityManager->CreateEntity(EntityType::ENEMYBEE);
+		bee->config = beeNode;
+		LOG("bee created");
+	}
+
+	//checkpoints
+	for (pugi::xml_node checkpointNode = config.child("checkpoint"); checkpointNode; checkpointNode = checkpointNode.next_sibling("checkpoint"))
+	{
+		Checkpoints* Checkpoint = (Checkpoints*)app->entityManager->CreateEntity(EntityType::CHECKPOINT);
+		Checkpoint->config = checkpointNode;
+		LOG("checkpoint created");
+	}
+
 	// PLAYER
 	// Instantiate the player using the entity manager
 	// Get player paremeters
 	// Assigns the XML node to a member in player
-	player = (Player*) app->entityManager->CreateEntity(EntityType::PLAYER);	
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->config = config.child("player");
-
-	//ENEMIES
-	// Wolf enemy 
-	wolf = (EnemyWolf*)app->entityManager->CreateEntity(EntityType::ENEMYWOLF);
-	wolf->config = config.child("enemies").child("enemywolf");
-	
-	// Bee enemy 
-	bee = (EnemyBee*)app->entityManager->CreateEntity(EntityType::ENEMYBEE);
-	bee->config = config.child("enemies").child("enemybee");
 
 	//BACKGROUND
 	// Loading and saving background attributes

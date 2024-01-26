@@ -146,6 +146,31 @@ void Map::CreatePlatformForTile(int tileX, int tileY)
     // ...
 }
 
+void Map::CreateCheckpointForTile(int tileX, int tileY)
+{
+    // Obtener las dimensiones del tile y la posición en el mundo
+    int tileWidth = mapData.tilewidth;
+    int tileHeight = mapData.tileheight;
+    int worldX = tileX * tileWidth;
+    int worldY = tileY * tileHeight;
+
+    // Crear un colisionador estático (ajusta esto según tu motor de física)
+    PhysBody* collider = app->physics->CreateRectangle(worldX + (tileWidth / 2), worldY + (tileHeight / 4), tileWidth, tileHeight / 2, STATIC);
+
+    // Asignar un tipo de colisionador (ajusta esto según tus necesidades)
+    collider->ctype = ColliderType::CHECKPOINT;
+
+    // Otras configuraciones específicas de tu motor de física, si es necesario
+    // collider->SetDensity(...);
+    // collider->SetFriction(...);
+    // collider->SetRestitution(...);
+    // ...
+
+    // Agregar el colisionador al sistema de física o almacenarlo en una lista, según tu implementación
+    // app->physics->AddCollider(collider);
+    // ...
+}
+
 // L08: DONE 2: Implement function to the Tileset based on a tile id
 TileSet* Map::GetTilesetFromTileId(int gid) const
 {
@@ -303,7 +328,7 @@ for (ListItem<MapLayer*>* mapLayer = mapData.layers.start; mapLayer != NULL; map
                     else
                     {
                         CreatePlatformForTile(i, j);
-                    }
+					}
                 }
             }
         }
