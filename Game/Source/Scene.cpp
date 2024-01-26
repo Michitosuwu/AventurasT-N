@@ -46,6 +46,7 @@ bool Scene::Awake(pugi::xml_node config)
 	{
 		EnemyWolf* wolf = (EnemyWolf*)app->entityManager->CreateEntity(EntityType::ENEMYWOLF);
 		wolf->config = config.child("enemies").child("enemywolf");
+		LOG("wolf created");
 	}
 	
 	// Bee enemy 
@@ -53,16 +54,16 @@ bool Scene::Awake(pugi::xml_node config)
 	{
 		EnemyBee* bee = (EnemyBee*)app->entityManager->CreateEntity(EntityType::ENEMYBEE);
 		bee->config = config.child("enemies").child("enemybee");
-
+		LOG("bee created");
 	}
 
-
-	////checkpoints
-	//for (pugi::xml_node checkpointNode = config.child("checkpoint"); checkpointNode; checkpointNode = checkpointNode.next_sibling("checkpoint"))
-	//{
-	//	Checkpoints* Checkpoint = (Checkpoints*)app->entityManager->CreateEntity(EntityType::CHECKPOINT);
-	//	checkpoint->config = config.child("checkpoint");
-	//}
+	//checkpoints
+	for (pugi::xml_node checkpointNode = config.child("checkpoint"); checkpointNode; checkpointNode = checkpointNode.next_sibling("checkpoint"))
+	{
+		Checkpoints* Checkpoint = (Checkpoints*)app->entityManager->CreateEntity(EntityType::CHECKPOINT);
+		Checkpoint->config = config.child("checkpoint");
+		LOG("checkpoint created");
+	}
 
 	//BACKGROUND
 	// Loading and saving background attributes

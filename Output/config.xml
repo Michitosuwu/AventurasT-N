@@ -30,7 +30,6 @@
 		  <enemybee x="550" y="700" texturePath="Assets/Textures/bee_spritesheet.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
 	  </enemies>
 	  <checkpoint x="350" y="700" id="1" texturepath="Assets/Textures/Gato.png"/>
-	  <checkpoint x="700" y="700" id="2" texturepath="Assets/Textures/Gato.png"/>
 	  <items>
 		  
 	  </items>

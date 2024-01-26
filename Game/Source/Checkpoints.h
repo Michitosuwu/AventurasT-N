@@ -13,7 +13,6 @@ class Checkpoints : public Entity
 public:
 
 	Checkpoints();
-
 	virtual ~Checkpoints();
 
 	bool Awake();
@@ -26,19 +25,26 @@ public:
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
-public:
+	//getters setters
+	int GetPositionX() const;
+	int GetPositionY() const;
+	bool GetPicked() const;
 
+	void SetPositionX(int x);
+	void SetPositionY(int y);
+	void SetPicked(bool picked);
+
+public:
 	SDL_Texture* texture;
-	iPoint size;
+	const char* texturePath;
 	pugi::xml_node config;
+	uint texW, texH;
+	PhysBody* pbody;
 
 	bool isPicked = false;
 
-	int id;
-
 private:
-
-	PhysBody* pbody;
+	
 };
 
 #endif // __CHECKPOINTS_H__

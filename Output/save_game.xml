@@ -8,9 +8,8 @@
 	<scene />
 	<:anonymous />
 	<entitymanager>
-		<player x="179" y="690" hp="100" godMode="false" isJumping="false" />
-		<enemyWolf x="169" y="367" alive="true" />
-		<enemyBee x="209" y="390" alive="true" />
+		<player x="103" y="645" hp="100" godMode="false" isJumping="false" />
+		<enemyWolf x="37" y="520" alive="false" />
 	</entitymanager>
 	<renderer />
 </game_state>
