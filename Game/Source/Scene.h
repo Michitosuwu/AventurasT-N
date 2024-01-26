@@ -49,6 +49,13 @@ public:
 	uint backgroundPosX, backgroundPosY = 0;
 	float backgroundX, backgroundY = 0;
 	uint BTexW, BTexH = 0;
+	
+	// Death screen attributes
+	SString deathpath;
+	SDL_Texture* deathTexture = NULL;
+	uint deathPosX, deathPosY = 0;
+	float deathX, deathY = 0;
+	uint DTexW, DTexH = 0;
 
 
 	// Declare a Player attribute

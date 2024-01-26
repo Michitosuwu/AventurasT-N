@@ -294,37 +294,62 @@ b2Vec2 Player::GodMode(b2Vec2 vel)
 
 bool Player::Update(float dt)
 {
-	// Activate or deactivate debug mode
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		debug = !debug;
-	
-	//Start from first level F1
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+	if (lives != 0)
+	{
+		if (hp<0)
+		{
+			lives--;
+			app->LoadRequest();
+			hp = 100;
+		}
+		// Activate or deactivate debug mode
+		if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+			debug = !debug;
 
-		Teleport(config.attribute("x").as_int(), config.attribute("y").as_int());
+		//Start from first level F1
+		if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) {
+
+			Teleport(config.attribute("x").as_int(), config.attribute("y").as_int());
+		}
+
+		//Tp to the beginning of the current level F3
+		if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+			Teleport(config.attribute("x").as_int(), config.attribute("y").as_int());
+		}
+
+		//GodMode F10
+		if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
+			godMode = !godMode;
+		}
+
+		if (app->input->GetKey(SDL_SCANCODE_H) == KEY_DOWN) {
+			lives--;
+		}
+
+		// Update the State Machine function
+		StateMachine();
+
+		//Actualizar la animacion actual
+		currentAnimation->Update(dt);
+
+		//Actualizar la anim actual segun la entrada del usuario o el estado del jugador
+		SDL_Rect currentAnimFrame = currentAnimation->GetCurrentFrame();
+
+		app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
 	}
-	
-	//Tp to the beginning of the current level F3
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-		Teleport(config.attribute("x").as_int(), config.attribute("y").as_int());
+	else if (lives == 0)
+	{
+		int cameraX = app->render->camera.x;
+		int cameraY = -app->render->camera.y;
+
+		app->render->DrawTexture(app->scene->deathTexture, cameraX, cameraY);
+
+		if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			lives = 3;
+			app->LoadRequest();
+		}
 	}
-	
-	//GodMode F10
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) {
-		godMode = !godMode;
-	}
-
-	// Update the State Machine function
-	StateMachine();
-
-	//Actualizar la animacion actual
-	currentAnimation->Update(dt);
-
-	//Actualizar la anim actual segun la entrada del usuario o el estado del jugador
-	SDL_Rect currentAnimFrame = currentAnimation->GetCurrentFrame();
-
-	app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
-
 	return true;
 }
 
@@ -394,6 +419,10 @@ int Player::GetPositionY() const
 {
 	return position.y;
 }
+int Player::GetLives() const
+{
+	return lives;
+}
 void Player::SetHp(int hp)
 {
 	this->hp = hp;
@@ -413,4 +442,8 @@ void Player::SetPositionX(int x)
 void Player::SetPositionY(int y)
 {
 	position.y = y;
+}
+void Player::SetLives(int lives)
+{
+	this->lives = lives;
 }
