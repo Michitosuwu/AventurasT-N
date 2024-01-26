@@ -1,13 +1,15 @@
 #include "Checkpoints.h"
 #include "App.h"
 #include "Textures.h"
+#include "Audio.h"
+#include "Input.h"
 #include "Render.h"
 #include "Scene.h"
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
-#include "Module.h"
-#include "Audio.h"
+#include "Animation.h"
+
 
 Checkpoints::Checkpoints() : Entity(EntityType::CHECKPOINT)
 {
@@ -52,6 +54,15 @@ bool Checkpoints::Update(float dt)
 
 	app->render->DrawTexture(texture, position.x, position.y);
 
+	if (last == true)
+	{
+		int cameraX = -app->render->camera.x;
+		int cameraY = -app->render->camera.y;
+
+		app->render->DrawTexture(app->scene->finishTexture, cameraX, cameraY);
+		app->scene->player->canMove = false;
+	}
+
 	return true;
 }
 
@@ -72,9 +83,9 @@ void Checkpoints::OnCollision(PhysBody* physA, PhysBody* physB) {
 		{
 			app->audio->PlayFx(touched);
 			app->SaveRequest();
-			if (this->id == 3)
+			if (id == 3)
 			{
-				//agregar cambio de escena al nivel del boss
+				last = true;
 			}
 			isPicked = true;
 		}

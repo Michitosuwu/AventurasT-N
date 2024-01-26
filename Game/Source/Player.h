@@ -79,6 +79,7 @@ public:
 	bool isJumping = false;
 	bool isMoving = false;
 	bool isDeath = false;
+	bool canMove = true;
 
 	//Audio fx
 	int jumpFxId;

@@ -6,6 +6,7 @@
 #include "EnemyWolf.h"
 #include "EnemyBee.h"
 #include "Checkpoints.h"
+#include "Item.h"
 
 struct SDL_Texture;
 
@@ -57,6 +58,13 @@ public:
 	float deathX, deathY = 0;
 	uint DTexW, DTexH = 0;
 
+	// Finish screen attributes
+	SString finishpath;
+	SDL_Texture* finishTexture = NULL;
+	uint finishPosX, finishPosY = 0;
+	float finishX, finishY = 0;
+	uint FTexW, FTexH = 0;
+
 
 	// Declare a Player attribute
 	Player* player;
@@ -65,6 +73,7 @@ public:
 	EnemyWolf* wolf;
 	EnemyBee* bee;
 	Checkpoints* checkpoint;
+	Item* item;
 };
 
 #endif // __SCENE_H__

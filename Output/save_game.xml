@@ -10,21 +10,12 @@
 	<entitymanager>
 		<checkpoint x="345" y="675" id="1" picked="true" />
 		<checkpoint x="1545" y="605" id="2" picked="true" />
-		<checkpoint x="2715" y="667" id="3" picked="false" />
-		<checkpoint x="1740" y="513" id="1" picked="true" />
-		<checkpoint x="1790" y="513" id="1" picked="true" />
-		<checkpoint x="1840" y="513" id="1" picked="true" />
-		<checkpoint x="1994" y="385" id="1" picked="true" />
-		<checkpoint x="2095" y="385" id="1" picked="true" />
-		<checkpoint x="2285" y="319" id="1" picked="true" />
-		<checkpoint x="2335" y="319" id="1" picked="true" />
-		<checkpoint x="2385" y="319" id="1" picked="true" />
-		<checkpoint x="2044" y="385" id="2" picked="true" />
-		<enemyWolf x="258" y="674" id="1" alive="true" />
+		<checkpoint x="2715" y="667" id="3" picked="true" />
+		<enemyWolf x="63" y="674" id="1" alive="false" />
 		<enemyWolf x="802" y="642" id="2" alive="false" />
-		<enemyBee x="1691" y="527" id="1" alive="true" />
-		<enemyBee x="2536" y="671" id="2" alive="true" />
-		<player x="1522" y="549" lives="3" hp="100" points="800" godMode="false" isJumping="false" />
+		<enemyBee x="1252" y="607" id="1" alive="false" />
+		<enemyBee x="2719" y="671" id="2" alive="false" />
+		<player x="2691" y="678" lives="3" hp="100" points="1600" godMode="false" isJumping="false" />
 	</entitymanager>
 	<renderer />
 </game_state>
