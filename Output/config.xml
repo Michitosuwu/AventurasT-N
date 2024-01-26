@@ -31,6 +31,7 @@
 		  <enemywolf x="800" y="700" id="2" texturePath="Assets/Textures/wolf_spritesheet.png" hitFxPath="Assets/Audio/Fx/dog-hurt.ogg"/>
 		  <enemybee x="1750" y="150" id="1" texturePath="Assets/Textures/bee_spritesheet.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
 		  <enemybee x="2550" y="150" id="2" texturePath="Assets/Textures/bee_spritesheet.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
+		  <enemyboss x="5760" y="672" id="1" texturePath="Assets/Textures/wolf_spritesheet.png" hitFxPath="Assets/Audio/Fx/dog-hurt.ogg"/>
 	  </enemies>
 	  <checkpoint x="350" y="680" id="1" texturepath="Assets/Textures/star.png" activationFxPath="Assets/Audio/Fx/wololo.ogg"/>
 	  <checkpoint x="1550" y="610" id="2" texturepath="Assets/Textures/star.png" activationFxPath="Assets/Audio/Fx/wololo.ogg"/>

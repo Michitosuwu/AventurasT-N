@@ -66,6 +66,14 @@ bool Scene::Awake(pugi::xml_node config)
 		LOG("bee created");
 	}
 
+	// Boss enemy
+	for (pugi::xml_node bossNode = config.child("enemies").child("enemyboss"); bossNode; bossNode = bossNode.next_sibling("enemyboss"))
+	{
+		EnemyWolf* wolf = (EnemyWolf*)app->entityManager->CreateEntity(EntityType::ENEMYWOLF);
+		wolf->config = bossNode;
+		LOG("boss created");
+	}
+
 	// PLAYER
 	// Instantiate the player using the entity manager
 	// Get player paremeters
@@ -209,15 +217,6 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveRequest();
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) app->LoadRequest();
-
-	////intento de hardcodear el paso al mapa de nivel 2
-	//if (player->position.x == 2718) {
-	//	
-	//	//LoadNextMap();
-
-	//	player->Teleport(3648, 700);
-
-	//}
 
 	return true;
 }
