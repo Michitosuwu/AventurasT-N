@@ -41,6 +41,8 @@ public:
 	uint texW, texH;
 	PhysBody* pbody;
 
+	int id;
+
 	bool isPicked = false;
 
 private:

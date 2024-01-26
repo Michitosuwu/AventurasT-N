@@ -19,6 +19,7 @@ bool Checkpoints::Awake() {
 
 	position.x = config.attribute("x").as_int();
 	position.y = config.attribute("y").as_int();
+	id = config.attribute("id").as_int();
 	texturePath = config.attribute("texturepath").as_string();
 
 	return true;

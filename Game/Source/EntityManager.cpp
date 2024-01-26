@@ -144,100 +144,125 @@ bool EntityManager::Update(float dt)
 bool EntityManager::LoadState(pugi::xml_node node) {
 
 	ListItem<Entity*>* Entities = entities.start;
-	if (Entities->data->type == EntityType::PLAYER)
+
+	while (Entities->next != nullptr)
 	{
-		Player* player = static_cast<Player*>(Entities->data);
-		if (player != nullptr)
+		if (Entities->data->type == EntityType::PLAYER)
 		{
-			player->SetPositionX(node.child("player").attribute("x").as_int());
-			player->SetPositionY(node.child("player").attribute("y").as_int());
-			player->SetHp(node.child("player").attribute("hp").as_int());
-			player->SetGodMode(node.child("player").attribute("godMode").as_bool());
-			player->SetIsJumping(node.child("player").attribute("isJumping").as_bool());
-			player->Teleport(node.child("player").attribute("x").as_int(), node.child("player").attribute("y").as_int());
-		}
-	}
-	Entities = Entities->next;
-	if (Entities->data->type == EntityType::ENEMYWOLF)
-	{
-		EnemyWolf* enemyWolf = static_cast<EnemyWolf*>(Entities->data);
-		if (enemyWolf != nullptr)
+			Player* player = static_cast<Player*>(Entities->data);
+			if (player != nullptr)
+			{
+				player->SetPositionX(node.child("player").attribute("x").as_int());
+				player->SetPositionY(node.child("player").attribute("y").as_int());
+				player->SetHp(node.child("player").attribute("hp").as_int());
+				player->SetGodMode(node.child("player").attribute("godMode").as_bool());
+				player->SetIsJumping(node.child("player").attribute("isJumping").as_bool());
+				player->Teleport(node.child("player").attribute("x").as_int(), node.child("player").attribute("y").as_int());
+			}
+		}else if (Entities->data->type == EntityType::ENEMYWOLF)
 		{
-			enemyWolf->SetPositionX(node.child("enemyWolf").attribute("x").as_int());
-			enemyWolf->SetPositionY(node.child("enemyWolf").attribute("y").as_int());
-			enemyWolf->SetAlive(node.child("enemyWolf").attribute("alive").as_bool());
-			enemyWolf->Teleport(node.child("enemyWolf").attribute("x").as_int(), node.child("enemyWolf").attribute("y").as_int());
-		}
-	}
-	Entities = Entities->next;
-	if (Entities->data->type == EntityType::ENEMYBEE)
-	{
-		EnemyBee* enemyBee = static_cast<EnemyBee*>(Entities->data);
-		if (enemyBee != nullptr)
+			EnemyWolf* enemyWolf = static_cast<EnemyWolf*>(Entities->data);
+			if (enemyWolf != nullptr)
+			{
+				enemyWolf->SetPositionX(node.child("enemyWolf").attribute("x").as_int());
+				enemyWolf->SetPositionY(node.child("enemyWolf").attribute("y").as_int());
+				enemyWolf->SetAlive(node.child("enemyWolf").attribute("alive").as_bool());
+				enemyWolf->Teleport(node.child("enemyWolf").attribute("x").as_int(), node.child("enemyWolf").attribute("y").as_int());
+			}
+		}else if (Entities->data->type == EntityType::ENEMYBEE)
 		{
-			enemyBee->SetPositionX(node.child("enemyBee").attribute("x").as_int());
-			enemyBee->SetPositionY(node.child("enemyBee").attribute("y").as_int());
-			enemyBee->SetAlive(node.child("enemyBee").attribute("alive").as_bool());
-			enemyBee->Teleport(node.child("enemyBee").attribute("x").as_int(), node.child("enemyBee").attribute("y").as_int());
+			EnemyBee* enemyBee = static_cast<EnemyBee*>(Entities->data);
+			if (enemyBee != nullptr)
+			{
+				enemyBee->SetPositionX(node.child("enemyBee").attribute("x").as_int());
+				enemyBee->SetPositionY(node.child("enemyBee").attribute("y").as_int());
+				enemyBee->SetAlive(node.child("enemyBee").attribute("alive").as_bool());
+				enemyBee->Teleport(node.child("enemyBee").attribute("x").as_int(), node.child("enemyBee").attribute("y").as_int());
+			}
+		}else if (Entities->data->type == EntityType::CHECKPOINT)
+		{
+			Checkpoints* checkpoint = static_cast<Checkpoints*>(Entities->data);
+			if (checkpoint != nullptr)
+			{
+				checkpoint->SetPositionX(node.child("checkpoints").attribute("x").as_int());
+				checkpoint->SetPositionY(node.child("checkpoints").attribute("y").as_int());
+				checkpoint->SetPicked(node.child("checkpoints").attribute("picked").as_bool());
+			}
 		}
+
+		Entities = Entities->next;
 	}
 	return true;
 }
 
 bool EntityManager::SaveState(pugi::xml_node node) {
 
-	int playherHp, playerX, playerY, wolfX, wolfY, beeX, beeY;
-	bool playerGodMode, playerIsJumping, wolfAlive, beeAlive;
+	int playherHp, playerX, playerY, wolfX, wolfY, beeX, beeY, checkpointX, checkpointY;
+	bool playerGodMode, playerIsJumping, wolfAlive, beeAlive, checkpointPicked;
 
 	ListItem<Entity*>* Entities = entities.start;
-	if (Entities->data->type == EntityType::PLAYER)
+	while (Entities->next != nullptr)
 	{
-		Player* player = static_cast<Player*>(Entities->data);
-		if (player != nullptr)
+		if (Entities->data->type == EntityType::PLAYER)
 		{
-			playherHp = player->GetHp();
-			playerX = player->GetPositionX();
-			playerY = player->GetPositionY();
-			playerGodMode = player->GetGodMode();
-			playerIsJumping = player->GetIsJumping();
+			Player* player = static_cast<Player*>(Entities->data);
+			if (player != nullptr)
+			{
+				playherHp = player->GetHp();
+				playerX = player->GetPositionX();
+				playerY = player->GetPositionY();
+				playerGodMode = player->GetGodMode();
+				playerIsJumping = player->GetIsJumping();
 
-		}
-		pugi::xml_node playerNode = node.append_child("player");
-		playerNode.append_attribute("x").set_value(playerX);
-		playerNode.append_attribute("y").set_value(playerY);
-		playerNode.append_attribute("hp").set_value(playherHp);
-		playerNode.append_attribute("godMode").set_value(playerGodMode);
-		playerNode.append_attribute("isJumping").set_value(playerIsJumping);
-	}
-	Entities = Entities->next;
-	if (Entities->data->type == EntityType::ENEMYWOLF)
-	{
-		EnemyWolf* enemyWolf = static_cast<EnemyWolf*>(Entities->data);
-		if (enemyWolf != nullptr)
+			}
+			pugi::xml_node playerNode = node.append_child("player");
+			playerNode.append_attribute("x").set_value(playerX);
+			playerNode.append_attribute("y").set_value(playerY);
+			playerNode.append_attribute("hp").set_value(playherHp);
+			playerNode.append_attribute("godMode").set_value(playerGodMode);
+			playerNode.append_attribute("isJumping").set_value(playerIsJumping);
+		}else if (Entities->data->type == EntityType::ENEMYWOLF)
 		{
-			wolfX = enemyWolf->GetPositionX();
-			wolfY = enemyWolf->GetPositionY();
-			wolfAlive = enemyWolf->GetAlive();
-		}
-		pugi::xml_node wolfNode = node.append_child("enemyWolf");
-		wolfNode.append_attribute("x").set_value(wolfX);
-		wolfNode.append_attribute("y").set_value(wolfY);
-		wolfNode.append_attribute("alive").set_value(wolfAlive);
-	}
-	Entities = Entities->next;
-	if (Entities->data->type == EntityType::ENEMYBEE)
-	{
-		EnemyBee* enemyBee = static_cast<EnemyBee*>(Entities->data);
-		if (enemyBee != nullptr)
+			EnemyWolf* enemyWolf = static_cast<EnemyWolf*>(Entities->data);
+			if (enemyWolf != nullptr)
+			{
+				wolfX = enemyWolf->GetPositionX();
+				wolfY = enemyWolf->GetPositionY();
+				wolfAlive = enemyWolf->GetAlive();
+			}
+			pugi::xml_node wolfNode = node.append_child("enemyWolf");
+			wolfNode.append_attribute("x").set_value(wolfX);
+			wolfNode.append_attribute("y").set_value(wolfY);
+			wolfNode.append_attribute("alive").set_value(wolfAlive);
+		}else if (Entities->data->type == EntityType::ENEMYBEE)
 		{
-			beeX = enemyBee->GetPositionX();
-			beeY = enemyBee->GetPositionY();
-			beeAlive = enemyBee->GetAlive();
+			EnemyBee* enemyBee = static_cast<EnemyBee*>(Entities->data);
+			if (enemyBee != nullptr)
+			{
+				beeX = enemyBee->GetPositionX();
+				beeY = enemyBee->GetPositionY();
+				beeAlive = enemyBee->GetAlive();
+			}
+			pugi::xml_node beeNode = node.append_child("enemyBee");
+			beeNode.append_attribute("x").set_value(beeX);
+			beeNode.append_attribute("y").set_value(beeY);
+			beeNode.append_attribute("alive").set_value(beeAlive);
+		}else if (Entities->data->type == EntityType::CHECKPOINT)
+		{
+			Checkpoints* checkpoint = static_cast<Checkpoints*>(Entities->data);
+			if (checkpoint != nullptr)
+			{
+				checkpointX = checkpoint->GetPositionX();
+				checkpointY = checkpoint->GetPositionY();
+				checkpointPicked = checkpoint->GetPicked();
+			}
+			pugi::xml_node checkpointNode = node.append_child("checkpoint");
+			checkpointNode.append_attribute("x").set_value(checkpointX);
+			checkpointNode.append_attribute("y").set_value(checkpointY);
+			checkpointNode.append_attribute("picked").set_value(checkpointPicked);
 		}
-		pugi::xml_node beeNode = node.append_child("enemyBee");
-		beeNode.append_attribute("x").set_value(beeX);
-		beeNode.append_attribute("y").set_value(beeY);
-		beeNode.append_attribute("alive").set_value(beeAlive);
+
+		Entities = Entities->next;
 	}
 	return true;
 }
