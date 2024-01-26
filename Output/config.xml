@@ -52,9 +52,17 @@
 	  <item x="2285" y="320" id="14" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
 	  <item x="2335" y="320" id="15" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
 	  <item x="2385" y="320" id="16" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="4000" y="544" id="17" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="4384" y="544" id="18" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="4928" y="608" id="19" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="5344" y="480" id="20" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
 	  <item x="700" y="545" id="1" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
 	  <item x="1345" y="607" id="2" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
 	  <item x="2045" y="385" id="3" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
+	  <item x="4192" y="608" id="4" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
+	  <item x="3968" y="672" id="5" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
+	  <item x="4544" y="512" id="6" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
+	  <item x="5184" y="672" id="7" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
 	  <animation>
 		  <idle x="128" y="32" w="32" h="25" speed="0.05" loop="true"/>
 		  <!-- moving head anim as idle anim-->
