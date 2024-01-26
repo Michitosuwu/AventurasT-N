@@ -61,6 +61,11 @@ void Checkpoints::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		LOG("Checkpoint Collision PLAYER");
+		app->SaveRequest();
+		if (this->id == 3)
+		{
+
+		}
 		isPicked = true;
 		break;
 	}

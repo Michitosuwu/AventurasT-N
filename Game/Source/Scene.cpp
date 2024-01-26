@@ -33,13 +33,6 @@ bool Scene::Awake(pugi::xml_node config)
 	app->map->name = config.child("map").attribute("name").as_string();
 	app->map->path = config.child("map").attribute("path").as_string();
 
-	// PLAYER
-	// Instantiate the player using the entity manager
-	// Get player paremeters
-	// Assigns the XML node to a member in player
-	player = (Player*) app->entityManager->CreateEntity(EntityType::PLAYER);	
-	player->config = config.child("player");
-
 	//ENEMIES
 	// Wolf enemy 
 	for (pugi::xml_node wolfNode = config.child("enemies").child("enemywolf"); wolfNode; wolfNode = wolfNode.next_sibling("enemywolf"))
@@ -64,6 +57,13 @@ bool Scene::Awake(pugi::xml_node config)
 		Checkpoint->config = checkpointNode;
 		LOG("checkpoint created");
 	}
+
+	// PLAYER
+	// Instantiate the player using the entity manager
+	// Get player paremeters
+	// Assigns the XML node to a member in player
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	player->config = config.child("player");
 
 	//BACKGROUND
 	// Loading and saving background attributes
