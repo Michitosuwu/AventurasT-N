@@ -339,7 +339,7 @@ bool Player::Update(float dt)
 	}
 	else if (lives == 0)
 	{
-		int cameraX = app->render->camera.x;
+		int cameraX = -app->render->camera.x;
 		int cameraY = -app->render->camera.y;
 
 		app->render->DrawTexture(app->scene->deathTexture, cameraX, cameraY);
