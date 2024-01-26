@@ -19,7 +19,8 @@
     </window>
 
   <scene>
-	  <map path="Assets/Maps/" name="CatMap.tmx"/>
+	  <map path="Assets/Maps/" name="CatMap.tmx"/> <!--Level 1 map-->
+	  <map path="Assets/Maps/" name="LevelDos.tmx"/> <!--Level 2 map-->
       <mainmusic path="Assets/Audio/Music/nami_theme.mp3"/>
 	  <player x="200" y="700" texturePath="Assets/Textures/michi.png" jumpFxPath="Assets/Audio/Fx/meow.ogg" hitFxPath="Assets/Audio/Fx/cat-hurt.ogg"/>
 	  <background x="0" y="0" width="1280" height="780" texturePath="Assets/Textures/background.png"/>
