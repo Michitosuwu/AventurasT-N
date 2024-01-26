@@ -210,14 +210,14 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveRequest();
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) app->LoadRequest();
 
-	//intento de hardcodear el paso al mapa de nivel 2
-	if (player->position.x == 2718) {
-		
-		//LoadNextMap();
+	////intento de hardcodear el paso al mapa de nivel 2
+	//if (player->position.x == 2718) {
+	//	
+	//	//LoadNextMap();
 
-		player->Teleport(3648, 700);
+	//	player->Teleport(3648, 700);
 
-	}
+	//}
 
 	return true;
 }

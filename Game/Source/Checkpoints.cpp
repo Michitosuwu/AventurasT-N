@@ -56,11 +56,11 @@ bool Checkpoints::Update(float dt)
 
 	if (last == true)
 	{
-		int cameraX = -app->render->camera.x;
-		int cameraY = -app->render->camera.y;
-
-		app->render->DrawTexture(app->scene->finishTexture, cameraX, cameraY);
-		app->scene->player->canMove = false;
+		app->scene->player->SetPositionX(3688);
+		app->scene->player->SetPositionY(700);
+		app->scene->player->Teleport(3688, 700);
+		last = false;
+		app->SaveRequest();
 	}
 
 	return true;
