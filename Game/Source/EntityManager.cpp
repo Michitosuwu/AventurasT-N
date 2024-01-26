@@ -145,7 +145,7 @@ bool EntityManager::LoadState(pugi::xml_node node) {
 
 	ListItem<Entity*>* Entities = entities.start;
 
-	while (Entities->next != nullptr)
+	while (Entities != nullptr)
 	{
 		if (Entities->data->type == EntityType::PLAYER)
 		{
@@ -202,7 +202,7 @@ bool EntityManager::SaveState(pugi::xml_node node) {
 	bool playerGodMode, playerIsJumping, wolfAlive, beeAlive, checkpointPicked;
 
 	ListItem<Entity*>* Entities = entities.start;
-	while (Entities->next != nullptr)
+	while (Entities != nullptr)
 	{
 		if (Entities->data->type == EntityType::PLAYER)
 		{
