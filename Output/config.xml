@@ -30,12 +30,14 @@
 		  <enemybee x="1750" y="150" id="1" texturePath="Assets/Textures/bee_spritesheet.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
 		  <enemybee x="2550" y="150" id="2" texturePath="Assets/Textures/bee_spritesheet.png" hitFxPath="Assets/Audio/Fx/bee-hurt.ogg"/>
 	  </enemies>
-	  <checkpoint x="350" y="680" id="1" texturepath="Assets/Textures/Gato.png"/>
-	  <checkpoint x="1550" y="610" id="2" texturepath="Assets/Textures/Gato.png"/>
-	  <checkpoint x="2720" y="672" id="3" texturepath="Assets/Textures/Gato.png"/>
-	  <items>
-		  
-	  </items>
+	  <checkpoint x="350" y="680" id="1" texturepath="Assets/Textures/star.png" activationFxPath="Assets/Audio/Fx/wololo.ogg"/>
+	  <checkpoint x="1550" y="610" id="2" texturepath="Assets/Textures/star.png" activationFxPath="Assets/Audio/Fx/wololo.ogg"/>
+	  <checkpoint x="2720" y="672" id="3" texturepath="Assets/Textures/star.png" activationFxPath="Assets/Audio/Fx/wololo.ogg"/>
+	  <item x="500" y="700" id="1" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="550" y="700" id="2" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="600" y="700" id="3" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="650" y="700" id="4" type="1" texturepath="Assets/Textures/emerald.png" pickFxPath="Assets/Audio/Fx/emerald.ogg"/>
+	  <item x="700" y="700" id="5" type="2" texturepath="Assets/Textures/water-melon.png" pickFxPath="Assets/Audio/Fx/nomnomnom.ogg"/>
 	  <animation>
 		  <idle x="128" y="32" w="32" h="25" speed="0.05" loop="true"/>
 		  <!-- moving head anim as idle anim-->

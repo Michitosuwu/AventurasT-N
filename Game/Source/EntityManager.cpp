@@ -156,6 +156,7 @@ bool EntityManager::LoadState(pugi::xml_node node) {
 				player->SetPositionY(node.child("player").attribute("y").as_int());
 				player->SetLives(node.child("player").attribute("lives").as_int());
 				player->SetHp(node.child("player").attribute("hp").as_int());
+				player->SetPoints(node.child("player").attribute("points").as_int());
 				player->SetGodMode(node.child("player").attribute("godMode").as_bool());
 				player->SetIsJumping(node.child("player").attribute("isJumping").as_bool());
 				player->Teleport(node.child("player").attribute("x").as_int(), node.child("player").attribute("y").as_int());
@@ -198,7 +199,7 @@ bool EntityManager::LoadState(pugi::xml_node node) {
 
 bool EntityManager::SaveState(pugi::xml_node node) {
 
-	int playherHp, playerLives, playerX, playerY, wolfX, wolfY, wolfId, beeX, beeY, beeId, checkpointX, checkpointY, checkpointId;
+	int playherHp, playerLives, playerPoints, playerX, playerY, wolfX, wolfY, wolfId, beeX, beeY, beeId, checkpointX, checkpointY, checkpointId;
 	bool playerGodMode, playerIsJumping, wolfAlive, beeAlive, checkpointPicked;
 
 	ListItem<Entity*>* Entities = entities.start;
@@ -215,13 +216,14 @@ bool EntityManager::SaveState(pugi::xml_node node) {
 				playerY = player->GetPositionY();
 				playerGodMode = player->GetGodMode();
 				playerIsJumping = player->GetIsJumping();
-
+				playerPoints = player->GetPoints();
 			}
 			pugi::xml_node playerNode = node.append_child("player");
 			playerNode.append_attribute("x").set_value(playerX);
 			playerNode.append_attribute("y").set_value(playerY);
 			playerNode.append_attribute("lives").set_value(playerLives);
 			playerNode.append_attribute("hp").set_value(playherHp);
+			playerNode.append_attribute("points").set_value(playerPoints);
 			playerNode.append_attribute("godMode").set_value(playerGodMode);
 			playerNode.append_attribute("isJumping").set_value(playerIsJumping);
 		}else if (Entities->data->type == EntityType::ENEMYWOLF)

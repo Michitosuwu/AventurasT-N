@@ -7,6 +7,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Module.h"
+#include "Audio.h"
 
 Checkpoints::Checkpoints() : Entity(EntityType::CHECKPOINT)
 {
@@ -34,17 +35,20 @@ bool Checkpoints::Start() {
 	pbody->listener = this;
 	pbody->ctype = ColliderType::CHECKPOINT;
 
+	//initialize audio effect
+	touched = app->audio->LoadFx(config.attribute("activationFxPath").as_string());
+
 	return true;
 }
 
 bool Checkpoints::Update(float dt)
 {
-	texW = 37;
-	texH = 29;
+	texW = 25;
+	texH = 25;
 
 	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 5;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 5;
 
 	app->render->DrawTexture(texture, position.x, position.y);
 
@@ -53,6 +57,9 @@ bool Checkpoints::Update(float dt)
 
 bool Checkpoints::CleanUp()
 {
+	pbody->body->SetActive(false);
+	app->entityManager->DestroyEntity(this);
+	app->physics->world->DestroyBody(pbody->body);
 	return true;
 }
 
@@ -61,12 +68,16 @@ void Checkpoints::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 	case ColliderType::PLAYER:
 		LOG("Checkpoint Collision PLAYER");
-		app->SaveRequest();
-		if (this->id == 3)
+		if (isPicked == false)
 		{
-
+			app->audio->PlayFx(touched);
+			app->SaveRequest();
+			if (this->id == 3)
+			{
+				//agregar cambio de escena al nivel del boss
+			}
+			isPicked = true;
 		}
-		isPicked = true;
 		break;
 	}
 }

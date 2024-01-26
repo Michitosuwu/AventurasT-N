@@ -45,6 +45,9 @@ public:
 
 	int id;
 
+	//Audio fx
+	int touched;
+
 	bool isPicked = false;
 
 private:

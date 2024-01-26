@@ -423,6 +423,10 @@ int Player::GetLives() const
 {
 	return lives;
 }
+int Player::GetPoints() const
+{
+	return points;
+}
 void Player::SetHp(int hp)
 {
 	this->hp = hp;
@@ -446,4 +450,8 @@ void Player::SetPositionY(int y)
 void Player::SetLives(int lives)
 {
 	this->lives = lives;
+}
+void Player::SetPoints(int points)
+{
+	this->points = points;
 }

@@ -24,16 +24,23 @@ public:
 
 public:
 
-	bool isPicked = false;
-
-private:
-
 	SDL_Texture* texture;
 	const char* texturePath;
 	uint texW, texH;
 
+	pugi::xml_node config;
+
 	//L07 DONE 4: Add a physics to an item
 	PhysBody* pbody;
+
+	bool isPicked = false;
+	int type;
+	int id;
+
+	//Audio fx
+	int touched;
+
+private:
 };
 
 #endif // __ITEM_H__

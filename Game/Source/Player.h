@@ -36,6 +36,7 @@ public:
 	int GetPositionX() const;
 	int GetPositionY() const;
 	int GetLives() const;
+	int GetPoints() const;
 	
 	void SetHp(int hp);
 	void SetIsMoving(bool det);
@@ -44,6 +45,7 @@ public:
 	void SetPositionX(int x);
 	void SetPositionY(int y);
 	void SetLives(int lives);
+	void SetPoints(int points);
 
 	// Teleport
 	void Teleport(int x, int y);
@@ -91,6 +93,8 @@ public:
 
 	// Debug mode
 	bool debug;
+
+	int points = 0;
 };
 
 #endif // __PLAYER_H__
