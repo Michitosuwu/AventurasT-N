@@ -13,8 +13,9 @@ frameCount(p.frameCount), lifetime(p.lifetime)
 
 Particle::~Particle()
 {
-	if (collider != nullptr)
-		collider->pendingToDelete = true;
+	/*if (collider != nullptr)
+		collider->pendingToDelete = true;*/
+	//sorry voy a dejar cosas comentadas para dejar el modulo este aparcao
 }
 
 bool Particle::Start() {
@@ -55,8 +56,8 @@ bool Particle::Update(float dt)
 		position.x += speed.x;
 		position.y += speed.y;
 
-		if (collider != nullptr)
-			collider->SetPos(position.x, position.y);
+		/*if (collider != nullptr)
+			collider->SetPos(position.x, position.y);*/
 	}
 
 	return ret;
@@ -64,7 +65,7 @@ bool Particle::Update(float dt)
 
 void Particle::SetToDelete()
 {
-	pendingToDelete = true;
+	/*pendingToDelete = true;
 	if (collider != nullptr)
-		collider->pendingToDelete = true;
+		collider->pendingToDelete = true;*/
 }

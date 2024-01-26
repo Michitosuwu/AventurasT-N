@@ -13,7 +13,7 @@ enum class EntityType
 	ENEMYBEE,
 	ITEM,
 	UNKNOWN,
-	BULLET
+	//BULLET
 };
 
 enum class EntityState
