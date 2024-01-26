@@ -22,6 +22,18 @@ public:
 
 	bool CleanUp();
 
+	void OnCollision(PhysBody* physA, PhysBody* physB);
+
+	int GetPositionX() const;
+	int GetPositionY() const;
+	int GetId() const;
+	int GetType() const;
+
+	void SetPositionX(int x);
+	void SetPositionY(int y);
+	void SetId(int id);
+	void SetType(int type);
+
 public:
 
 	SDL_Texture* texture;
@@ -33,7 +45,6 @@ public:
 	//L07 DONE 4: Add a physics to an item
 	PhysBody* pbody;
 
-	bool isPicked = false;
 	int type;
 	int id;
 

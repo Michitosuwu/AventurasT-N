@@ -336,6 +336,11 @@ bool Player::Update(float dt)
 		SDL_Rect currentAnimFrame = currentAnimation->GetCurrentFrame();
 
 		app->render->DrawTexture(texture, position.x, position.y, &currentAnimFrame);
+
+		if (hp>100)
+		{
+			hp = 100;
+		}
 	}
 	else if (lives == 0)
 	{

@@ -199,7 +199,7 @@ bool EntityManager::LoadState(pugi::xml_node node) {
 
 bool EntityManager::SaveState(pugi::xml_node node) {
 
-	int playherHp, playerLives, playerPoints, playerX, playerY, wolfX, wolfY, wolfId, beeX, beeY, beeId, checkpointX, checkpointY, checkpointId;
+	int playherHp, playerLives, playerPoints, playerX, playerY, wolfX, wolfY, wolfId, beeX, beeY, beeId, checkpointX, checkpointY, checkpointId, itemX, itemY, itemId, itemType;
 	bool playerGodMode, playerIsJumping, wolfAlive, beeAlive, checkpointPicked;
 
 	ListItem<Entity*>* Entities = entities.start;
@@ -257,6 +257,22 @@ bool EntityManager::SaveState(pugi::xml_node node) {
 			beeNode.append_attribute("id").set_value(beeId);
 			beeNode.append_attribute("alive").set_value(beeAlive);
 		}else if (Entities->data->type == EntityType::CHECKPOINT)
+		{
+			Checkpoints* checkpoint = static_cast<Checkpoints*>(Entities->data);
+			if (checkpoint != nullptr)
+			{
+				checkpointX = checkpoint->GetPositionX();
+				checkpointY = checkpoint->GetPositionY();
+				checkpointId = checkpoint->GetId();
+				checkpointPicked = checkpoint->GetPicked();
+			}
+			pugi::xml_node checkpointNode = node.append_child("checkpoint");
+			checkpointNode.append_attribute("x").set_value(checkpointX);
+			checkpointNode.append_attribute("y").set_value(checkpointY);
+			checkpointNode.append_attribute("id").set_value(checkpointId);
+			checkpointNode.append_attribute("picked").set_value(checkpointPicked);
+		}
+		else if (Entities->data->type == EntityType::ITEM)
 		{
 			Checkpoints* checkpoint = static_cast<Checkpoints*>(Entities->data);
 			if (checkpoint != nullptr)
