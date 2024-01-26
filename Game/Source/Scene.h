@@ -36,6 +36,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	//For second level
+	//void LoadNextMap();
+
 private:
 	float textPosX, textPosY = 0;
 	bool cameraDebug = false;
@@ -65,6 +68,7 @@ public:
 	EnemyWolf* wolf;
 	EnemyBee* bee;
 	Checkpoints* checkpoint;
+	//Checkpoints* lastCheckpoint = nullptr;
 };
 
 #endif // __SCENE_H__

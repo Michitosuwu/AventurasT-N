@@ -8,13 +8,13 @@
 	<scene />
 	<:anonymous />
 	<entitymanager>
-		<enemyWolf x="358" y="611" id="1" alive="true" />
-		<enemyWolf x="358" y="611" id="2" alive="true" />
-		<enemyBee x="1632" y="584" id="1" alive="true" />
-		<enemyBee x="1662" y="557" id="2" alive="true" />
+		<enemyWolf x="337" y="642" id="1" alive="true" />
+		<enemyWolf x="275" y="645" id="2" alive="true" />
+		<enemyBee x="2003" y="639" id="1" alive="true" />
+		<enemyBee x="2431" y="671" id="2" alive="false" />
 		<checkpoint x="334" y="664" id="1" picked="false" />
 		<checkpoint x="1534" y="594" id="2" picked="true" />
-		<checkpoint x="2704" y="656" id="3" picked="false" />
+		<checkpoint x="2704" y="656" id="3" picked="true" />
 	</entitymanager>
 	<renderer />
 </game_state>

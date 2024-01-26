@@ -127,7 +127,7 @@ bool Scene::Update(float dt)
 	//L02 DONE 3: Make the camera movement independent of framerate
 	float camSpeed = 1; 
 
-	if (app->render->camera.x - player->GetPositionX() + 200 <= -24 && app->render->camera.x - player->GetPositionX() + 200 >= -10000 && !cameraDebug) 
+	if (app->render->camera.x - player->GetPositionX() + 200 <= -24 && app->render->camera.x - player->GetPositionX() + 200 >= -20000 && !cameraDebug) 
 	{
 		app->render->camera.x = -player->GetPositionX() + 200;
 	}
@@ -186,6 +186,15 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) app->SaveRequest();
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) app->LoadRequest();
 
+	//intento de hardcodear el paso al mapa de nivel 2
+	if (player->position.x == 2718) {
+		
+		//LoadNextMap();
+
+		player->Teleport(3648, 700);
+
+	}
+
 	return true;
 }
 
@@ -207,3 +216,9 @@ bool Scene::CleanUp()
 
 	return true;
 }
+
+//void Scene::LoadNextMap() {
+//
+//	app->map->Load("Assets/Maps/LevelDos.tmx");
+//
+//}
