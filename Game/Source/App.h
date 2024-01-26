@@ -17,11 +17,14 @@ class Input;
 class Render;
 class Textures;
 class Audio;
+class MainScene;
 class Scene;
+class FadeToBlack;
 class EntityManager;
 class Map;
 //L07 DONE 2: Add Physics module
 class Physics;
+class GuiManager;
 
 class App
 {
@@ -91,10 +94,13 @@ public:
 	Textures* tex;
 	Audio* audio;
 	Scene* scene;
+	FadeToBlack* fadeToblack;
+	MainScene* mainScene;
 	EntityManager* entityManager;
 	Map* map;
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
+	GuiManager* guiManager;
 
 private:
 

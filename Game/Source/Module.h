@@ -6,6 +6,7 @@
 #include "PugiXml/src/pugixml.hpp"
 
 class App;
+class GuiControl;
 
 class Module
 {
@@ -13,6 +14,8 @@ public:
 
 	Module() : active(false)
 	{}
+
+	Module(bool startActive) : active(startActive) { };
 
 	void Init()
 	{
@@ -60,6 +63,32 @@ public:
 		return true;
 	}
 	virtual bool SaveState(pugi::xml_node node)
+	{
+		return true;
+	}
+
+	void Enable()
+	{
+		if (!active)
+		{
+			if (!active)
+			{
+				active = true;
+				Start();
+			}
+		}
+	}
+
+	void Disable() 
+	{
+		if (active)
+		{
+			active = false;
+			CleanUp();
+		}
+	}
+
+	virtual bool OnGuiMouseClickEvent(GuiControl* control)
 	{
 		return true;
 	}

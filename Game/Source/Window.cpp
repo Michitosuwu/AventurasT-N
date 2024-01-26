@@ -14,6 +14,14 @@ Window::Window() : Module()
 	name.Create("window");
 }
 
+Window::Window(bool startEnabled) : Module(startEnabled) 
+{
+
+	window = NULL;
+	screenSurface = NULL;
+	name.Create("window");
+}
+
 // Destructor
 Window::~Window()
 {
@@ -103,4 +111,14 @@ void Window::GetWindowSize(uint& width, uint& height) const
 uint Window::GetScale() const
 {
 	return scale;
+}
+
+uint Window::GetWindowH() const
+{
+	return height;
+}
+
+uint Window::GetWindowW() const
+{
+	return width;
 }

@@ -4,17 +4,19 @@
 	<input />
 	<textures />
 	<audio />
+	<mainScene />
 	<:anonymous />
 	<scene />
 	<:anonymous />
 	<entitymanager>
-		<enemyWolf x="358" y="611" id="1" alive="true" />
-		<enemyWolf x="358" y="611" id="2" alive="true" />
-		<enemyBee x="1632" y="584" id="1" alive="true" />
-		<enemyBee x="1662" y="557" id="2" alive="true" />
-		<checkpoint x="334" y="664" id="1" picked="false" />
-		<checkpoint x="1534" y="594" id="2" picked="true" />
+		<enemyWolf x="359" y="642" id="1" alive="true" />
+		<enemyWolf x="769" y="642" id="2" alive="true" />
+		<enemyBee x="1736" y="511" id="1" alive="true" />
+		<enemyBee x="2536" y="671" id="2" alive="true" />
+		<checkpoint x="334" y="664" id="1" picked="true" />
+		<checkpoint x="1534" y="594" id="2" picked="false" />
 		<checkpoint x="2704" y="656" id="3" picked="false" />
 	</entitymanager>
+	<guiManager />
 	<renderer />
 </game_state>

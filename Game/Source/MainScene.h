@@ -1,5 +1,5 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#ifndef __MAINSCENE_H__
+#define __MAINSCENE_H__
 
 #include "Module.h"
 #include "Player.h"
@@ -11,16 +11,16 @@
 
 struct SDL_Texture;
 
-class Scene : public Module
+class MainScene : public Module
 {
 public:
 
-	Scene();
+	MainScene();
 
-	Scene(bool startEnabled);
+	MainScene(bool startEnabled);
 
 	// Destructor
-	virtual ~Scene();
+	virtual ~MainScene();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node config);
@@ -56,22 +56,6 @@ public:
 	uint backgroundPosX, backgroundPosY = 0;
 	float backgroundX, backgroundY = 0;
 	uint BTexW, BTexH = 0;
-	
-	// Death screen attributes
-	SString deathpath;
-	SDL_Texture* deathTexture = NULL;
-	uint deathPosX, deathPosY = 0;
-	float deathX, deathY = 0;
-	uint DTexW, DTexH = 0;
-
-
-	// Declare a Player attribute
-	Player* player;
-
-	// Declare wolf enemy
-	EnemyWolf* wolf;
-	EnemyBee* bee;
-	Checkpoints* checkpoint;
 
 	GuiControlButton* gcButtom;
 };

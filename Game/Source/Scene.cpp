@@ -10,8 +10,15 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include "GuiControl.h"
+#include "GuiManager.h"
 
 Scene::Scene() : Module()
+{
+	name.Create("scene");
+}
+
+Scene::Scene(bool startEnabled) : Module(startEnabled)
 {
 	name.Create("scene");
 }
@@ -103,7 +110,7 @@ bool Scene::Start()
 	//app->tex->GetSize(img, texW, texH);
 	app->tex->GetSize(backgroundTexture, BTexW, BTexH);
 
-	backgroundX = (float)windowW / 2 - (float)BTexW / 2;
+	backgroundX = (float)windowW / 2 - (float)BTexW / 2; 
 	backgroundY = (float)windowH / 2 - (float)BTexH / 2;
 
 	//Get the size of the texture
@@ -204,6 +211,13 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
+	return true;
+}
+
+bool Scene::OnGuiMouseClickEvent(GuiControl* control)
+{
+	LOG("Press Gui Control: %d", control->id);
 
 	return true;
 }

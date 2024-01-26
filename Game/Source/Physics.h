@@ -41,6 +41,7 @@ public:
 	PhysBody() : listener(NULL), body(NULL), ctype(ColliderType::UNKNOWN)
 	{}
 
+
 	~PhysBody() {}
 
 	void GetPosition(int& x, int& y) const;
@@ -62,6 +63,10 @@ public:
 
 	// Constructors & Destructors
 	Physics();
+
+	Physics(bool startEnabled);
+
+
 	~Physics();
 
 	// Main module steps

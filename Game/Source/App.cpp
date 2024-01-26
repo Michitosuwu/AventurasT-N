@@ -4,10 +4,12 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
+#include "MainScene.h"
 #include "Scene.h"
 #include "Map.h"
 #include "Physics.h"
-
+#include "GuiManager.h"
+#include "FadeToBlack.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -25,19 +27,18 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	frames = 0;
 
-	// L3: DONE 1: Add the EntityManager Module to App
-
-	win = new Window();
-	input = new Input();
-	render = new Render();
-	tex = new Textures();
-	audio = new Audio();
-	//L07 DONE 2: Add Physics module
-	physics = new Physics();
-	scene = new Scene();
-	map = new Map();
-	entityManager = new EntityManager();
-
+	win = new Window(true);
+	input = new Input(true);
+	render = new Render(true);
+	tex = new Textures(true);
+	audio = new Audio(false);
+	physics = new Physics(false);
+	fadeToblack = new FadeToBlack(true);
+	mainScene = new MainScene(true);
+	scene = new Scene(false);
+	map = new Map(false);
+	entityManager = new EntityManager(false);
+	guiManager = new GuiManager(true);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,11 +46,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
+	AddModule(mainScene);
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);
 	AddModule(scene);
 	AddModule(map);
 	AddModule(entityManager);
+	AddModule(guiManager);
 
 	// Render last to swap buffer
 	AddModule(render);
@@ -127,6 +130,13 @@ bool App::Start()
 
 	while(item != NULL && ret == true)
 	{
+
+		if (!item->data->active)
+		{
+			continue;
+			item = item->next;
+		}
+
 		ret = item->data->Start();
 		item = item->next;
 	}
